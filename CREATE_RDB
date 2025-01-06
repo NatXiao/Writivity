@@ -1,0 +1,54 @@
+-- CREATE RDB
+
+CREATE TABLE user (
+user_id INT SERIAL PRIMARY KEY,
+user_name VARCHAR(20) NOT NULL,
+mail VARCHAR(50) NOT NULL,
+password VARCHAR(255) NOT NULL, -- bcrypt POUR HASH LE MOTS DE PASSE
+admin BOOL DEFAULT FALSE
+);
+
+CREATE TABLE vote (
+vote_id SERIAL PRIMARY KEY,
+user_id INT NOT NULL,
+text_id INT,
+rating INT NOT NULL,
+FOREIGN KEY (user_id) REFERENCES user(user_id),
+FOREIGN KEY (text_id) REFERENCES text(text_id)
+);
+
+CREATE TABLE comment (
+comment_id SERIAL PRIMARY KEY,
+user_id INT NOT NULL,
+text_id INT NOT NULL,
+body VARCHAR(255) NOT NULL,
+reported BOOLEAN DEFAULT FALSE,
+FOREIGN KEY (user_id) REFERENCES user(user_id),
+FOREIGN KEY (text_id) REFERENCES text(text_id)
+);
+
+CREATE TABLE text (
+text_id SERIAL PRIMARY KEY,
+user_id INT NOT NULL,
+theme_id INT NOT NULL,
+body TEXT NOT NULL,
+status VARCHAR(30),
+text_submit BOOLEAN,
+submited_at TIMESTAMP,
+reported BOOLEAN DEFAULT FALSE,
+disqualified BOOLEAN DEFAULT FALSE,
+FOREIGN KEY (user_id) REFERENCES user(user_id),
+FOREIGN KEY (theme_id) REFERENCES theme(theme_id)
+);
+
+CREATE TABLE theme (
+theme_id SERIAL PRIMARY KEY,
+theme_name VARCHAR(30),
+word_limit INT NOT NULL,
+open_at  DATE DEFAULT TIMESTAMP,
+close_at  DATE DEFAULT TIMESTAMP,
+CONSTRAINT check_open_before_close CHECK (open_at <= close_at)
+);
+
+
+
