@@ -50,19 +50,19 @@ CREATE TABLE theme (
 -- Création des clés étrangères après création des tables
 
 ALTER TABLE vote
-    ADD CONSTRAINT vote_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_id);
+    ADD CONSTRAINT vote_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE;
 
 ALTER TABLE vote
-    ADD CONSTRAINT vote_text_id_fkey FOREIGN KEY (text_id) REFERENCES text_p(text_id);
+    ADD CONSTRAINT vote_text_id_fkey FOREIGN KEY (text_id) REFERENCES text_p(text_id) ON DELETE CASCADE;
 
 ALTER TABLE comment
-    ADD CONSTRAINT comment_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_id);
+    ADD CONSTRAINT comment_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE;
 
 ALTER TABLE comment
-    ADD CONSTRAINT comment_text_id_fkey FOREIGN KEY (text_id) REFERENCES text_p(text_id);
+    ADD CONSTRAINT comment_text_id_fkey FOREIGN KEY (text_id) REFERENCES text_p(text_id) ON DELETE CASCADE;
 
 ALTER TABLE text_p
-    ADD CONSTRAINT text_p_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_id);
+    ADD CONSTRAINT text_p_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE;
 
 ALTER TABLE text_p
-    ADD CONSTRAINT text_p_theme_id_fkey FOREIGN KEY (theme_id) REFERENCES theme(theme_id);
+    ADD CONSTRAINT text_p_theme_id_fkey FOREIGN KEY (theme_id) REFERENCES theme(theme_id) ON DELETE CASCADE;
