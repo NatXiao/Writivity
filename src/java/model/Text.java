@@ -6,6 +6,7 @@ public class Text {
     private Integer text_id;
     private Integer user_id;
     private Integer theme_id;
+    private String text_title;
     private String body;
     private String status;
     private Boolean text_submit;

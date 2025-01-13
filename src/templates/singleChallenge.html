@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Challenge</title>
-  <link rel="stylesheet" href="/css/styles.css">
+  <title>Writivity</title>
+  <link rel="stylesheet" href="../statics/css/styles.css">
 </head>
 <body>
 <header>
@@ -24,12 +24,13 @@
       <td colspan="3">Aucun Texte en base de données</td>
     </tr>
     <tr th:each="Challenge: ${Text}">
-      <td><span th:text="${Text.body}"> Contenu </span></td>
-      <td><span th:text="${Text.user_id}"> </span></td>
+      <td><span th:text="${Text.text_title}"> Contenu </span></td><br>
+      <td><span th:text="${Text.user_id}"> </span></td><br>
+      <td><button type="button">Report</button></td>
     </tr>
     </tbody>
   </table>
-  <a href="/">Back to Home</a>
+  <a href="/home.html">Back to Home</a>
 </main>
 </body>
 </html>
