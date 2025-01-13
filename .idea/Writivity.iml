@@ -12,5 +12,6 @@
     <orderEntry type="library" name="springframework.boot.spring.starter" level="project" />
     <orderEntry type="library" name="springframework.boot.spring.starter.web" level="project" />
     <orderEntry type="library" name="springframework.spring.web" level="project" />
+    <orderEntry type="library" name="at.favre.lib.bcrypt" level="project" />
   </component>
 </module>

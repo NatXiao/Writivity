@@ -1,12 +1,10 @@
-package src.java;
+package src.java.Controllers;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-import src.java.Controllers.HomeTest;
 
-import java.io.File;
 import java.time.LocalTime;
 
 @RestController
@@ -42,7 +40,7 @@ public class DemoController {
 
         System.out.println("Reditection !");
 
-        return new RedirectView("/home.html");
+        return new RedirectView("/index.html");
     }
 
     // href="src/templates/challenge.html"
@@ -82,7 +80,7 @@ public class DemoController {
 
 
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public RedirectView Home(RedirectAttributes attributes, Model model) {
         attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
         attributes.addAttribute("attribute", "redirectWithRedirectView");
@@ -92,15 +90,26 @@ public class DemoController {
         //model.addAttribute("greeting", new HomeTest());
 
         return new RedirectView("home.html");
-    }
+    }*/
 
-    @GetMapping("/greeting")
-    public String greetingSubmit(@ModelAttribute HomeTest greeting, Model model) {
-        model.addAttribute("greeting", greeting);
+    /*@RequestMapping(value = "/greeting", method = RequestMethod.GET)
+    public String greeting(Model model) {
+
+        HomeTest greeting = new HomeTest();
+        model.addAttribute("home", greeting);
 
         System.out.println(greeting.getContent());
 
         return "result";
+    }*/
+
+    @RequestMapping(value = "/greeting", method = RequestMethod.POST)
+    public String greetingSubmit(@ModelAttribute("home") HomeTest greeting, Model model) {
+        model.addAttribute("home", greeting);
+
+        System.out.println(greeting.getContent());
+
+        return "result2";
     }
 
 

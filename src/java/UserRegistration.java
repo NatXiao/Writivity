@@ -1,6 +1,7 @@
-/*package src.java;
+package src.java;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,13 +15,12 @@ public class UserRegistration {
     }
 
     public static void registerUser(String userName, String email, String password, boolean isAdmin) {
-        private String hashedPassword = hashPassword(password);
+        String hashedPassword = hashPassword(password);
+        String url = "jdbc:postgresql://localhost:5432/Writivity"; // Database URL
+        String user = "postgres"; // Database username
+        String passwordDb = "myverysecretpassword"; // Database password
 
-        private String url = "A définir"; // Replace with your database URL
-        private String user = "your_username"; // Replace with your DB username
-        private String passwordDb = "your_password"; // Replace with your DB password
-
-        private String insertQuery = "INSERT INTO \"user\" (user_name, mail, password) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO users (user_name, mail, password, admin) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(url, user, passwordDb);
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -28,6 +28,7 @@ public class UserRegistration {
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, hashedPassword);
+            preparedStatement.setBoolean(4, isAdmin);
 
             preparedStatement.executeUpdate();
             System.out.println("User registered successfully!");
@@ -46,4 +47,4 @@ public class UserRegistration {
 
         registerUser(userName, email, password, isAdmin);
     }
-}*/
+}
