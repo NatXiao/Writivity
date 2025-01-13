@@ -1,6 +1,7 @@
 package src.java.Controllers;
 
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -104,8 +105,8 @@ public class DemoController {
     }*/
 
     @RequestMapping(value = "/greeting", method = RequestMethod.POST)
-    public String greetingSubmit(@ModelAttribute("home") HomeTest greeting, Model model) {
-        model.addAttribute("home", greeting);
+    public String greetingSubmit(@ModelAttribute("home") HomeTest greeting, ModelMap model) {
+        //model.addAttribute("home", greeting);
 
         System.out.println(greeting.getContent());
 
