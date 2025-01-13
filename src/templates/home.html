@@ -16,18 +16,18 @@
     <table>
         <thead>
         <tr>
-            <th>Prénom</th>
+            <th>Challenge</th>
             <th>Nom</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${Theme.empty}">
+        <tr th:if="${Theme== 'empty'}">
             <td colspan="3">Aucun Challenge en base de données</td>
         </tr>
         <tr th:each="Challenge: ${Theme}">
-            <td><span th:text="${Theme.theme_name}"> Thème </span></td>
-            <td><span th:text="${Theme.word_limit}"> Nombre de mots limite </span></td>
-            <td><span th:text="${Theme.close_at}"> Date limite </span></td>
+            <td><span th:text="${Theme.theme_name}"> Thème </span></td><br>
+            <td><span th:text="${Theme.word_limit}"> Nombre de mots limite </span></td> <br>
+            <td><span th:text="${Theme.close_at}"> Date limite </span></td><br>
         </tr>
         </tbody>
     </table>
