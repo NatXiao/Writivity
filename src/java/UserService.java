@@ -1,4 +1,4 @@
-package src.java;
+/*package src.java;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.sql.*;
@@ -51,4 +51,4 @@ public class UserService {
         
         return null;  // Return null if no user found with the given email
     }
-}
+}*/

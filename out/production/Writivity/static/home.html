@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Writivity</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+    <h1>Homepage</h1>
+</header>
+<main>
+    <p th:text="${description}"></p>
+    <a href="/gotochallenge">Go to Challenge</a>
+    <h2 class="h2">Liste des Challenges</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Challenges en cours</th>
+            <th>Challenges passés</th>
+        </tr>
+        </thead>
+        <tr>
+    <table>
+        <thead>
+        <tr>
+            <th>Challenge</th>
+            <th>Nom</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${Theme== 'empty'}">
+            <td colspan="3">Aucun Challenge en base de données</td>
+        </tr>
+        <tr th:each="Challenge: ${Theme}">
+            <td><span th:text="${Theme.theme_name}"> Thème </span></td><br>
+            <td><span th:text="${Theme.word_limit}"> Nombre de mots limite </span></td> <br>
+            <td><span th:text="${Theme.close_at}"> Date limite </span></td><br>
+        </tr>
+        </tbody>
+    </table>
+        </tr>
+        <tr>
+            <table>
+                <thead>
+                <tr>
+                    <th>Challenges passés</th>
+                    <th>Nom</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${Theme== 'empty'}">
+                    <td colspan="3">Aucun Challenge en base de données</td>
+                </tr>
+                <tr th:each="Challenge: ${Theme}">
+                    <td><span th:text="${Theme.theme_name}"> Thème </span></td><br>
+                    <td><span th:text="${Theme.word_limit}"> Nombre de mots limite </span></td> <br>
+                    <td><span th:text="${Theme.close_at}"> Date limite </span></td><br>
+                </tr>
+                </tbody>
+            </table>
+        </tr>
+    </table>
+</main>
+</body>
+</html>

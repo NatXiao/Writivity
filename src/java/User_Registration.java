@@ -1,4 +1,4 @@
-package src.java;
+/*package src.java;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.sql.Connection;
@@ -46,4 +46,4 @@ public class UserRegistration {
 
         registerUser(userName, email, password, isAdmin);
     }
-}
+}*/

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Writivity</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+  <h1>Challenge</h1>
+</header>
+<main>
+  <p th:text="${challenge.id}">Le challenge</p>
+  <a href="/static">Back to Home</a>
+  <h2 class="h2">Liste des Textes</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Text</th>
+      <th>Nom</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${Text == 'empty' }">
+      <td colspan="3">Aucun Texte en base de données</td>
+    </tr>
+    <tr th:each="Challenge: ${Text}">
+      <td><span th:text="${Text.text_title}"> Contenu </span></td><br>
+      <td><span th:text="${Text.user_id}"> </span></td><br>
+      <td><button type="button">Report</button></td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="/home.html">Back to Home</a>
+</main>
+</body>
+</html>
