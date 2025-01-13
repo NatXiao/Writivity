@@ -1,3 +1,5 @@
+package src.java;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.sql.*;
 
