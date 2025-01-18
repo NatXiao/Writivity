@@ -1,4 +1,4 @@
-package src.java.controllers;
+package src.java.Controllers;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -18,7 +18,7 @@ public class LoginController {
     @GetMapping("/login")
     public ModelAndView showLoginForm() throws IOException {
         // Charger le fichier HTML depuis src/resources/static/login.html
-        Resource resource = new ClassPathResource("static/login.html");
+        Resource resource = new ClassPathResource("templates/login.html");
 
         // Créer une vue avec le fichier HTML
         ModelAndView modelAndView = new ModelAndView("redirect:/login");

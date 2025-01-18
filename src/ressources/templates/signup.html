@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Writivity</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<header>
+    <h1>SIGN UP</h1>
+</header>
+
+<main>
+
+    <div align="center">
+
+        <div style="border-style: solid; width: 600px; height: 500px">
+
+
+
+            <form role="form" th:action="@{/register_new_user}" method="post" th:object="${user}">
+
+                <div align="left">
+                    <label>Enter Name</label>
+                    <input type="text" th:field="*{username}">
+                </div>
+
+                <div align="right">
+                    <label>Enter Pseudo</label>
+                    <input type="text">
+                </div>
+
+                <div align="left">
+                    <label>Enter Password</label>
+                    <input type="password">
+                </div>
+
+                <div align="right">
+                    <label>Valid Password</label>
+                    <input type="password" th:field="*{password}">
+                </div>
+
+                <div align="left">
+                    <label>Enter E-mail</label>
+                    <input type="email" th:field="*{mail}">
+                </div>
+
+                <button type="submit">Register</button>
+
+            </form>
+
+
+        </div>
+    </div>
+
+</main>
+
+
+</html>

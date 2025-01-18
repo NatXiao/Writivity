@@ -2,15 +2,15 @@
 <html  lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Writivity</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <header>
   <h1>Challenge</h1>
 </header>
 <main>
-  <p th:text="${challenge.id}">Le challenge</p>
-  <a href="/static">Back to Home</a>
+  <!-- <p th:text="${challenge.id}">Le challenge</p> -->
+  <a href="/home">Back to Home</a>
   <h2 class="h2">Liste des Textes</h2>
   <table>
     <thead>
@@ -30,7 +30,7 @@
     </tr>
     </tbody>
   </table>
-  <a href="/home.html">Back to Home</a>
+  <a href="/home" >Back to Home</a>
 </main>
 </body>
 </html>
