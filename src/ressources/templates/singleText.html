@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Writivity</title>
-</head>
+<link rel="stylesheet" href="/css/styles.css">
+<header>
+    <h1>Homepage</h1>
+</header>
+<nav>
+    <a href="/home">Homepage</a> |
+    <a href="/profile">Profile</a> |
+    <a href="/createChallenge">Create a new challenge</a> |
+</nav>
 <body>
   <h2><span th:text="${Text.text_title}"> Contenu </span></h2><br>
   <h3><span th:text="${Text.user_id}"></span></h3><br>
   <p><span th:text="${Text.body}"></span></p>
   <h3><span th:text="${Text.submitted_at}"></span></h3><br>
-  <td><button type="button">Report</button></td>
+  <button type="button">Report</button>
 </body>
 </html>

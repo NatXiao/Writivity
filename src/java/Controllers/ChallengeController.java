@@ -14,4 +14,10 @@ public class ChallengeController {
         return "singleChallenge";
     }
 
+    @GetMapping("/createChallenge")
+    public String redirectToChallengeCreate() {
+
+        return "createChallenge";
+    }
+
 }
