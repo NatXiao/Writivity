@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.View;
 import src.java.UserService;
 import src.java.Utils.PasswordUtil;
+import src.java.Utils.UserRepository;
 import src.java.model.LoginModel;
 
 import java.io.IOException;
@@ -19,6 +20,9 @@ import java.io.IOException;
 public class LoginController {
 
     public static String errorMessage = "";
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
@@ -37,9 +41,11 @@ public class LoginController {
 
         System.out.println(login.getPassword());
 
-        boolean loginSuccessful = UserService.verifyUserPassword(login.getMail(), login.getPassword());
+        //boolean loginSuccessful = UserService.verifyUserPassword(login.getMail(), login.getPassword());
+        boolean loginSuccess = PasswordUtil.verifyPassword(login.getPassword(), userRepository.findByMail(login.getMail()).get().getPassword());
+        System.out.println(userRepository.findByMail(login.getMail()).get().getPassword());
 
-        if (loginSuccessful) {
+        if (loginSuccess) {
             return "redirect:/home";
         } else {
             errorMessage = "Error, retry please !";
