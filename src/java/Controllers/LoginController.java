@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.View;
+import src.java.UserService;
 import src.java.model.LoginModel;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class LoginController {
         model.addAttribute("log", login);
         //model.addAttribute("error", errorMessage);
 
-        boolean loginSuccessful = false; //UserService.verifyUserPassword(login.getMail(), login.getPassword());
+        boolean loginSuccessful = UserService.verifyUserPassword(login.getMail(), login.getPassword());
 
         if (loginSuccessful) {
 
