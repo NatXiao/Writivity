@@ -12,15 +12,33 @@
     <a href="/createChallenge">Create a new challenge</a> |
 </nav>
 <div>
+    <h2>Vos données :</h2>
     <span th:text="${Users.username}"></span>
     <br>
     <span th:text="${Users.mail}"></span>
 </div>
 <div>
     <h2>Vos textes :</h2>
-    <p>
-        Challenge : Texte
-    </p>
+    <table style="width: 100%;">
+        <thead>
+        <tr>
+            <th class="datelist">Challenge</th>
+            <th class="wordLimitList">Texte</th>
+            <th class="datelist">SubmittedAt</th>
+            <th class="datelist">disqualified</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${Text.isEmpty()}">
+            <td colspan="2">Aucun Challenge en base de données</td>
+        </tr>
+        <tr th:each="Challenge: ${Text}">
+            <td><span th:text="${Text.theme_id}">Thème</span></td>
+            <td><span th:text="${Theme.text_title}">Titre</span></td>
+            <td><span th:text="${Theme.disqualified}">Disqualifié</span></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 <div>
     log out
