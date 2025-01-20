@@ -19,7 +19,7 @@ public class BaseController {
     /// Return to Home page
     @GetMapping("/")
     public String Home1() {
-        return "/login";
+        return "redirect:/login";
     }
 
     @GetMapping("/error")
@@ -37,5 +37,8 @@ public class BaseController {
         model3.addAttribute("Text", new ArrayList<Text>());
         return "profile";
     }
-
+    @GetMapping("/createText")
+    public String createText(){
+        return "createText";
+    }
 }

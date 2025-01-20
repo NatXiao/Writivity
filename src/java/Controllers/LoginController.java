@@ -1,5 +1,8 @@
 package src.java.Controllers;
 
+import org.hibernate.cfg.Compatibility;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +18,6 @@ import java.io.IOException;
 public class LoginController {
 
     public static String errorMessage = "";
-    private final View error;
-
-    public LoginController(View error) {
-        this.error = error;
-    }
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
@@ -53,7 +51,7 @@ public class LoginController {
 
             errorMessage = "Error, retry please !";
 
-            return "/login";
+            return "redirect:/login";
 
             //attributes.addFlashAttribute("error", "Invalid email or password.");
             //return new RedirectView("/login");  // Retour à la page de login

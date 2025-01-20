@@ -32,7 +32,7 @@ CREATE TABLE text_p (
     body TEXT NOT NULL,
     status VARCHAR(30),
     text_submit BOOLEAN,
-    submited_at TIMESTAMP,
+    submitted_at TIMESTAMP,
     reported BOOLEAN DEFAULT FALSE,
     disqualified BOOLEAN DEFAULT FALSE
 );
