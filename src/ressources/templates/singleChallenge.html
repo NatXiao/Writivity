@@ -8,9 +8,15 @@
 <header>
   <h1>Challenge</h1>
 </header>
+<nav>
+  <a href="/home">Homepage</a> |
+  <a href="/profile">Profile</a> |
+  <a href="/createChallenge">Create a new challenge</a> |
+</nav>
 <main>
-  <!-- <p th:text="${challenge.id}">Le challenge</p> -->
+  <p th:text="${Challenge.id}">Le challenge</p>
   <a href="/home">Back to Home</a>
+  <a href="/createText">Créer un texte</a> <br>
   <h2 class="h2">Liste des Textes</h2>
   <table>
     <thead>
@@ -23,9 +29,9 @@
     <tr th:if="${Text == 'empty' }">
       <td colspan="3">Aucun Texte en base de données</td>
     </tr>
-    <tr th:each="Challenge: ${Text}">
-      <td><span th:text="${Text.text_title}"> Contenu </span></td><br>
-      <td><span th:text="${Text.user_id}"> </span></td><br>
+    <tr th:each="t: ${Text}">
+      <td><span th:text="${t.text_title}"> Contenu </span></td>
+      <td><span th:text="${t.user_id}"></span></td>
       <td><button type="button">Report</button></td>
     </tr>
     </tbody>

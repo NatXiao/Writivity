@@ -3,14 +3,11 @@ package src.java.Controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
+
 import src.java.model.Text;
 import src.java.model.Theme;
 import src.java.model.Users;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 @Controller
@@ -40,5 +37,9 @@ public class BaseController {
     @GetMapping("/createText")
     public String createText(){
         return "createText";
+    }
+    @GetMapping("/Challengeid")
+    public String singleChallenge(){
+        return "singleChallenge";
     }
 }
