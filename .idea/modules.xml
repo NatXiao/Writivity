@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Writivity.iml" filepath="$PROJECT_DIR$/Writivity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Writivity.iml" filepath="$PROJECT_DIR$/.idea/Writivity.iml" />
     </modules>
   </component>
 </project>
