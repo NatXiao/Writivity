@@ -31,7 +31,7 @@ public class BaseController {
         return "home";
     }
     @GetMapping("/profile")
-    public String Profile(Model model, Model model2,Model model3) {
+    public String Profile(Model model, Model model2, Model model3) {
         model.addAttribute("Users", new Users());
         model2.addAttribute("Themes", new ArrayList<Theme>());
         model3.addAttribute("Text", new ArrayList<Text>());

@@ -12,7 +12,7 @@
 <header>
     <h1>Login Page</h1>
 </header>
-
+<label style="color: red" th:text="${error}" ></label>
 <p>
     <form role="form" th:action="@{/login_user}" method="post" th:object="${log}">
         <label>Email:</label>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.View;
 import src.java.UserService;
+import src.java.Utils.PasswordUtil;
 import src.java.model.LoginModel;
 
 import java.io.IOException;
@@ -32,29 +33,17 @@ public class LoginController {
     public String login(Model model, @ModelAttribute("log") LoginModel login) {
 
         model.addAttribute("log", login);
-        //model.addAttribute("error", errorMessage);
+        model.addAttribute("error", errorMessage);
+
+        System.out.println(login.getPassword());
 
         boolean loginSuccessful = UserService.verifyUserPassword(login.getMail(), login.getPassword());
 
         if (loginSuccessful) {
-
-
-
-            return "home";
-
-            //attributes.addFlashAttribute("message", "Login successful!");
-            //return new RedirectView("/home");  // Redirection vers la page d'accueil
-
+            return "redirect:/home";
         } else {
-
-            //System.out.println(errorMessage);
-
             errorMessage = "Error, retry please !";
-
             return "redirect:/login";
-
-            //attributes.addFlashAttribute("error", "Invalid email or password.");
-            //return new RedirectView("/login");  // Retour à la page de login
         }
     }
 }
