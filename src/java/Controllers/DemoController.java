@@ -15,7 +15,7 @@ public class DemoController {
         System.out.println(LocalTime.now().toString());
     }
 
-    @GetMapping("/err")
+    @GetMapping("/error")
     public String sayError() {
         return String.format("ERROR 404 !");
     }

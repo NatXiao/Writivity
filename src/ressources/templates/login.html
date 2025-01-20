@@ -8,17 +8,23 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>Login Page</h1>
-<form role="form" th:action="@{/login_user}" method="post" th:object="${log}">
 
-    <label>Email:</label>
-    <input type="email" th:field="*{mail}">
+<header>
+    <h1>Login Page</h1>
+</header>
 
-    <label >Password:</label>
-    <input type="password" th:field="*{password}">
+<p>
+    <form role="form" th:action="@{/login_user}" method="post" th:object="${log}">
+        <label>Email:</label>
+        <input type="email" th:field="*{mail}">
 
-    <button type="submit">Login</button>
-</form>
-<h2 th:text="${error}"></h2>
+        <label >Password:</label>
+        <input type="password" th:field="*{password}">
+
+        <button type="submit">Login</button>
+    </form>
+    <a href="/signup">not sign in yet? Register</a>
+</p>
+
 </body>
 </html>

@@ -1,16 +1,31 @@
 package src.java.model;
+import jakarta.persistence.*;
 
+@Entity
 public class Users {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer user_id;
+    @Column(name = "user_name", nullable = false)
+    private String user_name;
+    @Column(name = "username")
     private String username;
+    @Column(nullable = false)
     private String mail;
+    @Column(nullable = false)
     private String password;
     private Boolean admin;
+    @Column(name = "is_admin", nullable = false)
+    private boolean is_admin = false;
 
 
     public Integer getUser_id() {
         return user_id;
+    }
+
+    public String getUser_name() {
+        return user_name;
     }
 
     public String getUsername() {
@@ -32,6 +47,10 @@ public class Users {
 
     public void setUser_id(Integer user_id) {
         this.user_id = user_id;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public void setUsername(String username) {

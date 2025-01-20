@@ -19,5 +19,9 @@ public class BaseController {
     public String Home2() {
         return "home";
     }
+    @GetMapping("/profile")
+    public String Profile() {
+        return "profile";
+    }
 
 }

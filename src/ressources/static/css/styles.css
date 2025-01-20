@@ -7,9 +7,13 @@ body {
     color: #333;
 }
 
-header {
+header, footer {
     background-color: #6200ea;
     color: white;
+    padding: 20px 0;
+}
+nav {
+    background-color: #b5a3cd;
     padding: 20px 0;
 }
 
@@ -18,7 +22,7 @@ main {
 }
 
 a {
-    color: #6200ea;
+    color: #180437;
     text-decoration: none;
     font-weight: bold;
 }
@@ -31,4 +35,49 @@ h1 {
 p {
     font-family: verdana;
     font-size: 20px;
+}
+.nav-bar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-bar ul li {
+    margin: 0 10px;
+}
+
+.nav-bar ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+}
+
+.nav-bar ul li a:hover {
+    background-color: #555;
+    border-radius: 4px;
+}
+th, td {
+    padding: 15px;
+    text-align: center;
+}
+
+th.challengeList {
+    width: 60%;
+}
+th.datelist {
+    width: 30%;
+}
+th.wordLimitList {
+    width: 10%;
 }
