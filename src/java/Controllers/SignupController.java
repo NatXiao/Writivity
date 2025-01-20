@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import src.java.model.HelloObject;
 import src.java.model.Users;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 @Controller
 public class SignupController {
@@ -18,6 +20,7 @@ public class SignupController {
     //@GetMapping("/signup")
     //public String Home1() {return "signup";}
 
+    // localhost:8080/signup
 
     @GetMapping("/signup")
     public String HelloWorld(Model model) {

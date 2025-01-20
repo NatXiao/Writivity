@@ -1,42 +1,61 @@
 package src.java.Controllers;
 
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
-import src.java.UserService;
+import org.springframework.web.servlet.View;
+import src.java.model.LoginModel;
 
 import java.io.IOException;
 
-@RestController
+@Controller       // <- @RestController
 public class LoginController {
 
-    @GetMapping("/login")
-    public ModelAndView showLoginForm() throws IOException {
-        // Charger le fichier HTML depuis src/resources/static/login.html
-        Resource resource = new ClassPathResource("templates/login.html");
+    public static String errorMessage = "";
+    private final View error;
 
-        // Créer une vue avec le fichier HTML
-        ModelAndView modelAndView = new ModelAndView("redirect:/login");
-        modelAndView.addObject("resource", resource);
-
-        return modelAndView;
+    public LoginController(View error) {
+        this.error = error;
     }
 
-    @PostMapping("/login")
-    public RedirectView login(String email, String password, RedirectAttributes attributes) {
-        boolean loginSuccessful = UserService.verifyUserPassword(email, password);
+    @GetMapping("/login")
+    public String showLoginForm(Model model) {
+
+        model.addAttribute("log", new LoginModel());
+        model.addAttribute("error", errorMessage);
+
+        return "login";
+    }
+
+    @PostMapping("/login_user")
+    public String login(Model model, @ModelAttribute("log") LoginModel login) {
+
+        model.addAttribute("log", login);
+        //model.addAttribute("error", errorMessage);
+
+        boolean loginSuccessful = false; //UserService.verifyUserPassword(login.getMail(), login.getPassword());
 
         if (loginSuccessful) {
-            attributes.addFlashAttribute("message", "Login successful!");
-            return new RedirectView("/home");  // Redirection vers la page d'accueil
+
+
+
+            return "home";
+
+            //attributes.addFlashAttribute("message", "Login successful!");
+            //return new RedirectView("/home");  // Redirection vers la page d'accueil
+
         } else {
-            attributes.addFlashAttribute("error", "Invalid email or password.");
-            return new RedirectView("/login");  // Retour à la page de login
+
+            //System.out.println(errorMessage);
+
+            errorMessage = "Error, retry please !";
+
+            return "/login";
+
+            //attributes.addFlashAttribute("error", "Invalid email or password.");
+            //return new RedirectView("/login");  // Retour à la page de login
         }
     }
 }
