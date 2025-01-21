@@ -44,7 +44,7 @@ public class LoginController {
         System.out.println(userRepository.findByMail(login.getMail()).get().getPassword());
 
         if (loginSuccess) {
-            SessionManager.LogUser(session, login.getMail());
+            SessionManager.LogUser(session, userRepository.findByMail(login.getMail()).get());
             return "redirect:/home";
         } else {
             errorMessage = "Error, retry please !";

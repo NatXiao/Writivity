@@ -1,9 +1,14 @@
 package src.java;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import src.java.Utils.UserRepository;
+import src.java.model.Users;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Optional;
 
 /**
  *
@@ -14,24 +19,18 @@ import java.util.Hashtable;
 
 public class SessionManager {
 
-    public static Dictionary<String, String> sessions = new Hashtable<String, String>();
-
     public static boolean isLoggedIn(HttpSession session) {
-        if(session.getAttribute("connected") == null)
+        if(session.getAttribute("user") == null)
             return false;
         return true;
     }
 
-    public static void LogUser(HttpSession session, String email) {
-
-        session.setAttribute("connected", true);
-
-        /// TUDU : Autres infos (sauvegardé dans un cookie)
-
+    public static void LogUser(HttpSession session, Users user) {
+        session.setAttribute("user", user);
     }
 
     public static boolean IsAdmin(HttpSession session) {
-        if (session.getAttribute("admin") == null)
+        if (session.getAttribute("user") == null || !((Users)session.getAttribute("user")).isAdmin())
             return false;
         return true;
     }

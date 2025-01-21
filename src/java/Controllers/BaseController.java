@@ -58,8 +58,11 @@ public class BaseController {
         return "home";
     }
     @GetMapping("/profile")
-    public String Profile(Model model, Model model2, Model model3) {
-        model.addAttribute("Users", new Users());
+    public String Profile(Model model, Model model2, Model model3, HttpSession session) {
+
+        if (!SessionManager.isLoggedIn(session)) return "redirect:/login";
+
+        model.addAttribute("Users", ((Users) session.getAttribute("user")));
         model2.addAttribute("Themes", new ArrayList<Theme>());
         model3.addAttribute("Text", new ArrayList<Text>());
         return "profile";

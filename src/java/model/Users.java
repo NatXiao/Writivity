@@ -15,7 +15,6 @@ public class Users {
     private String mail;
     @Column(nullable = false)
     private String password;
-    private Boolean admin;
     @Column(name = "is_admin", nullable = false)
     private boolean is_admin = false;
 
@@ -40,8 +39,8 @@ public class Users {
         return password;
     }
 
-    public Boolean getAdmin() {
-        return admin;
+    public Boolean isAdmin() {
+        return is_admin;
     }
 
 
@@ -66,6 +65,6 @@ public class Users {
     }
 
     public void setAdmin(Boolean admin) {
-        this.admin = admin;
+        this.is_admin = is_admin;
     }
 }
