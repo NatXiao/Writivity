@@ -39,10 +39,12 @@ public class LoginController {
         model.addAttribute("log", login);
         model.addAttribute("error", errorMessage);
 
-        System.out.println(login.getPassword());
+        //System.out.println(login.getPassword());
 
         //boolean loginSuccessful = UserService.verifyUserPassword(login.getMail(), login.getPassword());
         boolean loginSuccess = PasswordUtil.verifyPassword(login.getPassword(), userRepository.findByMail(login.getMail()).get().getPassword());
+        System.out.println("Mail: " + login.getMail());
+        System.out.println("Password: " + login.getPassword());
         System.out.println(userRepository.findByMail(login.getMail()).get().getPassword());
 
         if (loginSuccess) {
