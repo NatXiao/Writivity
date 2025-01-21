@@ -25,8 +25,8 @@
         </thead>
         <tbody>
         <tr>
-            <td>
-                <table style="width: 50%;">
+            <td style="width: 50%;">
+                <table style="width: 50%;" align="center">
                     <thead>
                     <tr>
                         <th class="challengeList">Challenge</th>
@@ -36,20 +36,27 @@
                     </thead>
                     <tbody>
                     <tr th:if="${Theme.isEmpty()}">
-                        <td colspan="2">Aucun Challenge en base de données</td>
+                        <td colspan="3">Aucun Challenge en base de données</td>
                     </tr>
                     <tr th:each="Challenge: ${Theme}">
-                        <td><span th:text="${Theme.theme_name}" href="/gotochallenge">Thème</span></td>
-                        <td><span th:text="${Theme.word_limit}">Nombre de mots limite</span></td>
-                        <td><span th:text="${Theme.close_at}">Date limite</span></td>
+
+
+
+                        <td> <a href="/error" th:text="${Challenge.theme_name}">Profile</a> </td>
+                        <td><span th:text="${Challenge.word_limit}">Nombre de mots limite</span></td>
+                        <td><span th:text="${Challenge.close_at}">Date limite</span></td>
+
+
+
                     </tr>
                     </tbody>
                 </table>
             </td>
 
 
-            <td>
-                <table style="width: 50%;">
+            <td style="width: 50%;">
+
+                <table style="width: 50%;" align="center">
                     <thead>
                         <tr>
                             <th class="challengeList">Challenge</th>
@@ -58,10 +65,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${Theme.isEmpty()}">
-                        <td colspan="2">Aucun Challenge en base de données</td>
+                    <tr th:if="${OldTheme.isEmpty()}">
+                        <td colspan="3">Aucun Challenge en base de données</td>
                     </tr>
-                    <tr th:each="Challenge: ${Theme}">
+                    <tr th:each="Challenge: ${OldTheme}">
                         <td><span th:text="${Challenge.theme_name}">Thème</span></td>
                         <td><span th:text="${Challenge.word_limit}">Nombre de mots limite</span></td>
                         <td><span th:text="${Challenge.close_at}">Date limite</span></td>
@@ -74,7 +81,7 @@
     </table>
 </main>
 <footer>
-
+    <label><em>Copyright © 2025 Writivity™</em></label>
 </footer>
 </body>
 </html>

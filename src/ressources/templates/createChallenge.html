@@ -12,14 +12,14 @@
     <a href="/createChallenge">Create a new challenge</a> |
 </nav>
 <p>
-<form action="">
-    <label for="theme_name">Challenge</label>
-    <input type="text" id="theme_name">
-    <label for="conditions">Conditions</label>
-    <input type="text" id="conditions">
-    <br>
-    <input type="submit" value="submit">
-</form>
+    <form th:action="@{/register_new_challenge}" method="post" th:object="${challenge}">
+        <label for="theme_name">Challenge</label>
+        <input type="text" id="theme_name" th:field="*{theme_name}">
+        <label for="conditions">Conditions</label>
+        <input type="text" id="conditions" th:field="*{conditions}">
+        <br>
+        <input type="submit" value="submit">
+    </form>
 </p>
 <footer>
 
