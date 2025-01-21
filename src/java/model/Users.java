@@ -42,8 +42,8 @@ public class Users {
         return password;
     }
 
-    public Boolean getAdmin() {
-        return admin;
+    public Boolean isAdmin() {
+        return is_admin;
     }
 
 
@@ -68,6 +68,6 @@ public class Users {
     }
 
     public void setAdmin(Boolean admin) {
-        this.admin = admin;
+        this.is_admin = is_admin;
     }
 }

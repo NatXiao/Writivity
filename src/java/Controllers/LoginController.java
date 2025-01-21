@@ -1,6 +1,6 @@
 package src.java.Controllers;
 
-import org.hibernate.cfg.Compatibility;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import src.java.SessionManager;
 import org.springframework.web.servlet.View;
 import src.java.UserService;
 import src.java.Utils.PasswordUtil;
@@ -25,7 +26,10 @@ public class LoginController {
     private UserRepository userRepository;
 
     @GetMapping("/login")
-    public String showLoginForm(Model model) {
+    public String showLoginForm(Model model, HttpSession session) {
+
+        if (SessionManager.isLoggedIn(session))
+            return "redirect:/home";
 
         model.addAttribute("log", new LoginModel());
         model.addAttribute("error", errorMessage);
@@ -34,7 +38,7 @@ public class LoginController {
     }
 
     @PostMapping("/login_user")
-    public String login(Model model, @ModelAttribute("log") LoginModel login) {
+    public String login(Model model, @ModelAttribute("log") LoginModel login, HttpSession session) {
 
         model.addAttribute("log", login);
         model.addAttribute("error", errorMessage);
@@ -50,10 +54,19 @@ public class LoginController {
 
         if (loginSuccess) {
             System.out.println("Login successful");
+            SessionManager.LogUser(session, userRepository.findByMail(login.getMail()).get());
             return "redirect:/home";
         } else {
             errorMessage = "Error, retry please !";
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/logout")
+    public String Logout(Model model, HttpSession session) {
+
+        session.invalidate();
+
+        return "redirect:/login";
     }
 }
