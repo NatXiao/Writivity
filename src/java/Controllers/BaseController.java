@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import src.java.SessionManager;
 import src.java.model.Text;
 import src.java.model.Theme;
 import src.java.model.Users;
@@ -28,7 +29,8 @@ public class BaseController {
     @GetMapping("/home")
     public String Home2(Model model, HttpSession session) {
 
-        System.out.println(session.getId());
+        if (!SessionManager.isLoggedIn(session))
+            return "redirect:/login";
 
         Theme t1 = new Theme();
         t1.setTheme_id(0);
@@ -66,8 +68,18 @@ public class BaseController {
     public String createText(){
         return "createText";
     }
-    @GetMapping("/Challengeid")
+    @GetMapping("/challengeid")
     public String singleChallenge(){
         return "singleChallenge";
     }
+
+    @GetMapping("/stats")
+    public String Stats(Model model, HttpSession session) {
+
+        if (!SessionManager.IsAdmin(session))
+            return "/error403";
+
+        return "/stats";
+    }
+
 }

@@ -1,20 +1,17 @@
 package src.java.Controllers;
 
-import org.hibernate.cfg.Compatibility;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.View;
-import src.java.UserService;
+import src.java.SessionManager;
 import src.java.Utils.PasswordUtil;
 import src.java.Utils.UserRepository;
 import src.java.model.LoginModel;
 
-import java.io.IOException;
 
 @Controller       // <- @RestController
 public class LoginController {
@@ -25,7 +22,10 @@ public class LoginController {
     private UserRepository userRepository;
 
     @GetMapping("/login")
-    public String showLoginForm(Model model) {
+    public String showLoginForm(Model model, HttpSession session) {
+
+        if (SessionManager.isLoggedIn(session))
+            return "redirect:/home";
 
         model.addAttribute("log", new LoginModel());
         model.addAttribute("error", errorMessage);
@@ -34,22 +34,30 @@ public class LoginController {
     }
 
     @PostMapping("/login_user")
-    public String login(Model model, @ModelAttribute("log") LoginModel login) {
+    public String login(Model model, @ModelAttribute("log") LoginModel login, HttpSession session) {
 
         model.addAttribute("log", login);
         model.addAttribute("error", errorMessage);
-
-        System.out.println(login.getPassword());
 
         //boolean loginSuccessful = UserService.verifyUserPassword(login.getMail(), login.getPassword());
         boolean loginSuccess = PasswordUtil.verifyPassword(login.getPassword(), userRepository.findByMail(login.getMail()).get().getPassword());
         System.out.println(userRepository.findByMail(login.getMail()).get().getPassword());
 
         if (loginSuccess) {
+            SessionManager.LogUser(session, login.getMail());
             return "redirect:/home";
         } else {
             errorMessage = "Error, retry please !";
             return "redirect:/login";
         }
     }
+
+    @GetMapping("/logout")
+    public String Logout(Model model, HttpSession session) {
+
+        session.invalidate();
+
+        return "redirect:/login";
+    }
+
 }
