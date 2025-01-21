@@ -40,14 +40,16 @@ public class LoginController {
         model.addAttribute("error", errorMessage);
 
         //System.out.println(login.getPassword());
-
+        String hashPassword = userRepository.findByMail(login.getMail()).get().getPassword();
         //boolean loginSuccessful = UserService.verifyUserPassword(login.getMail(), login.getPassword());
-        boolean loginSuccess = PasswordUtil.verifyPassword(login.getPassword(), userRepository.findByMail(login.getMail()).get().getPassword());
+        boolean loginSuccess = PasswordUtil.verifyPassword(login.getPassword(),
+                hashPassword);
         System.out.println("Mail: " + login.getMail());
         System.out.println("Password: " + login.getPassword());
-        System.out.println(userRepository.findByMail(login.getMail()).get().getPassword());
+        System.out.println("Hashed Password: " + hashPassword);
 
         if (loginSuccess) {
+            System.out.println("Login successful");
             return "redirect:/home";
         } else {
             errorMessage = "Error, retry please !";

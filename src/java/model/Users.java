@@ -2,6 +2,7 @@ package src.java.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class Users {
 
     @Id
@@ -11,10 +12,11 @@ public class Users {
     private String user_name;
     @Column(name = "username")
     private String username;
-    @Column(nullable = false)
+    @Column(name = "mail", nullable = false)
     private String mail;
-    @Column(nullable = false)
+    @Column(name = "password",nullable = false)
     private String password;
+    @Column(name = "admin")
     private Boolean admin;
     @Column(name = "is_admin", nullable = false)
     private boolean is_admin = false;

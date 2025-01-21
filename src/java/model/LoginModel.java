@@ -1,8 +1,16 @@
 package src.java.model;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "users")
 public class LoginModel {
 
+    @Id
+    @Column(name = "user_id")
+    private Long id;
+    @Column(name = "mail", nullable = false)
     private String mail;
+    @Column(name = "password", nullable = false)
     private String password;
 
     public String getMail() {
@@ -13,6 +21,8 @@ public class LoginModel {
         return password;
     }
 
+    public Long getId() { return id; }
+
     public void setMail(String mail) {
         this.mail = mail;
     }
@@ -21,4 +31,7 @@ public class LoginModel {
         this.password = password;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
