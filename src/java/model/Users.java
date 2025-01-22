@@ -7,24 +7,24 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer user_id;
-    @Column(name = "user_name", nullable = false)
-    private String user_name;
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
+    @Column(name = "pseudo", nullable = false)
+    private String pseudo;
     @Column(nullable = false)
     private String mail;
     @Column(nullable = false)
     private String password;
-    @Column(name = "is_admin", nullable = false)
-    private boolean is_admin = false;
+    @Column(name = "isadmin", nullable = false)
+    private boolean isAdmin = false;
 
 
     public Integer getUser_id() {
         return user_id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getPseudo() {
+        return pseudo;
     }
 
     public String getUsername() {
@@ -40,7 +40,7 @@ public class Users {
     }
 
     public Boolean isAdmin() {
-        return is_admin;
+        return isAdmin;
     }
 
 
@@ -48,8 +48,8 @@ public class Users {
         this.user_id = user_id;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
     public void setUsername(String username) {
@@ -65,6 +65,6 @@ public class Users {
     }
 
     public void setAdmin(Boolean admin) {
-        this.is_admin = is_admin;
+        this.isAdmin = admin;
     }
 }
