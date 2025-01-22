@@ -14,13 +14,13 @@ public class UserRegistration {
         return BCrypt.withDefaults().hashToString(cost, password.toCharArray());
     }
 
-    public static void registerUser(String userName, String email, String password, boolean isAdmin) {
+    public static void registerUser(String userName, String email, String password, boolean isAdmin,String pseudo) {
         String hashedPassword = hashPassword(password);
-        String url = "jdbc:postgresql://localhost:5432/Writivity"; // Database URL
+        String url = "jdbc:postgresql://localhost:5432/writivity"; // Database URL
         String user = "postgres"; // Database username
         String passwordDb = "myverysecretpassword"; // Database password
 
-        String insertQuery = "INSERT INTO users (user_name, mail, password, admin) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO users (username, mail, password, isadmin, pseudo) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(url, user, passwordDb);
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -29,7 +29,7 @@ public class UserRegistration {
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, hashedPassword);
             preparedStatement.setBoolean(4, isAdmin);
-
+            preparedStatement.setString(5, pseudo);
             preparedStatement.executeUpdate();
             System.out.println("User registered successfully!");
 
@@ -43,8 +43,9 @@ public class UserRegistration {
         String userName = "Bob";
         String email = "Bob.BobbyBob@example.com";
         String password = "1234";
+        String pseudo = "BobbyBob";
         boolean isAdmin = false;
 
-        registerUser(userName, email, password, isAdmin);
+        registerUser(userName, email, password, isAdmin,pseudo);
     }
 }
