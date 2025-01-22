@@ -23,30 +23,54 @@
 
                 <div align="left">
                     <label>Enter Name</label>
-                    <input type="text" th:field="*{user_name}">
+                    <input type="text" th:field="*{username}">
                 </div>
 
                 <div align="right">
                     <label>Enter Pseudo</label>
-                    <input type="text" th:field="*{username}">
+                    <input type="text" th:field="*{pseudo}">
                 </div>
+
+
+
+
+                <script>
+
+                    function changeColor(){
+
+                        if (document.getElementById("box1").value === document.getElementById("box2").value && document.getElementById("box1").value !== ""){
+                            document.getElementById("box1").style.backgroundColor = "#00FF21";
+                            document.getElementById("box2").style.backgroundColor = "#00FF21";
+                            document.getElementById("submit").disabled = false;
+                        }else{
+                            document.getElementById("box1").style.backgroundColor = "red";
+                            document.getElementById("box2").style.backgroundColor = "red";
+                            document.getElementById("submit").disabled = true;
+                        }
+
+                    }
+
+                </script>
 
                 <div align="left">
                     <label>Enter Password</label>
-                    <input type="password">
+                    <input id="box1" value="" type="password" th:field="*{password}"  onkeyup="changeColor()" onchange="changeColor()" onclick="changeColor()">
                 </div>
 
                 <div align="right">
                     <label>Valid Password</label>
-                    <input type="password" th:field="*{password}">
+                    <input id="box2" value="" type="password" th:field="${passwordValidation}" onkeyup="changeColor()" onchange="changeColor()" onclick="changeColor()">
                 </div>
+
+
+
 
                 <div align="left">
                     <label>Enter E-mail</label>
                     <input type="email" th:field="*{mail}">
                 </div>
 
-                <button type="submit">Register</button>
+                <button id="submit" disabled="disabled" type="submit">Register</button>
 
             </form>
 
@@ -56,6 +80,8 @@
     </div>
 
 </main>
+
+<label style="color: red" th:text="${error}" ></label>
 
 
 </html>

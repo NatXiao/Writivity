@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.web.bind.annotation.PathVariable;
+import src.java.SessionManager;
 import src.java.model.Text;
 import src.java.model.Theme;
 import src.java.model.Users;
@@ -28,7 +30,8 @@ public class BaseController {
     @GetMapping("/home")
     public String Home2(Model model, HttpSession session) {
 
-        System.out.println(session.getId());
+        if (!SessionManager.isLoggedIn(session))
+            return "redirect:/login";
 
         Theme t1 = new Theme();
         t1.setTheme_id(0);
@@ -46,18 +49,30 @@ public class BaseController {
         t2.setClose_at(LocalDateTime.of(2025, 10, 9, 12, 0, 0));
         t2.setConditions("R.D.T.");
 
+        Theme t3 = new Theme();
+        t3.setTheme_id(2);
+        t3.setTheme_name("Action");
+        t3.setWord_limit(12345);
+        t3.setOpen_at(LocalDateTime.now());
+        t3.setClose_at(LocalDateTime.of(2028, 10, 9, 12, 0, 0));
+        t3.setConditions("...");
+
         List<Theme> themes = new ArrayList<>();
         themes.add(t1);
         themes.add(t2);
-
+        themes.add(t3);
 
         model.addAttribute("Theme", themes); // new ArrayList<Theme>()
         model.addAttribute("OldTheme", new ArrayList<Theme>()); // new ArrayList<Theme>()
+        model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
         return "home";
     }
     @GetMapping("/profile")
-    public String Profile(Model model, Model model2, Model model3) {
-        model.addAttribute("Users", new Users());
+    public String Profile(Model model, Model model2, Model model3, HttpSession session) {
+
+        if (!SessionManager.isLoggedIn(session)) return "redirect:/login";
+
+        model.addAttribute("Users", ((Users) session.getAttribute("user")));
         model2.addAttribute("Themes", new ArrayList<Theme>());
         model3.addAttribute("Text", new ArrayList<Text>());
         return "profile";
@@ -66,8 +81,16 @@ public class BaseController {
     public String createText(){
         return "createText";
     }
-    @GetMapping("/Challengeid")
-    public String singleChallenge(){
-        return "singleChallenge";
+
+
+
+    @GetMapping("/stats")
+    public String Stats(Model model, HttpSession session) {
+
+        if (!SessionManager.IsAdmin(session))
+            return "/error403";
+
+        return "/stats";
     }
+
 }
