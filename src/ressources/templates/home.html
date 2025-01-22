@@ -13,6 +13,9 @@
     <a href="/home">Homepage</a> |
     <a href="/profile">Profile</a> |
     <a href="/createChallenge">Create a new challenge</a> |
+    <tr th:if="${isAdmin == true }">
+        <a href="/stats">Admin</a>
+    </tr>
 </nav>
 <main>
     <h2 class="h2">Liste des Challenges</h2>
@@ -42,7 +45,7 @@
 
 
 
-                        <td> <a href="/error" th:text="${Challenge.theme_name}">Profile</a> </td>
+                        <td> <a th:href="@{/challengeid/{id}(id=${Challenge.getTheme_id()})}" th:text="${Challenge.theme_name}">Profile</a> </td>
                         <td><span th:text="${Challenge.word_limit}">Nombre de mots limite</span></td>
                         <td><span th:text="${Challenge.close_at}">Date limite</span></td>
 
