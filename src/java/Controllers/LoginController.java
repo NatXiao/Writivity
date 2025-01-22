@@ -13,7 +13,7 @@ import src.java.Utils.UserRepository;
 import src.java.model.LoginModel;
 
 
-@Controller       // <- @RestController
+@Controller
 public class LoginController {
 
     @Autowired
