@@ -17,10 +17,8 @@ import src.java.model.LoginModel;
 
 import java.io.IOException;
 
-@Controller       // <- @RestController
+@Controller
 public class LoginController {
-
-    public static String errorMessage = "";
 
     @Autowired
     private UserRepository userRepository;
@@ -32,7 +30,11 @@ public class LoginController {
             return "redirect:/home";
 
         model.addAttribute("log", new LoginModel());
-        model.addAttribute("error", errorMessage);
+
+        if (session.getAttribute("page") == "login")
+            model.addAttribute("error", session.getAttribute("error"));
+        else
+            model.addAttribute("error", "");
 
         return "login";
     }
@@ -41,7 +43,7 @@ public class LoginController {
     public String login(Model model, @ModelAttribute("log") LoginModel login, HttpSession session) {
 
         model.addAttribute("log", login);
-        model.addAttribute("error", errorMessage);
+
 
         //System.out.println(login.getPassword());
         String hashPassword = userRepository.findByMail(login.getMail()).get().getPassword();
@@ -55,11 +57,17 @@ public class LoginController {
         if (loginSuccess) {
             System.out.println("Login successful");
             SessionManager.LogUser(session, userRepository.findByMail(login.getMail()).get());
+            session.setAttribute("error", "");
             return "redirect:/home";
         } else {
-            errorMessage = "Error, retry please !";
+            session.setAttribute("error", "Error, retry please !");
+
+            session.setAttribute("page", "login");
+            model.addAttribute("error", session.getAttribute("error"));
+
             return "redirect:/login";
         }
+
     }
 
     @GetMapping("/logout")
