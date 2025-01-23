@@ -5,13 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import src.java.SessionManager;
 import src.java.model.Text;
-import src.java.model.Theme;
+import src.java.model.Challenge;
 import src.java.model.Users;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,37 +32,37 @@ public class BaseController {
         if (!SessionManager.isLoggedIn(session))
             return "redirect:/login";
 
-        Theme t1 = new Theme();
-        t1.setTheme_id(0);
+        /*Challenge t1 = new Challenge();
+        t1.setThemeId(0);
         t1.setTheme_name("Aventure");
         t1.setWord_limit(2000);
-        t1.setOpen_at(LocalDateTime.now());
-        t1.setClose_at(LocalDateTime.of(2026, 10, 9, 12, 0, 0));
+        t1.setOpenAt(LocalDate.now());
+        t1.setClose_at(LocalDate.of(2026, 10, 9));
         t1.setConditions("Sans la lettre \"Y\"");
 
-        Theme t2 = new Theme();
-        t2.setTheme_id(1);
+        Challenge t2 = new Challenge();
+        t2.setThemeId(1);
         t2.setTheme_name("Comic");
         t2.setWord_limit(300);
-        t2.setOpen_at(LocalDateTime.now());
-        t2.setClose_at(LocalDateTime.of(2025, 10, 9, 12, 0, 0));
+        t2.setOpenAt(LocalDate.now());
+        t2.setClose_at(LocalDate.of(2025, 10, 9));
         t2.setConditions("R.D.T.");
 
-        Theme t3 = new Theme();
-        t3.setTheme_id(2);
+        Challenge t3 = new Challenge();
+        t3.setThemeId(2);
         t3.setTheme_name("Action");
         t3.setWord_limit(12345);
-        t3.setOpen_at(LocalDateTime.now());
-        t3.setClose_at(LocalDateTime.of(2028, 10, 9, 12, 0, 0));
-        t3.setConditions("...");
+        t3.setOpenAt(LocalDate.now());
+        t3.setClose_at(LocalDate.of(2028, 10, 9));
+        t3.setConditions("...");*/
 
-        List<Theme> themes = new ArrayList<>();
-        themes.add(t1);
-        themes.add(t2);
-        themes.add(t3);
+        List<Challenge> challenges = new ArrayList<>();
+        /*challenges.add(t1);
+        challenges.add(t2);
+        challenges.add(t3);*/
 
-        model.addAttribute("Theme", themes); // new ArrayList<Theme>()
-        model.addAttribute("OldTheme", new ArrayList<Theme>()); // new ArrayList<Theme>()
+        model.addAttribute("Theme", challenges); // new ArrayList<Theme>()
+        model.addAttribute("OldTheme", new ArrayList<Challenge>()); // new ArrayList<Theme>()
         model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
         return "home";
     }
@@ -73,7 +72,7 @@ public class BaseController {
         if (!SessionManager.isLoggedIn(session)) return "redirect:/login";
 
         model.addAttribute("Users", ((Users) session.getAttribute("user")));
-        model2.addAttribute("Themes", new ArrayList<Theme>());
+        model2.addAttribute("Themes", new ArrayList<Challenge>());
         model3.addAttribute("Text", new ArrayList<Text>());
         return "profile";
     }

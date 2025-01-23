@@ -46,8 +46,8 @@
 
 
 
-                        <td> <a th:href="@{/challengeid/{id}(id=${Challenge.getTheme_id()})}" th:text="${Challenge.theme_name}">Profile</a> </td>
-                        <td><span th:text="${Challenge.word_limit}">Nombre de mots limite</span></td>
+                        <td> <a th:href="@{/challengeid/{id}(id=${Challenge.getThemeId()})}" th:text="${Challenge.themeName}">Profile</a> </td>
+                        <td><span th:text="${Challenge.getWordlimit()}">Nombre de mots limite</span></td>
                         <td><span th:text="${Challenge.close_at}">Date limite</span></td>
 
 
