@@ -1,12 +1,14 @@
 package src.java.Controllers;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import src.java.SessionManager;
+import src.java.model.Challenge;
 import src.java.model.Text;
 import src.java.model.Theme;
 import src.java.model.Users;
@@ -14,9 +16,13 @@ import src.java.model.Users;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import src.java.Utils.ChallengeRepository;
 
 @Controller
 public class BaseController {
+
+    @Autowired
+    private ChallengeRepository challengeRepository;
 
     /// Return to Home page
     @GetMapping("/")
@@ -33,37 +39,14 @@ public class BaseController {
         if (!SessionManager.isLoggedIn(session))
             return "redirect:/login";
 
-        Theme t1 = new Theme();
-        t1.setTheme_id(0);
-        t1.setTheme_name("Aventure");
-        t1.setWord_limit(2000);
-        t1.setOpen_at(LocalDateTime.now());
-        t1.setClose_at(LocalDateTime.of(2026, 10, 9, 12, 0, 0));
-        t1.setConditions("Sans la lettre \"Y\"");
+        // Récupérer la liste des challenges en cours depuis la DB
+        List<Challenge> currentChallenges = challengeRepository.findCurrentChallenges(LocalDateTime.now());
 
-        Theme t2 = new Theme();
-        t2.setTheme_id(1);
-        t2.setTheme_name("Comic");
-        t2.setWord_limit(300);
-        t2.setOpen_at(LocalDateTime.now());
-        t2.setClose_at(LocalDateTime.of(2025, 10, 9, 12, 0, 0));
-        t2.setConditions("R.D.T.");
+        // Récupérer les anciens challenges
+        List<Challenge> oldChallenges = challengeRepository.findOldChallenges(LocalDateTime.now());
 
-        Theme t3 = new Theme();
-        t3.setTheme_id(2);
-        t3.setTheme_name("Action");
-        t3.setWord_limit(12345);
-        t3.setOpen_at(LocalDateTime.now());
-        t3.setClose_at(LocalDateTime.of(2028, 10, 9, 12, 0, 0));
-        t3.setConditions("...");
-
-        List<Theme> themes = new ArrayList<>();
-        themes.add(t1);
-        themes.add(t2);
-        themes.add(t3);
-
-        model.addAttribute("Theme", themes); // new ArrayList<Theme>()
-        model.addAttribute("OldTheme", new ArrayList<Theme>()); // new ArrayList<Theme>()
+        model.addAttribute("Theme", currentChallenges); // Challenges en cours
+        model.addAttribute("OldTheme", oldChallenges); // Challenges passés
         model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
         return "home";
     }
