@@ -34,7 +34,7 @@ public class UserService {
 
     // Method to fetch the stored password hash from the database using the user's email
     public static String getPasswordHashFromDatabase(String email) {
-        String url = "jdbc:postgresql://localhost:5432/Writivity"; // Database URL
+        String url = "jdbc:postgresql://localhost:5432/writivity"; // Database URL
         String user = "postgres"; // Database username
         String passwordDb = "myverysecretpassword"; // Database password
 

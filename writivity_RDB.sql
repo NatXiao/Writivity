@@ -121,4 +121,18 @@ VALUES
     (2, 3, 3);  -- Utilisateur 2 vote sur le texte 3 (Troisième défi)
 
 
+ALTER TABLE text_p
+    ADD COLUMN text_title VARCHAR(255) NOT NULL DEFAULT 'Sans titre';
+
+UPDATE text_p SET text_title = 'Premier texte' WHERE text_id = 1;
+UPDATE text_p SET text_title = 'Deuxième texte' WHERE text_id = 2;
+UPDATE text_p SET text_title = 'Troisième texte' WHERE text_id = 3;
+UPDATE text_p SET text_title = 'Quatrième texte' WHERE text_id = 4;
+UPDATE text_p SET text_title = 'Cinquième texte' WHERE text_id = 5;
+UPDATE text_p SET text_title = 'Sixième texte' WHERE text_id = 6;
+UPDATE text_p SET text_title = 'Septième texte' WHERE text_id = 7;
+UPDATE text_p SET text_title = 'Huitième texte' WHERE text_id = 8;
+UPDATE text_p SET text_title = 'Neuvième texte' WHERE text_id = 9;
+
+
 

@@ -1,41 +1,60 @@
 package src.java.Controllers;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import src.java.Utils.ChallengeRepository;
+import src.java.Utils.TextRepository;
+import src.java.model.Challenge;
+import src.java.model.Text;
 import src.java.model.Theme;
+import java.util.List;
 
 import java.time.LocalDateTime;
 
 @Controller
 public class ChallengeController {
 
-    @GetMapping("/challengeid/{id}")
+    @Autowired
+    private ChallengeRepository challengeRepository;
+
+
+
+    @Autowired
+    private TextRepository textRepository;
+
+    /**
+     * Affiche un challenge spécifique et les textes associés.
+     */
+    @GetMapping("/challenge/{id}")
     public String singleChallenge(@PathVariable("id") int id, Model model, HttpSession session) {
 
-        /*if (id == 1)
-            return "error403";
+        // Vérifie si l'utilisateur est connecté
+        if (session == null || session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
 
-        if(id == 7)
-            return "error";*/
+        // Récupérer le challenge via son ID
+        Challenge challenge = challengeRepository.findById(id).orElse(null);
+        if (challenge == null) {
+            return "error"; // Redirige vers une page d'erreur si le challenge n'existe pas
+        }
 
-        Theme t4 = new Theme();
-        t4.setTheme_id(0);
-        t4.setTheme_name("Aventure");
-        t4.setWord_limit(2000);
-        t4.setOpen_at(LocalDateTime.now());
-        t4.setClose_at(LocalDateTime.of(2026, 10, 9, 12, 0, 0));
-        t4.setConditions("Sans la lettre \"Y\"");
+        // Récupérer les textes associés à ce challenge
+        List<Text> texts = textRepository.findTextsByChallengeId(id);
 
-        model.addAttribute("Challenge", t4);
-
+        // Ajouter le challenge et les textes au modèle
+        model.addAttribute("Challenge", challenge);
+        model.addAttribute("Text", texts);
 
         return "singleChallenge";
     }
+
 
 
     @GetMapping("/createChallenge")
