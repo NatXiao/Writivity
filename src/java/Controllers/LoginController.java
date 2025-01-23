@@ -2,20 +2,15 @@ package src.java.Controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import src.java.SessionManager;
-import org.springframework.web.servlet.View;
-import src.java.UserService;
 import src.java.Utils.PasswordUtil;
 import src.java.Utils.UserRepository;
 import src.java.model.LoginModel;
-
-import java.io.IOException;
 
 @Controller
 public class LoginController {
