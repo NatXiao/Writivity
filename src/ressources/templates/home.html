@@ -44,16 +44,6 @@
                     <tr th:if="${Theme.isEmpty()}">
                         <td colspan="3" style="text-align: center;">Aucun challenge en cours</td>
                     </tr>
-                    <tr th:each="Challenge: ${Theme}">
-
-
-
-                        <td> <a th:href="@{/challengeid/{id}(id=${Challenge.getThemeId()})}" th:text="${Challenge.themeName}">Profile</a> </td>
-                        <td><span th:text="${Challenge.wordLimit}">Nombre de mots limite</span></td>
-                        <td><span th:text="${Challenge.closeAt}">Date limite</span></td>
-
-
-
                     <!-- Liste des challenges en cours -->
                     <tr th:each="challenge : ${Theme}">
                         <td>
@@ -70,13 +60,6 @@
             <!-- Tableau des challenges passés -->
             <td style="width: 50%;">
                 <table style="width: 100%;" align="center">
-                    <thead>
-                    <tr>
-                        <th class="challengeList">Challenge</th>
-                        <th class="wordLimitList">Mots Limite</th>
-                        <th class="datelist">Date de fin</th>
-                    </tr>
-                    </thead>
                     <tbody>
                     <!-- Message si aucun challenge passé -->
                     <tr th:if="${OldTheme.isEmpty()}">

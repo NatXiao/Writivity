@@ -30,16 +30,16 @@ public class ChallengeController {
 
         if(id == 7)
             return "error";*/
-        //Theme t1 = challengeRepository.findByTheme_id(id).get();
-        Challenge t4 = new Challenge();
+        Challenge t1 = challengeRepository.findByThemeId(id).get();
+        /*Challenge t4 = new Challenge();
         t4.setThemeId(0);
         t4.setThemeName("Aventure");
         t4.setWordLimit(2000);
         t4.setOpenAt(LocalDate.now());
         t4.setCloseAt(LocalDate.of(2026, 10, 9));
-        t4.setConditions("Sans la lettre \"Y\"");
+        t4.setConditions("Sans la lettre \"Y\"");*/
 
-        model.addAttribute("Challenge", t4);
+        model.addAttribute("Challenge", t1);
 
 
         return "singleChallenge";

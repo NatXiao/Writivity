@@ -1,46 +1,56 @@
 package src.java.model;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "comment")
 public class Comment {
-    private Integer comment_id;
-    private Integer text_id;
-    private Integer user_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id", nullable = false)
+    private Integer commentId;
+    @Column(name = "text_id", nullable = false)
+    private Integer textId;
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
+    @Column(name = "body", nullable = false)
     private String body;
-    private Boolean reported;
+    @Column(name = "reported")
+    private Boolean reported = false;
 
-    public Integer getComment_id() {
-        return comment_id;
+    public Integer getCommentId() {
+        return commentId;
     }
 
-    public Integer getText_id() {
-        return text_id;
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getTextId() {
+        return textId;
+    }
+
+    public void setTextId(Integer textId) {
+        this.textId = textId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getBody() {
         return body;
     }
 
-    public Boolean getReported() {
-        return reported;
-    }
-
-    public void setComment_id(Integer comment_id) {
-        this.comment_id = comment_id;
-    }
-
-    public void setText_id(Integer text_id) {
-        this.text_id = text_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
-    }
-
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public Boolean getReported() {
+        return reported;
     }
 
     public void setReported(Boolean reported) {

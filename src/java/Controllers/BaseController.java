@@ -57,18 +57,13 @@ public class BaseController {
         t2.setConditions("R.D.T.");*/
         // Récupérer la liste des challenges en cours depuis la DB
         List<Challenge> currentChallenges = challengeRepository.findAll();
-        for (Challenge c : currentChallenges) {
-            if (c.getCloseAt().isBefore(LocalDate.now()) || c.getCloseAt().isEqual(LocalDate.now())) {
-                currentChallenges.remove(c);
-            }
-        }
+        currentChallenges.removeIf(c -> c.getCloseAt().isBefore(LocalDate.now()) || c.getCloseAt().isEqual(LocalDate.now()));
         // Récupérer les anciens challenges
         List<Challenge> oldChallenges = challengeRepository.findAll();
-        for (Challenge c : oldChallenges) {
-            if (c.getCloseAt().isAfter(LocalDate.now())) {
-                oldChallenges.remove(c);
-            }
-        }
+        oldChallenges.removeIf(c -> c.getCloseAt().isAfter(LocalDate.now()));
+
+        System.out.println("All challenges: " + challengeRepository.findAll().size());
+        System.out.println("Current Challenges : " + currentChallenges.size());
 
         model.addAttribute("Theme", currentChallenges); // Challenges en cours
         model.addAttribute("OldTheme", oldChallenges); // Challenges passés
