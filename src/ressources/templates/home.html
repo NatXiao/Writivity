@@ -29,53 +29,64 @@
         </thead>
         <tbody>
         <tr>
+            <!-- Tableau des challenges en cours -->
             <td style="width: 50%;">
-                <table style="width: 50%;" align="center">
+                <table style="width: 100%;" align="center">
                     <thead>
                     <tr>
                         <th class="challengeList">Challenge</th>
                         <th class="wordLimitList">Mots Limite</th>
-                        <th class="datelist">Date</th>
+                        <th class="datelist">Date de fin</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <!-- Message si aucun challenge en cours -->
                     <tr th:if="${Theme.isEmpty()}">
-                        <td colspan="3">Aucun Challenge en base de données</td>
+                        <td colspan="3" style="text-align: center;">Aucun challenge en cours</td>
                     </tr>
                     <tr th:each="Challenge: ${Theme}">
 
 
 
                         <td> <a th:href="@{/challengeid/{id}(id=${Challenge.getThemeId()})}" th:text="${Challenge.themeName}">Profile</a> </td>
-                        <td><span th:text="${Challenge.getWordlimit()}">Nombre de mots limite</span></td>
-                        <td><span th:text="${Challenge.close_at}">Date limite</span></td>
+                        <td><span th:text="${Challenge.wordLimit}">Nombre de mots limite</span></td>
+                        <td><span th:text="${Challenge.closeAt}">Date limite</span></td>
 
 
 
+                    <!-- Liste des challenges en cours -->
+                    <tr th:each="challenge : ${Theme}">
+                        <td>
+                            <a th:href="@{/challengeid/{id}(id=${challenge.themeId})}"
+                               th:text="${challenge.themeName}">Nom du Challenge</a>
+                        </td>
+                        <td><span th:text="${challenge.wordLimit}">Mots Limite</span></td>
+                        <td><span th:text="${challenge.closeAt}">Date de fin</span></td>
                     </tr>
                     </tbody>
                 </table>
             </td>
 
-
+            <!-- Tableau des challenges passés -->
             <td style="width: 50%;">
-
-                <table style="width: 50%;" align="center">
+                <table style="width: 100%;" align="center">
                     <thead>
-                        <tr>
-                            <th class="challengeList">Challenge</th>
-                            <th class="wordLimitList">Mots Limite</th>
-                            <th class="datelist">Date</th>
+                    <tr>
+                        <th class="challengeList">Challenge</th>
+                        <th class="wordLimitList">Mots Limite</th>
+                        <th class="datelist">Date de fin</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <!-- Message si aucun challenge passé -->
                     <tr th:if="${OldTheme.isEmpty()}">
-                        <td colspan="3">Aucun Challenge en base de données</td>
+                        <td colspan="3" style="text-align: center;">Aucun challenge passé</td>
                     </tr>
-                    <tr th:each="Challenge: ${OldTheme}">
-                        <td><span th:text="${Challenge.theme_name}">Thème</span></td>
-                        <td><span th:text="${Challenge.word_limit}">Nombre de mots limite</span></td>
-                        <td><span th:text="${Challenge.close_at}">Date limite</span></td>
+                    <!-- Liste des challenges passés -->
+                    <tr th:each="challenge : ${OldTheme}">
+                        <td><span th:text="${challenge.themeName}">Nom du Challenge</span></td>
+                        <td><span th:text="${challenge.wordLimit}">Mots Limite</span></td>
+                        <td><span th:text="${challenge.closeAt}">Date de fin</span></td>
                     </tr>
                     </tbody>
                 </table>

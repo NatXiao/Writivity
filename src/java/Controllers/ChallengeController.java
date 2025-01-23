@@ -72,5 +72,4 @@ public class ChallengeController {
 
         return "redirect:/home";
     }
-// TODO: debug why ChallengeController.java doesn't receive theme_name and wordlimit from createChallenge.html
 }
