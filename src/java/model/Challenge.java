@@ -1,69 +1,48 @@
 package src.java.model;
 
+import java.time.LocalDate;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "challenge")
 public class Challenge {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer challenge_id;
-
-    @Column(nullable = false)
-    private String challenge_name;
-
-    @Column(nullable = false)
-    private Integer word_limit;
-
-    @Column(nullable = false)
-    private LocalDateTime openAt;
-
-    @Column(nullable = false)
-    private LocalDateTime closeAt;
-
-    @Column
+    @Column(name = "challenge_id", nullable = false)
+    private Integer themeId;
+    @Column(name = "challenge_name")
+    private String themeName;
+    @Column(name = "conditions")
     private String conditions;
+    @Column(name = "word_limit", nullable = false)
+    private Integer wordLimit;
+    @Column(name = "open_at")
+    private LocalDate openAt;
+    @Column(name = "close_at")
+    private LocalDate closeAt;
 
-    // Getters et setters
-    public Integer getChallenge_id() {
-        return challenge_id;
-    }
-
-    public void setChallenge_id(Integer challenge_id) {
-        this.challenge_id = challenge_id;
-    }
-
-    public String getChallenge_name() {
-        return challenge_name;
-    }
-
-    public void setChallenge_name(String challenge_name) {
-        this.challenge_name = challenge_name;
-    }
-
-    public Integer getWord_limit() {
-        return word_limit;
-    }
-
-    public void setWord_limit(Integer word_limit) {
-        this.word_limit = word_limit;
-    }
-
-    public LocalDateTime getOpenAt() {
-        return openAt;
-    }
-
-    public void setOpenAt(LocalDateTime openAt) {
-        this.openAt = openAt;
-    }
-
-    public LocalDateTime getCloseAt() {
+    public LocalDate getCloseAt() {
         return closeAt;
     }
 
-    public void setCloseAt(LocalDateTime closeAt) {
+    public void setCloseAt(LocalDate closeAt) {
         this.closeAt = closeAt;
+    }
+
+    public LocalDate getOpenAt() {
+        return openAt;
+    }
+
+    public void setOpenAt(LocalDate openAt) {
+        this.openAt = openAt;
+    }
+
+    public Integer getWordLimit() {
+        return wordLimit;
+    }
+
+    public void setWordLimit(Integer wordLimit) {
+        this.wordLimit = wordLimit;
     }
 
     public String getConditions() {
@@ -72,5 +51,21 @@ public class Challenge {
 
     public void setConditions(String conditions) {
         this.conditions = conditions;
+    }
+
+    public String getThemeName() {
+        return themeName;
+    }
+
+    public void setThemeName(String themeName) {
+        this.themeName = themeName;
+    }
+
+    public Integer getThemeId() {
+        return themeId;
+    }
+
+    public void setThemeId(Integer themeId) {
+        this.themeId = themeId;
     }
 }

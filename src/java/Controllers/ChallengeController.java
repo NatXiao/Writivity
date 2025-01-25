@@ -1,18 +1,26 @@
 package src.java.Controllers;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import src.java.model.Theme;
+import src.java.Utils.ChallengeRepository;
+import src.java.Utils.TextRepository;
+import src.java.model.Challenge;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Controller
 public class ChallengeController {
+
+    @Autowired
+    private ChallengeRepository challengeRepository;
+    @Autowired
+    private TextRepository textRepository;
 
     @GetMapping("/challengeid/{id}")
     public String singleChallenge(@PathVariable("id") int id, Model model, HttpSession session) {
@@ -22,16 +30,16 @@ public class ChallengeController {
 
         if(id == 7)
             return "error";*/
+        Challenge t1 = challengeRepository.findByThemeId(id).get();
+        /*Challenge t4 = new Challenge();
+        t4.setThemeId(0);
+        t4.setThemeName("Aventure");
+        t4.setWordLimit(2000);
+        t4.setOpenAt(LocalDate.now());
+        t4.setCloseAt(LocalDate.of(2026, 10, 9));
+        t4.setConditions("Sans la lettre \"Y\"");*/
 
-        Theme t4 = new Theme();
-        t4.setTheme_id(0);
-        t4.setTheme_name("Aventure");
-        t4.setWord_limit(2000);
-        t4.setOpen_at(LocalDateTime.now());
-        t4.setClose_at(LocalDateTime.of(2026, 10, 9, 12, 0, 0));
-        t4.setConditions("Sans la lettre \"Y\"");
-
-        model.addAttribute("Challenge", t4);
+        model.addAttribute("Challenge", t1);
 
 
         return "singleChallenge";
@@ -41,21 +49,27 @@ public class ChallengeController {
     @GetMapping("/createChallenge")
     public String redirectToChallengeCreate(Model model) {
 
-        model.addAttribute("challenge", new Theme());
+        model.addAttribute("challenge", new Challenge());
 
         return "createChallenge";
     }
 
     @PostMapping("/register_new_challenge")
-    public String registerNewChallenge(Model model, @ModelAttribute("challenge") Theme theme) {
+    public String registerNewChallenge(Model model, @ModelAttribute("challenge") Challenge challenge) {
 
-        model.addAttribute("challenge", theme);
+        model.addAttribute("challenge", challenge);
+        challenge.setOpenAt(LocalDate.now());
+        challenge.setCloseAt(LocalDate.now().plusWeeks(3));
 
         System.out.println("New Challenge : ");
-        System.out.println("Nom : " + theme.getTheme_name());
-        System.out.println("Condition : " + theme.getConditions());
+        System.out.println("Nom : " + challenge.getThemeName());
+        System.out.println("Condition : " + challenge.getConditions());
+        System.out.println("Limite de mots : " + challenge.getWordLimit());
+        System.out.println("Ouverture : " + challenge.getOpenAt());
+        System.out.println("Fermeture : " + challenge.getCloseAt());
+
+        challengeRepository.save(challenge);
 
         return "redirect:/home";
     }
-
 }

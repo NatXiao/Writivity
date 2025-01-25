@@ -14,9 +14,9 @@
     <a href="/home">Homepage</a> |
     <a href="/profile">Profile</a> |
     <a href="/createChallenge">Create a new challenge</a> |
-    <span th:if="${isAdmin == true}">
+    <tr th:if="${isAdmin == true }">
         <a href="/stats">Admin</a>
-    </span>
+    </tr>
 </nav>
 <main>
     <h2 class="h2">Liste des Challenges</h2>
@@ -47,10 +47,10 @@
                     <!-- Liste des challenges en cours -->
                     <tr th:each="challenge : ${Theme}">
                         <td>
-                            <a th:href="@{/challengeid/{id}(id=${challenge.challenge_id})}"
-                               th:text="${challenge.challenge_name}">Nom du Challenge</a>
+                            <a th:href="@{/challengeid/{id}(id=${challenge.themeId})}"
+                               th:text="${challenge.themeName}">Nom du Challenge</a>
                         </td>
-                        <td><span th:text="${challenge.word_limit}">Mots Limite</span></td>
+                        <td><span th:text="${challenge.wordLimit}">Mots Limite</span></td>
                         <td><span th:text="${challenge.closeAt}">Date de fin</span></td>
                     </tr>
                     </tbody>
@@ -60,13 +60,6 @@
             <!-- Tableau des challenges passés -->
             <td style="width: 50%;">
                 <table style="width: 100%;" align="center">
-                    <thead>
-                    <tr>
-                        <th class="challengeList">Challenge</th>
-                        <th class="wordLimitList">Mots Limite</th>
-                        <th class="datelist">Date de fin</th>
-                    </tr>
-                    </thead>
                     <tbody>
                     <!-- Message si aucun challenge passé -->
                     <tr th:if="${OldTheme.isEmpty()}">
@@ -74,10 +67,8 @@
                     </tr>
                     <!-- Liste des challenges passés -->
                     <tr th:each="challenge : ${OldTheme}">
-                        <td>
-                            <span th:text="${challenge.challenge_name}">Nom du Challenge</span>
-                        </td>
-                        <td><span th:text="${challenge.word_limit}">Mots Limite</span></td>
+                        <td><span th:text="${challenge.themeName}">Nom du Challenge</span></td>
+                        <td><span th:text="${challenge.wordLimit}">Mots Limite</span></td>
                         <td><span th:text="${challenge.closeAt}">Date de fin</span></td>
                     </tr>
                     </tbody>

@@ -12,7 +12,6 @@ import src.java.Utils.PasswordUtil;
 import src.java.Utils.UserRepository;
 import src.java.model.LoginModel;
 
-
 @Controller
 public class LoginController {
 
@@ -41,11 +40,17 @@ public class LoginController {
         model.addAttribute("log", login);
 
 
+        //System.out.println(login.getPassword());
+        String hashPassword = userRepository.findByMail(login.getMail()).get().getPassword();
         //boolean loginSuccessful = UserService.verifyUserPassword(login.getMail(), login.getPassword());
-        boolean loginSuccess = PasswordUtil.verifyPassword(login.getPassword(), userRepository.findByMail(login.getMail()).get().getPassword());
-        System.out.println(userRepository.findByMail(login.getMail()).get().getPassword());
+        boolean loginSuccess = PasswordUtil.verifyPassword(login.getPassword(),
+                hashPassword);
+        System.out.println("Mail: " + login.getMail());
+        System.out.println("Password: " + login.getPassword());
+        System.out.println("Hashed Password: " + hashPassword);
 
         if (loginSuccess) {
+            System.out.println("Login successful");
             SessionManager.LogUser(session, userRepository.findByMail(login.getMail()).get());
             session.setAttribute("error", "");
             return "redirect:/home";
@@ -67,5 +72,4 @@ public class LoginController {
 
         return "redirect:/login";
     }
-
 }
