@@ -9,4 +9,7 @@
 /.idea
 
 # Ignore DB connection
-/src/ressources/application.properties
+src/ressources/application.properties
+
+/out/
+/target/

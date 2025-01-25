@@ -11,36 +11,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import src.java.Utils.ChallengeRepository;
 import src.java.Utils.TextRepository;
 import src.java.model.Challenge;
+import src.java.model.Text;
+import java.util.List;
 
 import java.time.LocalDate;
 
 @Controller
 public class ChallengeController {
 
+
     @Autowired
     private ChallengeRepository challengeRepository;
+
     @Autowired
     private TextRepository textRepository;
 
-    @GetMapping("/challengeid/{id}")
+    @GetMapping("/challenge/{id}")
     public String singleChallenge(@PathVariable("id") int id, Model model, HttpSession session) {
 
-        /*if (id == 1)
-            return "error403";
+        // Vérifie si l'utilisateur est connecté
+        if (session == null || session.getAttribute("user") == null) {
+            return "redirect:/login";
+        }
 
-        if(id == 7)
-            return "error";*/
-        Challenge t1 = challengeRepository.findByThemeId(id).get();
-        /*Challenge t4 = new Challenge();
-        t4.setThemeId(0);
-        t4.setThemeName("Aventure");
-        t4.setWordLimit(2000);
-        t4.setOpenAt(LocalDate.now());
-        t4.setCloseAt(LocalDate.of(2026, 10, 9));
-        t4.setConditions("Sans la lettre \"Y\"");*/
+        // Récupérer le challenge via son ID
+        Challenge challenge = challengeRepository.findById((long)id).orElse(null);
+        if (challenge == null) {
+            return "error"; // Redirige vers une page d'erreur si le challenge n'existe pas
+        }
 
-        model.addAttribute("Challenge", t1);
+        // Récupérer les textes associés à ce challenge
+        List<Text> texts = textRepository.findTextsByChallengeId(id);
 
+        // Ajouter le challenge et les textes au modèle
+        model.addAttribute("Challenge", challenge);
+        model.addAttribute("Text", texts);
 
         return "singleChallenge";
     }
@@ -62,7 +67,7 @@ public class ChallengeController {
         challenge.setCloseAt(LocalDate.now().plusWeeks(3));
 
         System.out.println("New Challenge : ");
-        System.out.println("Nom : " + challenge.getThemeName());
+        System.out.println("Nom : " + challenge.getChallengeName());
         System.out.println("Condition : " + challenge.getConditions());
         System.out.println("Limite de mots : " + challenge.getWordLimit());
         System.out.println("Ouverture : " + challenge.getOpenAt());

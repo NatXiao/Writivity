@@ -14,7 +14,7 @@
     <a href="/home">Homepage</a> |
     <a href="/profile">Profile</a> |
     <a href="/createChallenge">Create a new challenge</a> |
-    <tr th:if="${isAdmin == true }">
+    <tr th:if="${isAdmin == true}">
         <a href="/stats">Admin</a>
     </tr>
 </nav>
@@ -47,8 +47,8 @@
                     <!-- Liste des challenges en cours -->
                     <tr th:each="challenge : ${Theme}">
                         <td>
-                            <a th:href="@{/challengeid/{id}(id=${challenge.themeId})}"
-                               th:text="${challenge.themeName}">Nom du Challenge</a>
+                            <a th:href="@{/challenge/{id}(id=${challenge.challengeId})}"
+                               th:text="${challenge.challengeName}">Nom du Challenge</a>
                         </td>
                         <td><span th:text="${challenge.wordLimit}">Mots Limite</span></td>
                         <td><span th:text="${challenge.closeAt}">Date de fin</span></td>
@@ -67,7 +67,10 @@
                     </tr>
                     <!-- Liste des challenges passés -->
                     <tr th:each="challenge : ${OldTheme}">
-                        <td><span th:text="${challenge.themeName}">Nom du Challenge</span></td>
+                        <td>
+                            <a th:href="@{/challenge/{id}(id=${challenge.challengeId})}"
+                               th:text="${challenge.challengeName}">Nom du Challenge</a>
+                        </td>
                         <td><span th:text="${challenge.wordLimit}">Mots Limite</span></td>
                         <td><span th:text="${challenge.closeAt}">Date de fin</span></td>
                     </tr>

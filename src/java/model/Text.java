@@ -1,107 +1,136 @@
 package src.java.model;
 
-import java.sql.Timestamp;
 import jakarta.persistence.*;
+import java.sql.Timestamp;
+import java.util.List;  // Ajout de l'import pour List
 
 @Entity
-@Table(name = "text_p")
+@Table(name = "text_p")  // Spécifie que cette entité est mappée à la table 'text_p'
 public class Text {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "text_id", nullable = false)
     private Integer textId;
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
-    @Column(name = "challenge_id", nullable = false)
-    private Integer themeId;
-    private String text_title;
-    @Column(name = "body", nullable = false)
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;
+
+    @ManyToOne
+    @JoinColumn(name = "challenge_id", nullable = false) // Relation correcte avec Challenge
+    private Challenge challenge;
+
+    @Column(nullable = false)
+    private String textTitle;
+
+    @Column(nullable = false)
     private String body;
-    @Column(name = "status")
+
+    @Column
     private String status;
-    @Column(name = "text_submit")
+
+    @Column
     private Boolean textSubmit;
-    @Column(name = "submitted_at")
+
+    @Column
     private Timestamp submittedAt;
-    @Column(name = "reported")
+
+    @Column
     private Boolean reported;
-    @Column(name = "disqualified")
+
+    @Column
     private Boolean disqualified;
+
+    // Nouvelle relation ajoutée ici
+    @OneToMany(mappedBy = "text", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    // Getters et setters pour comments
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    // Autres getters et setters
+
 
     public Integer getTextId() {
         return textId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public void setTextId(Integer textId) {
+        this.textId = textId;
     }
 
-    public Integer getThemeId() {
-        return themeId;
+    public Users getUser() {
+        return user;
     }
 
-    public String getText_title() {
-        return text_title;
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public Challenge getChallenge() {
+        return challenge;
+    }
+
+    public void setChallenge(Challenge challenge) {
+        this.challenge = challenge;
+    }
+
+    public String getTextTitle() {
+        return textTitle;
+    }
+
+    public void setTextTitle(String textTitle) {
+        this.textTitle = textTitle;
     }
 
     public String getBody() {
         return body;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public Boolean getTextSubmit() {
-        return textSubmit;
-    }
-
-    public Timestamp getSubmittedAt() {
-        return submittedAt;
-    }
-
-    public Boolean getReported() {
-        return reported;
-    }
-
-    public Boolean getDisqualified() {
-        return disqualified;
-    }
-
-    public void setTextId(Integer text_id) {
-        this.textId = text_id;
-    }
-
-    public void setUserId(Integer user_id) {
-        this.userId = user_id;
-    }
-
-    public void setThemeId(Integer theme_id) {
-        this.themeId = theme_id;
-    }
-
-    public void setText_title(String text_title) {
-        this.text_title = text_title;
-    }
-
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
     }
 
-    public void setTextSubmit(Boolean text_submit) {
-        this.textSubmit = text_submit;
+    public Boolean getTextSubmit() {
+        return textSubmit;
     }
 
-    public void setSubmittedAt(Timestamp submitted_at) {
-        this.submittedAt = submitted_at;
+    public void setTextSubmit(Boolean textSubmit) {
+        this.textSubmit = textSubmit;
+    }
+
+    public Timestamp getSubmittedAt() {
+        return submittedAt;
+    }
+
+    public void setSubmittedAt(Timestamp submittedAt) {
+        this.submittedAt = submittedAt;
+    }
+
+    public Boolean getReported() {
+        return reported;
     }
 
     public void setReported(Boolean reported) {
         this.reported = reported;
+    }
+
+    public Boolean getDisqualified() {
+        return disqualified;
     }
 
     public void setDisqualified(Boolean disqualified) {
