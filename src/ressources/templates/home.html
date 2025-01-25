@@ -75,7 +75,8 @@
                     <!-- Liste des challenges passés -->
                     <tr th:each="challenge : ${OldTheme}">
                         <td>
-                            <span th:text="${challenge.challenge_name}">Nom du Challenge</span>
+                            <a th:href="@{/challenge/{id}(id=${challenge.challenge_id})}"
+                               th:text="${challenge.challenge_name}">Nom du Challenge</a>
                         </td>
                         <td><span th:text="${challenge.word_limit}">Mots Limite</span></td>
                         <td><span th:text="${challenge.closeAt}">Date de fin</span></td>
