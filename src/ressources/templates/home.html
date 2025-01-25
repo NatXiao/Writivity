@@ -47,7 +47,7 @@
                     <!-- Liste des challenges en cours -->
                     <tr th:each="challenge : ${Theme}">
                         <td>
-                            <a th:href="@{/challengeid/{id}(id=${challenge.challenge_id})}"
+                            <a th:href="@{/challenge/{id}(id=${challenge.challenge_id})}"
                                th:text="${challenge.challenge_name}">Nom du Challenge</a>
                         </td>
                         <td><span th:text="${challenge.word_limit}">Mots Limite</span></td>

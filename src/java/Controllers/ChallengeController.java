@@ -20,20 +20,15 @@ import java.time.LocalDateTime;
 @Controller
 public class ChallengeController {
 
+
     @Autowired
     private ChallengeRepository challengeRepository;
-
-
 
     @Autowired
     private TextRepository textRepository;
 
-    /**
-     * Affiche un challenge spécifique et les textes associés.
-     */
     @GetMapping("/challenge/{id}")
     public String singleChallenge(@PathVariable("id") int id, Model model, HttpSession session) {
-
         // Vérifie si l'utilisateur est connecté
         if (session == null || session.getAttribute("user") == null) {
             return "redirect:/login";
@@ -48,33 +43,14 @@ public class ChallengeController {
         // Récupérer les textes associés à ce challenge
         List<Text> texts = textRepository.findTextsByChallengeId(id);
 
+        // Ajout du print pour vérifier si la liste de textes est vide ou non
+        System.out.println("Texte récupéré pour le challenge " + id + ": " + texts);
+
         // Ajouter le challenge et les textes au modèle
         model.addAttribute("Challenge", challenge);
         model.addAttribute("Text", texts);
 
         return "singleChallenge";
-    }
-
-
-
-    @GetMapping("/createChallenge")
-    public String redirectToChallengeCreate(Model model) {
-
-        model.addAttribute("challenge", new Theme());
-
-        return "createChallenge";
-    }
-
-    @PostMapping("/register_new_challenge")
-    public String registerNewChallenge(Model model, @ModelAttribute("challenge") Theme theme) {
-
-        model.addAttribute("challenge", theme);
-
-        System.out.println("New Challenge : ");
-        System.out.println("Nom : " + theme.getTheme_name());
-        System.out.println("Condition : " + theme.getConditions());
-
-        return "redirect:/home";
     }
 
 }

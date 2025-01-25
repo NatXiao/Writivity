@@ -10,10 +10,8 @@ import java.util.List;
 @Repository
 public interface TextRepository extends JpaRepository<Text, Integer> {
 
-    @Query("SELECT t FROM Text t WHERE t.theme_id = :challengeId AND t.text_submit = true")
+    @Query("SELECT t FROM Text t JOIN FETCH t.user u WHERE t.challenge.challenge_id = :challengeId AND t.text_submit = true")
     List<Text> findTextsByChallengeId(Integer challengeId);
-
-
 
 }
 

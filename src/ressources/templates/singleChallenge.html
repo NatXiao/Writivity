@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+  <meta charset="UTF-8">
   <title>Writivity</title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -12,6 +13,9 @@
   <a href="/home">Homepage</a> |
   <a href="/profile">Profile</a> |
   <a href="/createChallenge">Create a new challenge</a> |
+  <span th:if="${isAdmin == true}">
+      <a href="/stats">Admin</a>
+  </span>
 </nav>
 <main>
   <h2>Détails du Challenge</h2>
@@ -46,5 +50,8 @@
     </tbody>
   </table>
 </main>
+<footer>
+  <label><em>Copyright © 2025 Writivity™</em></label>
+</footer>
 </body>
 </html>
