@@ -7,7 +7,7 @@
 </head>
 <body>
 <header>
-  <h1>Challenge : <span th:text="${Challenge.challenge_name}"></span></h1>
+  <h1>Challenge : <span th:text="${Challenge.challengeName}"></span></h1>
 </header>
 <nav>
   <a href="/home">Homepage</a> |
@@ -19,8 +19,8 @@
 </nav>
 <main>
   <h2>Détails du Challenge</h2>
-  <p>ID du Challenge : <span th:text="${Challenge.challenge_id}"></span></p>
-  <p>Mots Limite : <span th:text="${Challenge.word_limit}"></span></p>
+  <p>ID du Challenge : <span th:text="${Challenge.challengeId}"></span></p>
+  <p>Mots Limite : <span th:text="${Challenge.wordLimit}"></span></p>
   <p>Date de fin : <span th:text="${Challenge.closeAt}"></span></p>
   <p>Conditions : <span th:text="${Challenge.conditions}"></span></p>
   <br>
@@ -44,8 +44,8 @@
     <!-- Liste des textes -->
     <tr th:each="t : ${Text}">
       <td>
-        <a th:href="@{/singleText/{challengeId}/{textId}(challengeId=${Challenge.challenge_id}, textId=${t.text_id})}"
-           th:text="${t.text_title}">Titre du Texte</a>
+        <a th:href="@{/singleText/{challengeId}/{textId}(challengeId=${Challenge.challengeId}, textId=${t.textId})}"
+           th:text="${t.texTitle}">Titre du Texte</a>
       </td>
       <td><span th:text="${t.user.username}">Nom du Participant</span></td>
       <td><button type="button">qlq chose</button></td>

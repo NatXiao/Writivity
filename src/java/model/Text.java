@@ -10,7 +10,7 @@ public class Text {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer text_id;
+    private Integer textId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -21,7 +21,7 @@ public class Text {
     private Challenge challenge;
 
     @Column(nullable = false)
-    private String text_title;
+    private String textTitle;
 
     @Column(nullable = false)
     private String body;
@@ -30,10 +30,10 @@ public class Text {
     private String status;
 
     @Column
-    private Boolean text_submit;
+    private Boolean textSubmit;
 
     @Column
-    private Timestamp submitted_at;
+    private Timestamp submittedAt;
 
     @Column
     private Boolean reported;
@@ -55,12 +55,14 @@ public class Text {
     }
 
     // Autres getters et setters
-    public Integer getText_id() {
-        return text_id;
+
+
+    public Integer getTextId() {
+        return textId;
     }
 
-    public void setText_id(Integer text_id) {
-        this.text_id = text_id;
+    public void setTextId(Integer textId) {
+        this.textId = textId;
     }
 
     public Users getUser() {
@@ -79,12 +81,12 @@ public class Text {
         this.challenge = challenge;
     }
 
-    public String getText_title() {
-        return text_title;
+    public String getTexTitle() {
+        return textTitle;
     }
 
-    public void setText_title(String text_title) {
-        this.text_title = text_title;
+    public void setTexTitle(String textTitle) {
+        this.textTitle = textTitle;
     }
 
     public String getBody() {
@@ -103,20 +105,20 @@ public class Text {
         this.status = status;
     }
 
-    public Boolean getText_submit() {
-        return text_submit;
+    public Boolean getTextSubmit() {
+        return textSubmit;
     }
 
-    public void setText_submit(Boolean text_submit) {
-        this.text_submit = text_submit;
+    public void setTextSubmit(Boolean textSubmit) {
+        this.textSubmit = textSubmit;
     }
 
-    public Timestamp getSubmitted_at() {
-        return submitted_at;
+    public Timestamp getSubmittedAt() {
+        return submittedAt;
     }
 
-    public void setSubmitted_at(Timestamp submitted_at) {
-        this.submitted_at = submitted_at;
+    public void setSubmittedAt(Timestamp submittedAt) {
+        this.submittedAt = submittedAt;
     }
 
     public Boolean getReported() {

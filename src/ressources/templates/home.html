@@ -47,8 +47,8 @@
                     <!-- Liste des challenges en cours -->
                     <tr th:each="challenge : ${Theme}">
                         <td>
-                            <a th:href="@{/challenge/{id}(id=${challenge.challenge_id})}"
-                               th:text="${challenge.challenge_name}">Nom du Challenge</a>
+                            <a th:href="@{/challenge/{id}(id=${challenge.challengeId})}"
+                               th:text="${challenge.challengeName}">Nom du Challenge</a>
                         </td>
                         <td><span th:text="${challenge.wordLimit}">Mots Limite</span></td>
                         <td><span th:text="${challenge.closeAt}">Date de fin</span></td>
@@ -68,10 +68,10 @@
                     <!-- Liste des challenges passés -->
                     <tr th:each="challenge : ${OldTheme}">
                         <td>
-                            <a th:href="@{/challenge/{id}(id=${challenge.challenge_id})}"
-                               th:text="${challenge.challenge_name}">Nom du Challenge</a>
+                            <a th:href="@{/challenge/{id}(id=${challenge.challengeId})}"
+                               th:text="${challenge.challengeName}">Nom du Challenge</a>
                         </td>
-                        <td><span th:text="${challenge.word_limit}">Mots Limite</span></td>
+                        <td><span th:text="${challenge.wordLimit}">Mots Limite</span></td>
                         <td><span th:text="${challenge.closeAt}">Date de fin</span></td>
                     </tr>
                     </tbody>

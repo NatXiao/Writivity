@@ -9,7 +9,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer comment_id;
+    private Integer commentId;
 
     @ManyToOne
     @JoinColumn(name = "text_id", nullable = false)
@@ -26,18 +26,20 @@ public class Comment {
     private Boolean reported;
 
     @Column
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     @Column
     private Boolean deleted;
 
     // Getters et setters
-    public Integer getComment_id() {
-        return comment_id;
+
+
+    public Integer getCommentId() {
+        return commentId;
     }
 
-    public void setComment_id(Integer comment_id) {
-        this.comment_id = comment_id;
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 
     public Text getText() {
@@ -72,12 +74,12 @@ public class Comment {
         this.reported = reported;
     }
 
-    public Timestamp getCreated_at() {
-        return created_at;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Boolean getDeleted() {

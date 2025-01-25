@@ -5,15 +5,25 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import src.java.model.Text;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface TextRepository extends JpaRepository<Text, Long> {
     //Optional<Text> findByText_title(String text_title);
     //Optional<Text> findByBody(String body);
     Optional<Text> findByStatus(String status);
     //Optional<Text> findByText_submit(Boolean text_submit);
-    Optional<Text> findBySubmittedAt(java.sql.Timestamp submittedAt);
+    //Optional<Text> findBySubmittedAt(Timestamp submitted_at);
     Optional<Text> findByReported(Boolean reported);
     Optional<Text> findByDisqualified(Boolean disqualified);
+
+    @Query("SELECT t FROM Text t JOIN FETCH t.user u WHERE t.challenge.challengeId = :challengeId AND t.textSubmit = true")
+    List<Text> findTextsByChallengeId(Integer challengeId);
+
+    // Nouvelle requête pour récupérer un texte par son ID et le challenge_id
+    @Query("SELECT t FROM Text t JOIN FETCH t.user u WHERE t.challenge.challengeId = :challengeId AND t.textId = :textId AND t.textSubmit = true")
+    Optional<Text> findTextByChallengeIdAndTextId(Integer challengeId, Integer textId);
+
 }

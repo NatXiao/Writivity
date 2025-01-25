@@ -9,9 +9,9 @@ public class Challenge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "challenge_id", nullable = false)
-    private Integer themeId;
+    private Integer challengeId;
     @Column(name = "challenge_name")
-    private String themeName;
+    private String challengeName;
     @Column(name = "conditions")
     private String conditions;
     @Column(name = "word_limit", nullable = false)
@@ -53,19 +53,19 @@ public class Challenge {
         this.conditions = conditions;
     }
 
-    public String getThemeName() {
-        return themeName;
+    public Integer getChallengeId() {
+        return challengeId;
     }
 
-    public void setThemeName(String themeName) {
-        this.themeName = themeName;
+    public void setChallengeId(Integer challengeId) {
+        this.challengeId = challengeId;
     }
 
-    public Integer getThemeId() {
-        return themeId;
+    public String getChallengeName() {
+        return challengeName;
     }
 
-    public void setThemeId(Integer themeId) {
-        this.themeId = themeId;
+    public void setChallengeName(String challengeName) {
+        this.challengeName = challengeName;
     }
 }

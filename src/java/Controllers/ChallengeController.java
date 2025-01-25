@@ -12,7 +12,6 @@ import src.java.Utils.ChallengeRepository;
 import src.java.Utils.TextRepository;
 import src.java.model.Challenge;
 import src.java.model.Text;
-import src.java.model.Theme;
 import java.util.List;
 
 import java.time.LocalDate;
@@ -36,7 +35,7 @@ public class ChallengeController {
         }
 
         // Récupérer le challenge via son ID
-        Challenge challenge = challengeRepository.findById(id).orElse(null);
+        Challenge challenge = challengeRepository.findById((long)id).orElse(null);
         if (challenge == null) {
             return "error"; // Redirige vers une page d'erreur si le challenge n'existe pas
         }
@@ -68,7 +67,7 @@ public class ChallengeController {
         challenge.setCloseAt(LocalDate.now().plusWeeks(3));
 
         System.out.println("New Challenge : ");
-        System.out.println("Nom : " + challenge.getThemeName());
+        System.out.println("Nom : " + challenge.getChallengeName());
         System.out.println("Condition : " + challenge.getConditions());
         System.out.println("Limite de mots : " + challenge.getWordLimit());
         System.out.println("Ouverture : " + challenge.getOpenAt());
