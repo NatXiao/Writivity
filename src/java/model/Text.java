@@ -81,11 +81,11 @@ public class Text {
         this.challenge = challenge;
     }
 
-    public String getTexTitle() {
+    public String getTextTitle() {
         return textTitle;
     }
 
-    public void setTexTitle(String textTitle) {
+    public void setTextTitle(String textTitle) {
         this.textTitle = textTitle;
     }
 

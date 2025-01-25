@@ -1,6 +1,7 @@
-package src.java.model;
+package src.java.Utils;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import src.java.model.Vote;
 
 import java.util.Optional;
 

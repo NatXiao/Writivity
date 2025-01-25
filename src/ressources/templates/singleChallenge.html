@@ -45,7 +45,7 @@
     <tr th:each="t : ${Text}">
       <td>
         <a th:href="@{/singleText/{challengeId}/{textId}(challengeId=${Challenge.challengeId}, textId=${t.textId})}"
-           th:text="${t.texTitle}">Titre du Texte</a>
+           th:text="${t.textTitle}">Titre du Texte</a>
       </td>
       <td><span th:text="${t.user.username}">Nom du Participant</span></td>
       <td><button type="button">qlq chose</button></td>
