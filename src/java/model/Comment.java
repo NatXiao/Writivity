@@ -1,44 +1,59 @@
 package src.java.model;
+
 import jakarta.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "comment")
+@Table(name = "comment")  // Spécifie que cette entité est mappée à la table 'comment'
 public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id", nullable = false)
-    private Integer commentId;
-    @Column(name = "text_id", nullable = false)
-    private Integer textId;
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
-    @Column(name = "body", nullable = false)
+    private Integer comment_id;
+
+    @ManyToOne
+    @JoinColumn(name = "text_id", nullable = false)
+    private Text text;  // Relation avec l'entité Text
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;  // Relation avec l'entité User
+
+    @Column(nullable = false)
     private String body;
-    @Column(name = "reported")
-    private Boolean reported = false;
 
-    public Integer getCommentId() {
-        return commentId;
+    @Column
+    private Boolean reported;
+
+    @Column
+    private Timestamp created_at;
+
+    @Column
+    private Boolean deleted;
+
+    // Getters et setters
+    public Integer getComment_id() {
+        return comment_id;
     }
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
+    public void setComment_id(Integer comment_id) {
+        this.comment_id = comment_id;
     }
 
-    public Integer getTextId() {
-        return textId;
+    public Text getText() {
+        return text;
     }
 
-    public void setTextId(Integer textId) {
-        this.textId = textId;
+    public void setText(Text text) {
+        this.text = text;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Users getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
     public String getBody() {
@@ -55,5 +70,21 @@ public class Comment {
 
     public void setReported(Boolean reported) {
         this.reported = reported;
+    }
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }
