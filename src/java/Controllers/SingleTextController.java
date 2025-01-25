@@ -35,6 +35,7 @@ public class SingleTextController {
 
         if (text != null) {
             model.addAttribute("text", text);  // Ajouter le texte au modèle
+            model.addAttribute("challengeId", challengeId);  // Ajouter l'ID du challenge au modèle
         } else {
             // Si le texte n'est pas trouvé, rediriger vers la page d'accueil ou afficher une erreur
             return "redirect:/home";  // Ou une autre page d'erreur

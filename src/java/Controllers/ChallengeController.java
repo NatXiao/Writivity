@@ -43,9 +43,6 @@ public class ChallengeController {
         // Récupérer les textes associés à ce challenge
         List<Text> texts = textRepository.findTextsByChallengeId(id);
 
-        // Ajout du print pour vérifier si la liste de textes est vide ou non
-        System.out.println("Texte récupéré pour le challenge " + id + ": " + texts);
-
         // Ajouter le challenge et les textes au modèle
         model.addAttribute("Challenge", challenge);
         model.addAttribute("Text", texts);
