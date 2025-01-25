@@ -43,9 +43,12 @@
     </tr>
     <!-- Liste des textes -->
     <tr th:each="t : ${Text}">
-      <td><span th:text="${t.text_title}">Titre du Texte</span></td>
+      <td>
+        <a th:href="@{/singleText/{challengeId}/{textId}(challengeId=${Challenge.challenge_id}, textId=${t.text_id})}"
+           th:text="${t.text_title}">Titre du Texte</a>
+      </td>
       <td><span th:text="${t.user.username}">Nom du Participant</span></td>
-      <td><button type="button">Signaler</button></td>
+      <td><button type="button">qlq chose</button></td>
     </tr>
     </tbody>
   </table>
@@ -55,3 +58,5 @@
 </footer>
 </body>
 </html>
+
+

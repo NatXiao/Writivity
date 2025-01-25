@@ -2,6 +2,7 @@ package src.java.model;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;  // Ajout de l'import pour List
 
 @Entity
 @Table(name = "text_p")  // Spécifie que cette entité est mappée à la table 'text_p'
@@ -40,7 +41,20 @@ public class Text {
     @Column
     private Boolean disqualified;
 
-    // Getters et setters
+    // Nouvelle relation ajoutée ici
+    @OneToMany(mappedBy = "text", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    // Getters et setters pour comments
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    // Autres getters et setters
     public Integer getText_id() {
         return text_id;
     }
