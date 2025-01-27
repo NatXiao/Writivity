@@ -7,7 +7,7 @@
 </head>
 <body>
 <header>
-    <h1>Détails du Texte : <span th:text="${text.text_title}"></span></h1>
+    <h1>Détails du Texte : <span th:text="${text.textTitle}"></span></h1>
 </header>
 <nav>
     <a href="/home">Homepage</a> |
@@ -17,11 +17,11 @@
 </nav>
 <main>
     <!-- Affichage des détails du texte -->
-    <h2 th:text="${text.text_title}">Titre du texte</h2>
+    <h2 th:text="${text.textTitle}">Titre du texte</h2>
     <h3>Soumis par : <span th:text="${text.user.username}"></span></h3>
     <p><strong>Contenu : </strong><span th:text="${text.body}"></span></p>
     <p><strong>Statut : </strong><span th:text="${text.status}"></span></p>
-    <p><strong>Date de soumission : </strong><span th:text="${text.submitted_at}"></span></p>
+    <p><strong>Date de soumission : </strong><span th:text="${text.submittedAt}"></span></p>
 
     <!-- Bouton pour signaler -->
     <button type="button">Signaler</button>
