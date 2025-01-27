@@ -1,17 +1,17 @@
 package src.java.Controllers;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import src.java.model.Comment;
 import src.java.model.Text;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
-import src.java.model.Text;
 import src.java.Utils.TextRepository;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import src.java.model.Comment;
+import src.java.model.Text;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class SingleTextController {
 
     @GetMapping("/singleText/{challengeId}/{textId}")
     public String getTextDetail(@PathVariable("challengeId") Integer challengeId,
-                                @PathVariable("textId") Integer textId, Model model) {
+                                @PathVariable("textId") Integer textId, Model model, HttpSession session) {
         // Récupérer le texte par son ID et l'ID du challenge
         Text text = textRepository.findTextByChallengeIdAndTextId(challengeId, textId).orElse(null);
 
@@ -42,5 +42,23 @@ public class SingleTextController {
         }
 
         return "singleText";  // Nom de la page HTML à afficher
+    }
+
+    @PostMapping("/register_new_text")
+    public String registerNewText(@ModelAttribute("text") Text text, Model model) {
+        // Enregistrer le nouveau texte dans la base de données
+        model.addAttribute("text", text);
+        text.setStatus("pending");
+        text.setTextSubmit(true);
+        text.setSubmittedAt(new java.sql.Timestamp(System.currentTimeMillis()));
+
+        System.out.println("Username: " + text.getUser().getUsername());
+        System.out.println("Challenge ID: " + text.getChallenge().getChallengeId());
+        System.out.println("Title: " + text.getTextTitle());
+        System.out.println("Body: " + text.getBody());
+
+        textRepository.save(text);
+
+        return "redirect:/singleChallenge";  // Rediriger vers la page d'accueil
     }
 }
