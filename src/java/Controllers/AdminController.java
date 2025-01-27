@@ -47,7 +47,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/hello-world")
+    /*@GetMapping("/hello-world")
     public String HelloWorld(Model model) {
         model.addAttribute("message", "Hello World!");
 
@@ -65,7 +65,7 @@ public class AdminController {
         System.out.println(postvar.getStr());
 
         return "hello-world";
-    }
+    }*/
 
 
 }
