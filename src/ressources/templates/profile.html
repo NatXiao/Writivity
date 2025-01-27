@@ -14,7 +14,10 @@
 <nav>
     <a href="/home">Homepage</a> |
     <a href="/profile">Profile</a> |
-    <a href="/createChallenge">Create a new challenge</a> |
+    <a href="/createChallenge">Create a new challenge</a>
+    <tr th:if="${isAdmin == true}">
+        | <a href="/stats">Admin</a>
+    </tr>
 </nav>
 <div>
     <h2>Vos données :</h2>

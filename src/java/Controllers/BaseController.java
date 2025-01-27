@@ -76,6 +76,7 @@ public class BaseController {
         if (!SessionManager.isLoggedIn(session)) return "redirect:/login";
 
         model.addAttribute("Users", ((Users) session.getAttribute("user")));
+        model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
         model2.addAttribute("Themes", new ArrayList<Challenge>());
         model3.addAttribute("Text", new ArrayList<Text>());
         return "profile";
