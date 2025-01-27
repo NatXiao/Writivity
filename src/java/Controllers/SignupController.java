@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import src.java.SessionManager;
 import src.java.Utils.PasswordUtil;
 import src.java.Utils.UserRepository;
 import src.java.model.HelloObject;
@@ -88,6 +89,8 @@ public class SignupController {
         userRepository.save(user);
 
         session.setAttribute("error", "");
+
+        SessionManager.LogUser(session, user);
 
         return "redirect:/home";
     }
