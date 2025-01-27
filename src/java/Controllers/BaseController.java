@@ -85,15 +85,4 @@ public class BaseController {
         return "createText";
     }
 
-
-
-    @GetMapping("/stats")
-    public String Stats(Model model, HttpSession session) {
-
-        if (!SessionManager.IsAdmin(session))
-            return "/error403";
-
-        return "/stats";
-    }
-
 }
