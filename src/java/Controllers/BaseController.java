@@ -81,9 +81,9 @@ public class BaseController {
         model.addAttribute("Text", new ArrayList<Text>());
         return "profile";
     }
-    @GetMapping("/createText")
+    /*@GetMapping("/createText")
     public String createText(){
         return "createText";
-    }
+    }*/
 
 }

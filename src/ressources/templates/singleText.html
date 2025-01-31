@@ -15,11 +15,14 @@
     <a href="/profile">Profile</a> |
     <a href="/createChallenge">Create a new challenge</a> |
     <a href="/createText">Créer un texte</a>
+    <tr th:if="${isAdmin == true}">
+        | <a href="/stats">Admin</a>
+    </tr>
 </nav>
 <main>
     <!-- Affichage des détails du texte -->
     <h2 th:text="${text.textTitle}">Titre du texte</h2>
-    <h3>Soumis par : <span th:text="${text.user.username}"></span></h3>
+    <h3>Soumis par : <span th:text="${text.userId.username}"></span></h3>
     <p><strong>Contenu : </strong><span th:text="${text.body}"></span></p>
     <p><strong>Statut : </strong><span th:text="${text.status}"></span></p>
     <p><strong>Date de soumission : </strong><span th:text="${text.submittedAt}"></span></p>

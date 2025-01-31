@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Writivity</title>
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="icon" type="image/x-icon" href="/gfx/icon2.png">
+    <meta charset="UTF-8">
+    <title>Writivity</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/gfx/icon2.png">
 </head>
 <body>
 <header>
-  <h1>Challenge : <span th:text="${Challenge.challengeName}"></span></h1>
+    <h1>Challenge : <span th:text="${Challenge.challengeName}"></span></h1>
 </header>
 <nav>
-  <a href="/home">Homepage</a> |
-  <a href="/profile">Profile</a> |
-  <a href="/createChallenge">Create a new challenge</a> |
-  <span th:if="${isAdmin == true}">
-      <a href="/stats">Admin</a>
-  </span>
+    <a href="/home">Homepage</a> |
+    <a href="/profile">Profile</a> |
+    <a href="/createChallenge">Create a new challenge</a>
+    <tr th:if="${isAdmin == true}">
+        | <a href="/stats">Admin</a>
+    </tr>
 </nav>
 <main>
-  <h2>Détails du Challenge</h2>
-  <p>ID du Challenge : <span th:text="${Challenge.challengeId}"></span></p>
-  <p>Mots Limite : <span th:text="${Challenge.wordLimit}"></span></p>
-  <p>Date de fin : <span th:text="${Challenge.closeAt}"></span></p>
-  <p>Conditions : <span th:text="${Challenge.conditions}"></span></p>
-  <br>
-  <a href="/home">Retour à l'accueil</a> |
-  <a href="/createText">Créer un texte</a>
+    <h2>Détails du Challenge</h2>
+    <p>ID du Challenge : <span th:text="${Challenge.challengeId}"></span></p>
+    <p>Mots Limite : <span th:text="${Challenge.wordLimit}"></span></p>
+    <p>Date de fin : <span th:text="${Challenge.closeAt}"></span></p>
+    <p>Conditions : <span th:text="${Challenge.conditions}"></span></p>
+    <br>
+    <a href="/home">Retour à l'accueil</a> |
+    <a th:href="@{'/createText/' + ${Challenge.challengeId}}">Créer un texte</a>
 
-  <h2 class="h2">Liste des Textes soumis</h2>
-  <table>
-    <thead>
-    <tr>
-      <th>Titre du Texte</th>
-      <th>Participant</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Si aucun texte n'est disponible -->
-    <tr th:if="${#lists.isEmpty(Text)}">
-      <td colspan="3" style="text-align: center;">Aucun texte soumis pour ce challenge</td>
-    </tr>
-    <!-- Liste des textes -->
-    <tr th:each="t : ${Text}">
-      <td>
-        <a th:href="@{/singleText/{challengeId}/{textId}(challengeId=${Challenge.challengeId}, textId=${t.textId})}"
-           th:text="${t.textTitle}">Titre du Texte</a>
-      </td>
-      <td><span th:text="${t.user.username}">Nom du Participant</span></td>
-      <td><button type="button">qlq chose</button></td>
-    </tr>
-    </tbody>
-  </table>
+    <h2 class="h2">Liste des Textes soumis</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Titre du Texte</th>
+            <th>Participant</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Si aucun texte n'est disponible -->
+        <tr th:if="${#lists.isEmpty(Text)}">
+            <td colspan="3" style="text-align: center;">Aucun texte soumis pour ce challenge</td>
+        </tr>
+        <!-- Liste des textes -->
+        <tr th:each="t : ${Text}">
+            <td>
+                <a th:href="@{/singleText/{challengeId}/{textId}(challengeId=${Challenge.challengeId}, textId=${t.textId})}"
+                   th:text="${t.textTitle}">Titre du Texte</a>
+            </td>
+            <td><span th:text="${t.user.username}">Nom du Participant</span></td>
+            <td>
+                <button type="button">qlq chose</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 <footer>
-  <label><em>Copyright © 2025 Writivity™</em></label>
+    <label><em>Copyright © 2025 Writivity™</em></label>
 </footer>
 </body>
 </html>

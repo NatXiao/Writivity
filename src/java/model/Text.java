@@ -1,6 +1,7 @@
 package src.java.model;
 
 import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.List;  // Ajout de l'import pour List
 
@@ -12,15 +13,17 @@ public class Text {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer textId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    /*@JoinColumn(name = "user_id", nullable = false)
+    private Integer userId;*/
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", nullable = false) // Relation correcte avec Users
     private Users user;
 
     @ManyToOne
     @JoinColumn(name = "challenge_id", nullable = false) // Relation correcte avec Challenge
     private Challenge challenge;
 
-    @Column(nullable = false)
+    @Column(name = "text_title", nullable = false)
     private String textTitle;
 
     @Column(nullable = false)
@@ -29,21 +32,22 @@ public class Text {
     @Column
     private String status;
 
-    @Column
-    private Boolean textSubmit;
+    @Column(name = "text_submit")
+    private boolean textSubmit;
 
-    @Column
+    @Column(name = "submitted_at")
     private Timestamp submittedAt;
 
     @Column
-    private Boolean reported;
+    private boolean reported;
 
     @Column
-    private Boolean disqualified;
+    private boolean disqualified;
 
     // Nouvelle relation ajoutée ici
     @OneToMany(mappedBy = "text", fetch = FetchType.LAZY)
     private List<Comment> comments;
+
 
     // Getters et setters pour comments
     public List<Comment> getComments() {
@@ -65,13 +69,13 @@ public class Text {
         this.textId = textId;
     }
 
-    public Users getUser() {
-        return user;
+    /*public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
-    }
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }*/
 
     public Challenge getChallenge() {
         return challenge;
@@ -136,4 +140,21 @@ public class Text {
     public void setDisqualified(Boolean disqualified) {
         this.disqualified = disqualified;
     }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public Integer getUserId() {
+        return (user != null) ? user.getUserId() : null;
+    }
+
+    public Integer getChallengeId() {
+        return (challenge != null) ? challenge.getChallengeId() : null;
+    }
+
 }

@@ -70,6 +70,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Hibernate Core -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.6.4.Final</version>
+        </dependency>
+
         <!-- Spring Boot Starter Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
