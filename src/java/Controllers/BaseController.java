@@ -71,13 +71,14 @@ public class BaseController {
         return "home";
     }
     @GetMapping("/profile")
-    public String Profile(Model model, Model model2, Model model3, HttpSession session) {
+    public String Profile(Model model, HttpSession session) {
 
         if (!SessionManager.isLoggedIn(session)) return "redirect:/login";
 
         model.addAttribute("Users", ((Users) session.getAttribute("user")));
-        model2.addAttribute("Themes", new ArrayList<Challenge>());
-        model3.addAttribute("Text", new ArrayList<Text>());
+        model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
+        model.addAttribute("Themes", new ArrayList<Challenge>());
+        model.addAttribute("Text", new ArrayList<Text>());
         return "profile";
     }
     @GetMapping("/createText")

@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
     <title>Writivity</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" type="image/x-icon" href="/gfx/icon2.png">
@@ -16,22 +15,23 @@
 
     <div align="center">
 
-        <!--<div style="border-style: solid; width: 600px; height: 500px">-->
-
-
+        <div style="width: 300px; height: 500px">
 
             <form role="form" th:action="@{/register_new_user}" method="post" th:object="${user}">
 
                 <div align="left">
-                    <label>Enter Name</label>
-                    <input type="text" th:field="*{username}">
+                    <label class="signup-label">Enter Name</label>
+                </div>
+                <div align="left">
+                    <input class="signup-input" type="text" th:field="*{username}">
                 </div>
 
-                <div align="right">
-                    <label>Enter Pseudo</label>
-                    <input type="text" th:field="*{pseudo}">
+                <div align="left" style="padding-top: 10px">
+                    <label class="signup-label">Enter Pseudo</label>
                 </div>
-
+                <div align="left">
+                    <input class="signup-input" type="text" th:field="*{pseudo}">
+                </div>
 
 
 
@@ -53,32 +53,45 @@
 
                 </script>
 
+
+
+                <div align="left" style="padding-top: 10px">
+                    <label class="signup-label">Enter Password</label>
+                </div>
                 <div align="left">
-                    <label>Enter Password</label>
-                    <input id="box1" value="" type="password" th:field="*{password}"  onkeyup="changeColor()" onchange="changeColor()" onclick="changeColor()">
-                </div>
-
-                <div align="right">
-                    <label>Valid Password</label>
-                    <input id="box2" value="" type="password" th:field="${passwordValidation}" onkeyup="changeColor()" onchange="changeColor()" onclick="changeColor()">
+                    <input class="signup-input" id="box1" value="" type="password" th:field="*{password}"  onkeyup="changeColor()" onchange="changeColor()" onclick="changeColor()">
                 </div>
 
 
 
-
+                <div align="left" style="padding-top: 10px">
+                    <label class="signup-label">Valid Password</label>
+                </div>
                 <div align="left">
-                    <label>Enter E-mail</label>
-                    <input type="email" th:field="*{mail}">
+                    <input class="signup-input" id="box2" value="" type="password" th:field="${passwordValidation}" onkeyup="changeColor()" onchange="changeColor()" onclick="changeColor()">
                 </div>
 
-                <button id="submit" disabled="disabled" type="submit">Register</button>
+
+
+                <div align="left" style="padding-top: 10px">
+                    <label class="signup-label">Enter E-mail</label>
+                </div>
+                <div align="left">
+                    <input class="signup-input" type="email" th:field="*{mail}">
+                </div>
+
+                <div style="padding-top: 10px">
+                    <button id="submit" disabled="disabled" type="submit">Register</button>
+                </div>
 
             </form>
 
-            <a href="/">already sign in? Log in</a>
+            <div style="padding-top: 10px">
+                <a href="/">already sign in? Log in</a>
+            </div>
 
         </div>
-    <!--</div>-->
+    </div>
 
 </main>
 

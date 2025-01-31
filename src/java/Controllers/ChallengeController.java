@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import src.java.SessionManager;
 import src.java.Utils.ChallengeRepository;
 import src.java.Utils.TextRepository;
 import src.java.model.Challenge;
@@ -52,9 +53,10 @@ public class ChallengeController {
 
 
     @GetMapping("/createChallenge")
-    public String redirectToChallengeCreate(Model model) {
+    public String redirectToChallengeCreate(Model model, HttpSession session) {
 
         model.addAttribute("challenge", new Challenge());
+        model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
 
         return "createChallenge";
     }

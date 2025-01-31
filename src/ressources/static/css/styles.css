@@ -81,3 +81,13 @@ th.datelist {
 th.wordLimitList {
     width: 10%;
 }
+
+.signup-input {
+    width: 300px;
+    height: 25px;
+    font-size: 20px;
+}
+
+.signup-label {
+    font-size: 20px;
+}
