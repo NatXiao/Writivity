@@ -8,24 +8,57 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" type="image/x-icon" href="/gfx/icon2.png">
 </head>
+
 <body>
 
-<header>
-    <h1>Login Page</h1>
-</header>
-<label style="color: red" th:text="${error}" ></label>
-<p>
-    <form role="form" th:action="@{/login_user}" method="post" th:object="${log}">
-        <label>Email:</label>
-        <input type="email" th:field="*{mail}">
+    <header>
+        <h1>Login Page</h1>
+    </header>
 
-        <label >Password:</label>
-        <input type="password" th:field="*{password}">
+    <main>
 
-        <button type="submit">Login</button>
-    </form>
-    <a href="/signup">not sign in yet? Register</a>
-</p>
+    <div align="center">
+
+        <div style="width: 300px; height: 500px">
+
+            <form role="form" th:action="@{/login_user}" method="post" th:object="${log}">
+
+
+                <div align="left">
+                    <label class="signup-label">Email</label>
+                </div>
+                <div align="left">
+                    <input class="signup-input" type="email" th:field="*{mail}">
+                </div>
+
+                <div align="left" style="padding-top: 10px">
+                    <label class="signup-label">Password</label>
+                </div>
+                <div align="left">
+                    <input class="signup-input" type="password" th:field="*{password}">
+                </div>
+
+                <div style="padding-top: 10px">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+
+            <div style="padding-top: 10px">
+                <a href="/signup">not sign in yet? Register</a>
+            </div>
+
+            <div style="padding-top: 10px">
+                <label style="color: red" th:text="${error}" ></label>
+            </div>
+
+        </div>
+    </div>
+    </main>
+
+    <footer>
+        <label><em>Copyright © 2025 Writivity™</em></label>
+    </footer>
 
 </body>
+
 </html>
