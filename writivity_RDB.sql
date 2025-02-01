@@ -29,6 +29,7 @@ CREATE TABLE text_p (
     text_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     challenge_id INT NOT NULL,
+    text_title TEXT NOT NULL,
     body TEXT NOT NULL,
     status VARCHAR(30),
     text_submit BOOLEAN,
@@ -36,7 +37,6 @@ CREATE TABLE text_p (
     reported BOOLEAN DEFAULT FALSE,
     disqualified BOOLEAN DEFAULT FALSE
 );
-
 CREATE TABLE challenge (
     challenge_id SERIAL PRIMARY KEY,
     challenge_name VARCHAR(30),
@@ -45,6 +45,19 @@ CREATE TABLE challenge (
     close_at  DATE DEFAULT CURRENT_TIMESTAMP,
     conditions VARCHAR(255),
     CONSTRAINT check_open_before_close CHECK (open_at <= close_at)
+);
+
+CREATE TABLE report (
+    report_id SERIAL PRIMARY KEY,
+    text_id INTEGER REFERENCES text_p(text_id),
+    reporter_id INTEGER REFERENCES users(user_id),
+    problem TEXT NOT NULL
+);
+
+CREATE TABLE feedback (
+    feedback_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(user_id),
+    feedback_body TEXT NOT NULL
 );
 
 -- Création des clés étrangères après création des tables
