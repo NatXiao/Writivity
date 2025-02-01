@@ -16,6 +16,7 @@ public class Text {
     /*@JoinColumn(name = "user_id", nullable = false)
     private Integer userId;*/
     @ManyToOne(cascade = CascadeType.MERGE)
+
     @JoinColumn(name = "user_id", nullable = false) // Relation correcte avec Users
     private Users user;
 
