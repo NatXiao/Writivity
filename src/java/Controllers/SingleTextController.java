@@ -4,16 +4,16 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import src.java.model.Text;
+import src.java.Utils.RateRepository;
+import src.java.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import src.java.Utils.TextRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import src.java.model.Comment;
 import src.java.model.Text;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class SingleTextController {
@@ -26,6 +26,9 @@ public class SingleTextController {
     //}
     @Autowired
     private TextRepository textRepository;
+
+    @Autowired
+    private RateRepository rateRepository;
 
     @GetMapping("/singleText/{challengeId}/{textId}")
     public String getTextDetail(@PathVariable("challengeId") Integer challengeId,
@@ -41,8 +44,55 @@ public class SingleTextController {
             return "redirect:/home";  // Ou une autre page d'erreur
         }
 
+        List<Rate> rates = rateRepository.findByTextId(textId);
+
+        float mean = 0;
+        for (Rate rate : rates) {
+            mean += rate.getRate();
+        }
+        mean /= rates.size();
+
+        int roundedMean = Math.round(mean);
+
+        model.addAttribute("roundedMean", roundedMean);
+        model.addAttribute("mean", mean);
+
+
+        List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users)session.getAttribute("user")).getUser_id());
+
+        if (userRate.isEmpty())
+            model.addAttribute("userRate", 0);
+        else
+            model.addAttribute("userRate", userRate.get(0).getRate());
+
+
         return "singleText";  // Nom de la page HTML à afficher
     }
+
+
+    @GetMapping("/rate/{challengeId}/{textId}/{rate}")
+    public String rateText(@PathVariable("challengeId") Integer challengeId,
+                                @PathVariable("textId") Integer textId, @PathVariable("rate") Integer rate, Model model, HttpSession session) {
+
+        Rate r = new Rate();
+        r.setTextId(textId);
+        r.setUserId(((Users)session.getAttribute("user")).getUser_id());
+        r.setRate(rate);
+
+        System.out.println(r.getUserId() + " / " + r.getTextId() + " / " + r.getRate());
+
+        List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users)session.getAttribute("user")).getUser_id());
+
+        if(userRate.isEmpty())
+            rateRepository.save(r);
+        else
+            rateRepository.updateRateByRateId(r.getRate(), userRate.get(0).getRateId());
+
+        model.addAttribute("userId", ((Users)session.getAttribute("user")).getUser_id());
+
+        return "redirect:/singleText/" + challengeId + "/" + textId;  // Nom de la page HTML à afficher
+    }
+
 
     @PostMapping("/register_new_text")
     public String registerNewText(@ModelAttribute("text") Text text, Model model) {
