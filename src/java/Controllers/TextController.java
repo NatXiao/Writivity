@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class SingleTextController {
+public class TextController {
 
     @Autowired
     private TextRepository textRepository;
@@ -127,12 +127,17 @@ public class SingleTextController {
     @Transactional
     public String registerNewText(@ModelAttribute("text") Text text, @PathVariable("challengeId") Integer challengeId,
                                   Model model, HttpSession session) {
-
+        Challenge challenge = challengeRepository.findByChallengeId(challengeId);
+        System.out.println((text.toString().split(" ").length > challenge.getWordLimit()) + " " + (text.toString().split(" ").length)+ " " + challenge.getWordLimit() );
+        if(text.getBody().trim().split("\\s").length > challenge.getWordLimit() ){
+            System.out.println((text.toString().split(" ").length > challenge.getWordLimit()) + " " + (text.toString().split(" ").length)+ " " + challenge.getWordLimit() );
+            return "redirect:/createText/{challengeId}";
+        }else{
         // Enregistrer le nouveau texte dans la base de données
         model.addAttribute("text", text);
         Users user = (Users) session.getAttribute("user");
         //user = entityManager.merge(user);
-        Challenge challenge = challengeRepository.findByChallengeId(challengeId);
+        //Challenge challenge = challengeRepository.findByChallengeId(challengeId);
 
         text.setStatus("pending");
         text.setTextSubmit(true);
@@ -149,5 +154,6 @@ public class SingleTextController {
         textRepository.save(text);
 
         return "redirect:/home";
+        }
     }
 }
