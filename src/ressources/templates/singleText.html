@@ -11,16 +11,7 @@
 <header>
     <h1>Détails du Texte : <span th:text="${text.textTitle}"></span></h1>
 </header>
-
-<nav>
-    <a href="/home">Homepage</a> |
-    <a href="/profile">Profile</a> |
-    <a href="/createChallenge">Create a new challenge</a> |
-    <a href="/createText">Créer un texte</a>
-    <tr th:if="${isAdmin == true}">
-        | <a href="/stats">Admin</a>
-    </tr>
-</nav>
+<div th:replace="fragments/navbar :: navbar"></div>
 
 <main>
 
@@ -202,8 +193,6 @@
     <br><br>
     <a th:href="@{/challenge/{id}(id=${challengeId})}">Retour au Challenge</a>
 </main>
-<footer>
-    <label><em>Copyright © 2025 Writivity™</em></label>
-</footer>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
