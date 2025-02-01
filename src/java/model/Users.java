@@ -24,6 +24,7 @@ public class Users {
     @Column(name = "isadmin", nullable = false)
     private boolean isAdmin = false;
 
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Text> texts = new ArrayList<>();
 
