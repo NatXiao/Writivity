@@ -73,7 +73,7 @@ public class SingleTextController {
         model.addAttribute("mean", mean);
 
 
-        List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users)session.getAttribute("user")).getUser_id());
+        List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users)session.getAttribute("user")).getUserId());
 
         if (userRate.isEmpty())
             model.addAttribute("userRate", 0);
@@ -101,19 +101,19 @@ public class SingleTextController {
 
         Rate r = new Rate();
         r.setTextId(textId);
-        r.setUserId(((Users)session.getAttribute("user")).getUser_id());
+        r.setUserId(((Users)session.getAttribute("user")).getUserId());
         r.setRate(rate);
 
         System.out.println(r.getUserId() + " / " + r.getTextId() + " / " + r.getRate());
 
-        List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users)session.getAttribute("user")).getUser_id());
+        List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users)session.getAttribute("user")).getUserId());
 
         if(userRate.isEmpty())
             rateRepository.save(r);
         else
             rateRepository.updateRateByRateId(r.getRate(), userRate.get(0).getRateId());
 
-        model.addAttribute("userId", ((Users)session.getAttribute("user")).getUser_id());
+        model.addAttribute("userId", ((Users)session.getAttribute("user")).getUserId());
 
         return "redirect:/singleText/" + challengeId + "/" + textId;  // Nom de la page HTML à afficher
     }
