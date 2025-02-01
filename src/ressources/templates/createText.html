@@ -12,7 +12,7 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <main>
     <h2 th:text="|Create a Text for ${challengeName}|"></h2>
-    <!--<h2>Create a Text for</h2>-->
+    <!--<label style="color: red" th:if="${toomany}" th:text="${toomany}"></label>-->
     <form th:action="@{/register_new_text/{challengeId}(challengeId=${challengeId})}" method="post" th:object="${text}">
         <label for="text_name">Title</label>
         <input type="text" id="text_name" th:field="*{textTitle}"> <br>
