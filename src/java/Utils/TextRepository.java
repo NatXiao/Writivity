@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TextRepository extends JpaRepository<Text, Long> {
+public interface TextRepository extends JpaRepository<Text, Integer> {
     //Optional<Text> findByText_title(String text_title);
     //Optional<Text> findByBody(String body);
     Optional<Text> findByStatus(String status);
+
     //Optional<Text> findByText_submit(Boolean text_submit);
     //Optional<Text> findBySubmittedAt(Timestamp submitted_at);
     Optional<Text> findByReportedTrue();

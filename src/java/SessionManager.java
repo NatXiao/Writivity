@@ -34,5 +34,4 @@ public class SessionManager {
             return false;
         return true;
     }
-
 }

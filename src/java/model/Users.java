@@ -1,5 +1,9 @@
 package src.java.model;
+
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -7,21 +11,24 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer user_id;
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
     @Column(name = "username", nullable = false)
     private String username;
     @Column(name = "pseudo", nullable = false)
     private String pseudo;
     @Column(name = "mail", nullable = false)
     private String mail;
-    @Column(name = "password",nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "isadmin", nullable = false)
     private boolean isAdmin = false;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Text> texts = new ArrayList<>();
 
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
     public String getPseudo() {
@@ -45,8 +52,8 @@ public class Users {
     }
 
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer user_id) {
+        this.userId = user_id;
     }
 
     public void setPseudo(String pseudo) {

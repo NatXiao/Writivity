@@ -1,8 +1,17 @@
 package src.java.Controllers;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.Mergeable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import src.java.SessionManager;
+import src.java.Utils.ChallengeRepository;
+import src.java.Utils.UserRepository;
+import src.java.model.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import src.java.Utils.RateRepository;
 import src.java.model.*;
@@ -29,6 +38,12 @@ public class SingleTextController {
 
     @Autowired
     private RateRepository rateRepository;
+
+    @Autowired
+    private ChallengeRepository challengeRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @GetMapping("/singleText/{challengeId}/{textId}")
     public String getTextDetail(@PathVariable("challengeId") Integer challengeId,
@@ -69,6 +84,16 @@ public class SingleTextController {
         return "singleText";  // Nom de la page HTML à afficher
     }
 
+    @GetMapping("/createText/{challengeId}")
+    public String redirectToTextCreate(@PathVariable("challengeId") Integer challengeId, Model model, HttpSession session) {
+        model.addAttribute("text", new Text());
+        model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
+        model.addAttribute("challengeId", challengeId);
+
+        System.out.println("Challenge ID reçu dans la page: " + challengeId); // Debug
+
+        return "createText";
+    }
 
     @GetMapping("/rate/{challengeId}/{textId}/{rate}")
     public String rateText(@PathVariable("challengeId") Integer challengeId,
@@ -94,21 +119,30 @@ public class SingleTextController {
     }
 
 
-    @PostMapping("/register_new_text")
-    public String registerNewText(@ModelAttribute("text") Text text, Model model) {
+    @PostMapping("/register_new_text/{challengeId}")
+    @Transactional
+    public String registerNewText(@ModelAttribute("text") Text text, @PathVariable("challengeId") Integer challengeId,
+                                  Model model, HttpSession session) {
         // Enregistrer le nouveau texte dans la base de données
         model.addAttribute("text", text);
+        Users user = (Users) session.getAttribute("user");
+        //user = entityManager.merge(user);
+        Challenge challenge = challengeRepository.findByChallengeId(challengeId);
+
         text.setStatus("pending");
         text.setTextSubmit(true);
         text.setSubmittedAt(new java.sql.Timestamp(System.currentTimeMillis()));
+        text.setUser(user);
+        text.setChallenge(challenge);
 
-        System.out.println("Username: " + text.getUser().getUsername());
+        System.out.println("Username: " + user.getUsername());
+        System.out.println("User ID: " + text.getUserId());
         System.out.println("Challenge ID: " + text.getChallenge().getChallengeId());
         System.out.println("Title: " + text.getTextTitle());
         System.out.println("Body: " + text.getBody());
 
         textRepository.save(text);
 
-        return "redirect:/singleChallenge";  // Rediriger vers la page d'accueil
+        return "redirect:/home";  // Rediriger vers la page d'accueil
     }
 }
