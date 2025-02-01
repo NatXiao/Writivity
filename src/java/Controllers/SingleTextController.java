@@ -28,12 +28,6 @@ import java.util.Optional;
 @Controller
 public class SingleTextController {
 
-    //@GetMapping("/textId")
-    //public String singleText(Model model1, Model model2){
-    //    model1.addAttribute("Text", new Text());
-    //    model2.addAttribute("Comment", new ArrayList<Comment>());
-    //    return "singleText";
-    //}
     @Autowired
     private TextRepository textRepository;
 
@@ -42,9 +36,6 @@ public class SingleTextController {
 
     @Autowired
     private ChallengeRepository challengeRepository;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @GetMapping("/singleText/{challengeId}/{textId}")
     public String getTextDetail(@PathVariable("challengeId") Integer challengeId,
@@ -61,6 +52,9 @@ public class SingleTextController {
         }
 
         List<Rate> rates = rateRepository.findByTextId(textId);
+        List<Comment> comments = text.getComments();
+
+        model.addAttribute("comments", comments);
 
         float mean = 0;
         if (!rates.isEmpty()) {
@@ -69,7 +63,6 @@ public class SingleTextController {
             }
             mean /= rates.size();
         }
-
 
         int roundedMean = Math.round(mean);
 
@@ -86,25 +79,6 @@ public class SingleTextController {
         model.addAttribute("userId", ((Users)session.getAttribute("user")).getUserId());
 
         return "singleText";  // Nom de la page HTML à afficher
-    }
-
-    @GetMapping("/createText/{challengeId}")
-    public String redirectToTextCreate(@PathVariable("challengeId") Integer challengeId, Model model, HttpSession session) {
-
-        Optional<Challenge> challenge = challengeRepository.findById(Long.valueOf(challengeId));
-
-        if (challenge.isPresent()) {
-            model.addAttribute("challengeName", challenge.get().getChallengeName());
-        } else {
-            model.addAttribute("challengeName", "Unknown Challenge");
-        }
-
-
-        model.addAttribute("text", new Text());
-        model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
-        model.addAttribute("challengeId", challengeId);
-
-        return "createText";
     }
 
     @GetMapping("/rate/{challengeId}/{textId}/{rate}")
@@ -129,10 +103,29 @@ public class SingleTextController {
     }
 
 
+    @GetMapping("/createText/{challengeId}")
+    public String redirectToTextCreate(@PathVariable("challengeId") Integer challengeId, Model model, HttpSession session) {
+
+        Optional<Challenge> challenge = challengeRepository.findById(Long.valueOf(challengeId));
+
+        if (challenge.isPresent()) {
+            model.addAttribute("challengeName", challenge.get().getChallengeName());
+        } else {
+            model.addAttribute("challengeName", "Unknown Challenge");
+        }
+
+        model.addAttribute("text", new Text());
+        model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
+        model.addAttribute("challengeId", challengeId);
+
+        return "createText";
+    }
+
     @PostMapping("/register_new_text/{challengeId}")
     @Transactional
     public String registerNewText(@ModelAttribute("text") Text text, @PathVariable("challengeId") Integer challengeId,
                                   Model model, HttpSession session) {
+
         // Enregistrer le nouveau texte dans la base de données
         model.addAttribute("text", text);
         Users user = (Users) session.getAttribute("user");
@@ -153,6 +146,6 @@ public class SingleTextController {
 
         textRepository.save(text);
 
-        return "redirect:/home";  // Rediriger vers la page d'accueil
+        return "redirect:/home";
     }
 }
