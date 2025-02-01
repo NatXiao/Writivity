@@ -16,7 +16,7 @@ public interface TextRepository extends JpaRepository<Text, Long> {
     Optional<Text> findByStatus(String status);
     //Optional<Text> findByText_submit(Boolean text_submit);
     //Optional<Text> findBySubmittedAt(Timestamp submitted_at);
-    Optional<Text> findByReported(Boolean reported);
+    Optional<Text> findByReportedTrue();
     Optional<Text> findByDisqualified(Boolean disqualified);
 
     @Query("SELECT t FROM Text t JOIN FETCH t.user u WHERE t.challenge.challengeId = :challengeId AND t.textSubmit = true")
