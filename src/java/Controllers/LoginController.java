@@ -7,10 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import src.java.SessionManager;
 import src.java.Utils.PasswordUtil;
 import src.java.Utils.UserRepository;
 import src.java.model.LoginModel;
+import src.java.model.Users;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 @Controller
 public class LoginController {
@@ -39,19 +44,34 @@ public class LoginController {
 
         model.addAttribute("log", login);
 
+        System.out.println(login.getIdentifiant());
+        System.out.println(login.getPassword());
 
-        //System.out.println(login.getPassword());
-        String hashPassword = userRepository.findByMail(login.getMail()).get().getPassword();
-        //boolean loginSuccessful = UserService.verifyUserPassword(login.getMail(), login.getPassword());
-        boolean loginSuccess = PasswordUtil.verifyPassword(login.getPassword(),
-                hashPassword);
-        System.out.println("Mail: " + login.getMail());
-        System.out.println("Password: " + login.getPassword());
-        System.out.println("Hashed Password: " + hashPassword);
+        Users user = null;
+        if(login.getIdentifiant().contains("@")) {
+            if (userRepository.findByMail(login.getIdentifiant()).isPresent())
+                user = userRepository.findByMail(login.getIdentifiant()).get();
+        }
+        else {
+            if (userRepository.findByUsername(login.getIdentifiant()).isPresent())
+                user = userRepository.findByUsername(login.getIdentifiant()).get();
+        }
+
+        if(user == null){
+            session.setAttribute("error", "Il n'y a pas d'utilisateur avec cet identifiant ou cet email !");
+
+            session.setAttribute("page", "login");
+            model.addAttribute("error", session.getAttribute("error"));
+
+            return "redirect:/login";
+        }
+
+        String hashPassword = user.getPassword();
+        boolean loginSuccess = PasswordUtil.verifyPassword(login.getPassword(), hashPassword);
 
         if (loginSuccess) {
             System.out.println("Login successful");
-            SessionManager.LogUser(session, userRepository.findByMail(login.getMail()).get());
+            SessionManager.LogUser(session, user);
             session.setAttribute("error", "");
             return "redirect:/home";
         } else {

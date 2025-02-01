@@ -9,29 +9,31 @@ public class LoginModel {
     @Column(name = "user_id")
     private Long id;
     @Column(name = "mail", nullable = false)
-    private String mail;
+    private String identifiant;
     @Column(name = "password", nullable = false)
     private String password;
 
-    public String getMail() {
-        return mail;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getIdentifiant() {
+        return identifiant;
+    }
+
+    public void setIdentifiant(String identifiant) {
+        this.identifiant = identifiant;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public Long getId() { return id; }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

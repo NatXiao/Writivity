@@ -23,12 +23,11 @@
 
             <form role="form" th:action="@{/login_user}" method="post" th:object="${log}">
 
-
                 <div align="left">
-                    <label class="signup-label">Email</label>
+                    <label class="signup-label">Email ou Username</label>
                 </div>
                 <div align="left">
-                    <input class="signup-input" type="email" th:field="*{mail}">
+                    <input class="signup-input" type="text" th:field="*{identifiant}">
                 </div>
 
                 <div align="left" style="padding-top: 10px">
