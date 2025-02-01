@@ -119,7 +119,7 @@ public class TextController {
 
         model.addAttribute("text", new Text());
         model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
-        model.addAttribute("challengeId", challengeId);
+        model.addAttribute("challenge", challenge.get());
 
         return "createText";
     }
@@ -129,10 +129,10 @@ public class TextController {
     public String registerNewText(@ModelAttribute("text") Text text, @PathVariable("challengeId") Integer challengeId,
                                   Model model, HttpSession session,  RedirectAttributes redirectAttributes) {
         Challenge challenge = challengeRepository.findByChallengeId(challengeId);
-        if(text.getBody().trim().split("\\s").length > challenge.getWordLimit() ){
+        /*if(text.getBody().trim().split("\\s").length > challenge.getWordLimit() )
+            return "redirect:/createText/{challengeId}";*/
             //redirectAttributes.addFlashAttribute("toomany", "Vous avez écrit trop de mots!");
-            return "redirect:/createText/{challengeId}";
-        }else{
+
         // Enregistrer le nouveau texte dans la base de données
         model.addAttribute("text", text);
         Users user = (Users) session.getAttribute("user");
@@ -154,6 +154,6 @@ public class TextController {
         textRepository.save(text);
 
         return "redirect:/home";
-        }
+
     }
 }

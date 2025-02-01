@@ -14,14 +14,22 @@
     <h2 th:text="|Create a Text for ${challengeName}|"></h2>
     <!--<label style="color: red" th:if="${toomany}" th:text="${toomany}"></label>-->
     <form th:action="@{/register_new_text/{challengeId}(challengeId=${challengeId})}" method="post" th:object="${text}">
-        <label for="text_name">Title</label>
-        <input type="text" id="text_name" th:field="*{textTitle}"> <br>
-        <label for="text_body">Text</label>
-        <input type="text" id="text_body" th:field="*{body}">
-        <br>
-        <input type="submit" value="submit">
+        <!--<label for="text_name">Title</label>-->
+        <input type="text" placeholder="Ici, le titre !" id="text_name" th:field="*{textTitle}"> <br>
+
+        <div  style="padding-top: 10px">
+            <!--<label for="text_body">Text</label>-->
+            <textarea style="width: 800px; height: 200px" placeholder="Ecrivez votre texte ici !" id="text_body" th:field="*{body}" th:maxlength="${challenge.getWordLimit()}"> </textarea>
+        </div>
+
+        <div style="padding-top: 10px">
+            <input type="submit" value="submit">
+        </div>
+
     </form>
-    <a th:href="@{'/challenge/' + ${challengeId}}">Retour au Challenge</a>
+
+    <a style="padding-top: 10px" th:href="@{'/challenge/' + ${challengeId}}">Retour au Challenge</a>
+
 </main>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
