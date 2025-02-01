@@ -8,6 +8,7 @@ import org.springframework.beans.Mergeable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import src.java.SessionManager;
 import src.java.Utils.ChallengeRepository;
 import src.java.Utils.UserRepository;
@@ -126,11 +127,10 @@ public class TextController {
     @PostMapping("/register_new_text/{challengeId}")
     @Transactional
     public String registerNewText(@ModelAttribute("text") Text text, @PathVariable("challengeId") Integer challengeId,
-                                  Model model, HttpSession session) {
+                                  Model model, HttpSession session,  RedirectAttributes redirectAttributes) {
         Challenge challenge = challengeRepository.findByChallengeId(challengeId);
-        System.out.println((text.toString().split(" ").length > challenge.getWordLimit()) + " " + (text.toString().split(" ").length)+ " " + challenge.getWordLimit() );
         if(text.getBody().trim().split("\\s").length > challenge.getWordLimit() ){
-            System.out.println((text.toString().split(" ").length > challenge.getWordLimit()) + " " + (text.toString().split(" ").length)+ " " + challenge.getWordLimit() );
+            //redirectAttributes.addFlashAttribute("toomany", "Vous avez écrit trop de mots!");
             return "redirect:/createText/{challengeId}";
         }else{
         // Enregistrer le nouveau texte dans la base de données
