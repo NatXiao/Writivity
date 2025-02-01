@@ -7,95 +7,103 @@
     <link rel="icon" type="image/x-icon" href="/gfx/icon2.png">
 </head>
 
-<header>
-    <h1>SIGN UP</h1>
-</header>
+<body>
 
-<main>
+    <header>
+        <h1>SIGN UP</h1>
+    </header>
 
-    <div align="center">
+    <main>
 
-        <div style="width: 300px; height: 500px">
+        <div align="center">
 
-            <form role="form" th:action="@{/register_new_user}" method="post" th:object="${user}">
+            <div style="width: 300px; height: 500px">
 
-                <div align="left">
-                    <label class="signup-label">Enter Name</label>
-                </div>
-                <div align="left">
-                    <input class="signup-input" type="text" th:field="*{username}">
-                </div>
+                <form role="form" th:action="@{/register_new_user}" method="post" th:object="${user}">
 
-                <div align="left" style="padding-top: 10px">
-                    <label class="signup-label">Enter Pseudo</label>
-                </div>
-                <div align="left">
-                    <input class="signup-input" type="text" th:field="*{pseudo}">
-                </div>
+                    <div align="left">
+                        <label class="signup-label">Enter Name</label>
+                    </div>
+                    <div align="left">
+                        <input class="signup-input" type="text" th:field="*{username}">
+                    </div>
+
+                    <div align="left" style="padding-top: 10px">
+                        <label class="signup-label">Enter Pseudo</label>
+                    </div>
+                    <div align="left">
+                        <input class="signup-input" type="text" th:field="*{pseudo}">
+                    </div>
 
 
 
-                <script>
+                    <script>
 
-                    function changeColor(){
+                        function changeColor(){
 
-                        if (document.getElementById("box1").value === document.getElementById("box2").value && document.getElementById("box1").value !== ""){
-                            document.getElementById("box1").style.backgroundColor = "#00FF21";
-                            document.getElementById("box2").style.backgroundColor = "#00FF21";
-                            document.getElementById("submit").disabled = false;
-                        }else{
-                            document.getElementById("box1").style.backgroundColor = "red";
-                            document.getElementById("box2").style.backgroundColor = "red";
-                            document.getElementById("submit").disabled = true;
+                            if (document.getElementById("box1").value === document.getElementById("box2").value && document.getElementById("box1").value !== ""){
+                                document.getElementById("box1").style.backgroundColor = "#00FF21";
+                                document.getElementById("box2").style.backgroundColor = "#00FF21";
+                                document.getElementById("submit").disabled = false;
+                            }else{
+                                document.getElementById("box1").style.backgroundColor = "red";
+                                document.getElementById("box2").style.backgroundColor = "red";
+                                document.getElementById("submit").disabled = true;
+                            }
+
                         }
 
-                    }
-
-                </script>
+                    </script>
 
 
 
-                <div align="left" style="padding-top: 10px">
-                    <label class="signup-label">Enter Password</label>
-                </div>
-                <div align="left">
-                    <input class="signup-input" id="box1" value="" type="password" th:field="*{password}"  onkeyup="changeColor()" onchange="changeColor()" onclick="changeColor()">
-                </div>
+                    <div align="left" style="padding-top: 10px">
+                        <label class="signup-label">Enter Password</label>
+                    </div>
+                    <div align="left">
+                        <input class="signup-input" id="box1" value="" type="password" th:field="*{password}"  onkeyup="changeColor()" onchange="changeColor()" onclick="changeColor()">
+                    </div>
 
 
 
-                <div align="left" style="padding-top: 10px">
-                    <label class="signup-label">Valid Password</label>
-                </div>
-                <div align="left">
-                    <input class="signup-input" id="box2" value="" type="password" th:field="${passwordValidation}" onkeyup="changeColor()" onchange="changeColor()" onclick="changeColor()">
-                </div>
+                    <div align="left" style="padding-top: 10px">
+                        <label class="signup-label">Valid Password</label>
+                    </div>
+                    <div align="left">
+                        <input class="signup-input" id="box2" value="" type="password" th:field="${passwordValidation}" onkeyup="changeColor()" onchange="changeColor()" onclick="changeColor()">
+                    </div>
 
 
 
-                <div align="left" style="padding-top: 10px">
-                    <label class="signup-label">Enter E-mail</label>
-                </div>
-                <div align="left">
-                    <input class="signup-input" type="email" th:field="*{mail}">
-                </div>
+                    <div align="left" style="padding-top: 10px">
+                        <label class="signup-label">Enter E-mail</label>
+                    </div>
+                    <div align="left">
+                        <input class="signup-input" type="email" th:field="*{mail}">
+                    </div>
+
+                    <div style="padding-top: 10px">
+                        <button id="submit" disabled="disabled" type="submit">Register</button>
+                    </div>
+
+                </form>
 
                 <div style="padding-top: 10px">
-                    <button id="submit" disabled="disabled" type="submit">Register</button>
+                    <a href="/">already sign in? Log in</a>
                 </div>
 
-            </form>
-
-            <div style="padding-top: 10px">
-                <a href="/">already sign in? Log in</a>
             </div>
-
         </div>
-    </div>
 
-</main>
+    </main>
 
-<label style="color: red" th:text="${error}" ></label>
+    <label style="color: red" th:text="${error}" ></label>
+
+    <footer>
+        <label><em>Copyright © 2025 Writivity™</em></label>
+    </footer>
+
+</body>
 
 
 </html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Writivity</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/gfx/icon2.png">
+</head>
+<body>
+<header>
+    <h1>Admin</h1>
+</header>
+<nav>
+    <a href="/home">Homepage</a> |
+    <a href="/profile">Profile</a> |
+    <a href="/createChallenge">Create a new challenge</a> |
+    <tr th:if="${isAdmin == true}">
+        | <a href="/stats">Admin</a>
+    </tr>
+</nav>
+<main>
+    <h2 class="h2">Utilisateurs</h2>
+    <table style="width: 100%;">
+        <thead>
+        <tr>
+            <th class="wordLimitList">Nom</th>
+            <th class="challengeList">email</th>
+            <th class="wordLimitList">Ecrivain</th>
+            <th class="datelist">Nombre de report</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${users.isEmpty()}">
+            <td colspan="3" style="text-align: center;">Aucun utilisateur en base de donnée</td>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td>
+                <span th:text="${user.pseudo}">Nom</span>
+            </td>
+            <td><span th:text="${user.mail}">email</span></td>
+            <td><span th:text="${user.username}">écrivain</span></td>
+            <td><span th:text="${user.pseudo}">report</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <h2 class="h2">Text report</h2>
+    <table style="width: 100%;">
+        <thead>
+        <tr>
+            <th class="wordLimitList">contenu</th>
+            <th class="challengeList">email</th>
+            <th class="wordLimitList">Ecrivain</th>
+            <th class="datelist">Nombre de report</th>
+            <th class="datelist">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Liste des challenges en cours -->
+        <tr th:each="text : ${textsreported}">
+            <td>
+                <span th:text="${text.pseudo}">Nom</span>
+            </td>
+            <td><span th:text="${text.challenge_id}">challenge</span></td>
+            <td><span th:text="${text.submitted_at}">écrivain</span></td>
+            <td><span th:text="${text.submitted_at}">écrivain</span></td>
+            <td>
+            <td>
+            <form th:action="@{/admin/delete/{id}(id=${text.textId})}" method="post">
+                <button type="submit">Disqualifier</button>
+            </form>
+            <form th:action="@{/admin/unreport/{id}(id=${text.textId})}" method="post">
+                <button type="submit">Unreport</button>
+            </form>
+        </td></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer>
+    <label><em>Copyright © 2025 Writivity™</em></label>
+</footer>
+</body>
+</html>

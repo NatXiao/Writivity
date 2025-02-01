@@ -6,10 +6,12 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" type="image/x-icon" href="/gfx/icon2.png">
 </head>
-<body>
+<body onload="baseStar()">
+
 <header>
     <h1>Détails du Texte : <span th:text="${text.textTitle}"></span></h1>
 </header>
+
 <nav>
     <a href="/home">Homepage</a> |
     <a href="/profile">Profile</a> |
@@ -19,22 +21,183 @@
         | <a href="/stats">Admin</a>
     </tr>
 </nav>
+
 <main>
-    <!-- Affichage des détails du texte -->
+
+    <table style="width: 100%;">
+
+        <tbody><tr>
+
+            <td style="width: 40%;">
+
+                <script th:inline="javascript">
+
+                    function changeRate1(){
+                        document.getElementById("star1").style.color = "yellow";
+                    }
+                    function changeRate2(){
+                        document.getElementById("star1").style.color = "yellow";
+                        document.getElementById("star2").style.color = "yellow";
+                    }
+                    function changeRate3(){
+                        document.getElementById("star1").style.color = "yellow";
+                        document.getElementById("star2").style.color = "yellow";
+                        document.getElementById("star3").style.color = "yellow";
+                    }
+                    function changeRate4(){
+                        document.getElementById("star1").style.color = "yellow";
+                        document.getElementById("star2").style.color = "yellow";
+                        document.getElementById("star3").style.color = "yellow";
+                        document.getElementById("star4").style.color = "yellow";
+                    }
+                    function changeRate5() {
+                        document.getElementById("star1").style.color = "yellow";
+                        document.getElementById("star2").style.color = "yellow";
+                        document.getElementById("star3").style.color = "yellow";
+                        document.getElementById("star4").style.color = "yellow";
+                        document.getElementById("star5").style.color = "yellow";
+                    }
+
+
+
+                    function baseStar(){
+
+                        let rate = /*[[${userRate}]]*/ '0';
+
+                        document.getElementById("star1").style.color = "gray";
+                        document.getElementById("star2").style.color = "gray";
+                        document.getElementById("star3").style.color = "gray";
+                        document.getElementById("star4").style.color = "gray";
+                        document.getElementById("star5").style.color = "gray";
+
+                        if (rate >= 1)
+                            document.getElementById("star1").style.color = "gold";
+
+                        if (rate >= 2)
+                            document.getElementById("star2").style.color = "gold";
+
+                        if (rate >= 3)
+                            document.getElementById("star3").style.color = "gold";
+
+                        if (rate >= 4)
+                            document.getElementById("star4").style.color = "gold";
+
+                        if (rate === 5)
+                            document.getElementById("star5").style.color = "gold";
+                    }
+
+                </script>
+
+                <!-- Affichage des détails du texte -->
+                <h2 align="left"><em>Super Mario Land 2</em></h2>
+
+                <div align="left">
+                    <a style="font-size: 20px">Notation générale : </a>
+
+                    <a th:if="${roundedMean == 5}">
+                        <a style="color: gold; font-size: 25px;">★★★★★</a>
+                        <a th:text="${mean} + ' / 5.0'"></a>
+                    </a>
+
+                    <a th:if="${roundedMean == 4}">
+                        <a style="color: gold; font-size: 25px; border-spacing: 0">★★★★</a><a style="color: gray; font-size: 25px;">★</a>
+                        <a th:text="${mean} + ' / 5.0'"></a>
+                    </a>
+
+                    <a th:if="${roundedMean == 3}">
+                        <a style="color: gold; font-size: 25px;">★★★</a><a style="color: gray; font-size: 25px;">★★</a>
+                        <a th:text="${mean} + ' / 5.0'"></a>
+                    </a>
+
+                    <a th:if="${roundedMean == 2}">
+                        <a style="color: gold; font-size: 25px;">★★</a><a style="color: gray; font-size: 25px;">★★★</a>
+                        <a th:text="${mean} + ' / 5.0'"></a>
+                    </a>
+
+                    <a th:if="${roundedMean == 1}">
+                        <a style="color: gold; font-size: 25px;">★</a><a style="color: gray; font-size: 25px;">★★★★</a>
+                        <a th:text="${mean} + ' / 5.0'"></a>
+                    </a>
+
+                </div>
+
+                <h3 align="left">Soumis par : <span>Discretos</span></h3>
+                <p align="left"><strong>Statut : </strong><span>En cours...</span></p>
+                <p align="left"><strong>Date de soumission : </strong><span>2025-10-10 00:00:00.0</span></p>
+
+                <!-- Noter le texte -->
+                <div th:if="${userRate} == text.textId"  align="left" style="padding-bottom: 10px;">
+
+                    <a style="font-size: 20px">Un avis sur la question ? : </a>
+                    <a th:href="@{/rate/{challengeId}/{textId}/{rate}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId}, rate=1)}"
+                            style="color: gray; font-size: 30px; cursor: pointer;" id="star1" onmouseenter="changeRate1()" onmouseleave="baseStar()">★</a><!--
+                    --><a th:href="@{/rate/{challengeId}/{textId}/{rate}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId}, rate=2)}"
+                            style="color: gray; font-size: 30px; cursor: pointer;" id="star2" onmouseenter="changeRate2()" onmouseleave="baseStar()">★</a><!--
+                    --><a th:href="@{/rate/{challengeId}/{textId}/{rate}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId}, rate=3)}"
+                            style="color: gray; font-size: 30px; cursor: pointer;" id="star3" onmouseenter="changeRate3()" onmouseleave="baseStar()">★</a><!--
+                    --><a th:href="@{/rate/{challengeId}/{textId}/{rate}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId}, rate=4)}"
+                            style="color: gray; font-size: 30px; cursor: pointer" id="star4" onmouseenter="changeRate4()" onmouseleave="baseStar()">★</a><!--
+                    --><a th:href="@{/rate/{challengeId}/{textId}/{rate}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId}, rate=5)}"
+                            style="color: gray; font-size: 30px; cursor: pointer" id="star5" onmouseenter="changeRate5()" onmouseleave="baseStar()">★</a>
+
+                </div>
+
+                <div th:if="${userRate} != text.textId"  align="left" style="padding-bottom: 10px;">
+                    <a style="font-size: 20px">Un avis sur la question ?</a><a style="font-size: 10px"> : tu ne peux pas noter ton propre text</a>
+                </div>
+
+
+                <!-- Bouton pour signaler -->
+                <button type="button">Signaler</button>
+
+
+            </td>
+
+            <td rowspan="2" style="width: 60%; vertical-align: top">
+
+                <p align="left"><strong>Contenu : </strong><span>Super Mario Bros.</span></p>
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                <p align="left">Commentaires : </p>
+                <div>
+                    <p align="left"><span>Discretos</span> - <span>Super !!!!</span></p>
+                </div>
+
+            </td>
+
+        </tr>
+
+        </tbody></table>
+
+
+
+
+
+
+
+
+
+    <!-- Affichage des détails du texte
     <h2 th:text="${text.textTitle}">Titre du texte</h2>
     <h3>Soumis par : <span th:text="${text.userId.username}"></span></h3>
     <p><strong>Contenu : </strong><span th:text="${text.body}"></span></p>
     <p><strong>Statut : </strong><span th:text="${text.status}"></span></p>
-    <p><strong>Date de soumission : </strong><span th:text="${text.submittedAt}"></span></p>
+    <p><strong>Date de soumission : </strong><span th:text="${text.submittedAt}"></span></p>-->
 
-    <!-- Bouton pour signaler -->
-    <button type="button">Signaler</button>
+    <!-- Bouton pour signaler
+    <button type="button">Signaler</button>-->
 
-    <!-- Liste des commentaires -->
+    <!-- Liste des commentaires
     <h4>Commentaires</h4>
     <div th:each="comment : ${text.comments}">
         <p><span th:text="${comment.body}"></span> - <span th:text="${comment.user.username}"></span></p>
-    </div>
+    </div>-->
 
     <br><br>
     <a th:href="@{/challenge/{id}(id=${challengeId})}">Retour au Challenge</a>

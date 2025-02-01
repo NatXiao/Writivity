@@ -28,33 +28,31 @@
     <a href="/home">Retour à l'accueil</a> |
     <a th:href="@{'/createText/' + ${Challenge.challengeId}}">Créer un texte</a>
 
-    <h2 class="h2">Liste des Textes soumis</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Titre du Texte</th>
-            <th>Participant</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Si aucun texte n'est disponible -->
-        <tr th:if="${#lists.isEmpty(Text)}">
-            <td colspan="3" style="text-align: center;">Aucun texte soumis pour ce challenge</td>
-        </tr>
-        <!-- Liste des textes -->
-        <tr th:each="t : ${Text}">
-            <td>
-                <a th:href="@{/singleText/{challengeId}/{textId}(challengeId=${Challenge.challengeId}, textId=${t.textId})}"
-                   th:text="${t.textTitle}">Titre du Texte</a>
-            </td>
-            <td><span th:text="${t.user.username}">Nom du Participant</span></td>
-            <td>
-                <button type="button">qlq chose</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+  <h2 class="h2">Liste des Textes soumis</h2>
+  <table  style="width: 100%; align:center">
+    <thead>
+    <tr>
+      <th>Titre du Texte</th>
+      <th>Participant</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Si aucun texte n'est disponible -->
+    <tr th:if="${#lists.isEmpty(Text)}">
+      <td colspan="3" style="text-align: center;">Aucun texte soumis pour ce challenge</td>
+    </tr>
+    <!-- Liste des textes -->
+    <tr th:each="t : ${Text}">
+      <td>
+        <a th:href="@{/singleText/{challengeId}/{textId}(challengeId=${Challenge.challengeId}, textId=${t.textId})}"
+           th:text="${t.textTitle}">Titre du Texte</a>
+      </td>
+      <td><span th:text="${t.user.username}">Nom du Participant</span></td>
+      <td><button type="button">qlq chose</button></td>
+    </tr>
+    </tbody>
+  </table>
 </main>
 <footer>
     <label><em>Copyright © 2025 Writivity™</em></label>
