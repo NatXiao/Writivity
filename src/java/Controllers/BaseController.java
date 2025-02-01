@@ -40,21 +40,6 @@ public class BaseController {
         if (!SessionManager.isLoggedIn(session))
             return "redirect:/login";
 
-        /*Challenge t1 = new Challenge();
-        t1.setThemeId(0);
-        t1.setTheme_name("Aventure");
-        t1.setWord_limit(2000);
-        t1.setOpenAt(LocalDate.now());
-        t1.setClose_at(LocalDate.of(2026, 10, 9));
-        t1.setConditions("Sans la lettre \"Y\"");
-
-        Challenge t2 = new Challenge();
-        t2.setThemeId(1);
-        t2.setTheme_name("Comic");
-        t2.setWord_limit(300);
-        t2.setOpenAt(LocalDate.now());
-        t2.setClose_at(LocalDate.of(2025, 10, 9));
-        t2.setConditions("R.D.T.");*/
         // Récupérer la liste des challenges en cours depuis la DB
         List<Challenge> currentChallenges = challengeRepository.findAll();
         currentChallenges.removeIf(c -> c.getCloseAt().isBefore(LocalDate.now()) || c.getCloseAt().isEqual(LocalDate.now()));
@@ -70,20 +55,6 @@ public class BaseController {
         model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
         return "home";
     }
-    @GetMapping("/profile")
-    public String Profile(Model model, HttpSession session) {
 
-        if (!SessionManager.isLoggedIn(session)) return "redirect:/login";
-
-        model.addAttribute("Users", ((Users) session.getAttribute("user")));
-        model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
-        model.addAttribute("Themes", new ArrayList<Challenge>());
-        model.addAttribute("Text", new ArrayList<Text>());
-        return "profile";
-    }
-    /*@GetMapping("/createText")
-    public String createText(){
-        return "createText";
-    }*/
 
 }
