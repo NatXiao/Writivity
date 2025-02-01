@@ -62,16 +62,18 @@ public class SingleTextController {
         List<Rate> rates = rateRepository.findByTextId(textId);
 
         float mean = 0;
-        for (Rate rate : rates) {
-            mean += rate.getRate();
+        if (!rates.isEmpty()) {
+            for (Rate rate : rates) {
+                mean += rate.getRate();
+            }
+            mean /= rates.size();
         }
-        mean /= rates.size();
+
 
         int roundedMean = Math.round(mean);
 
         model.addAttribute("roundedMean", roundedMean);
         model.addAttribute("mean", mean);
-
 
         List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users)session.getAttribute("user")).getUserId());
 
@@ -80,6 +82,7 @@ public class SingleTextController {
         else
             model.addAttribute("userRate", userRate.get(0).getRate());
 
+        model.addAttribute("userId", ((Users)session.getAttribute("user")).getUserId());
 
         return "singleText";  // Nom de la page HTML à afficher
     }
@@ -112,8 +115,6 @@ public class SingleTextController {
             rateRepository.save(r);
         else
             rateRepository.updateRateByRateId(r.getRate(), userRate.get(0).getRateId());
-
-        model.addAttribute("userId", ((Users)session.getAttribute("user")).getUserId());
 
         return "redirect:/singleText/" + challengeId + "/" + textId;  // Nom de la page HTML à afficher
     }

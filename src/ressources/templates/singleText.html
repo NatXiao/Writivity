@@ -119,6 +119,10 @@
                         <a th:text="${mean} + ' / 5.0'"></a>
                     </a>
 
+                    <a th:if="${mean == 0}">
+                        <a>Il n'y pas de note</a>
+                    </a>
+
                 </div>
 
                 <h3 align="left">Soumis par : <span>Discretos</span></h3>
@@ -126,7 +130,7 @@
                 <p align="left"><strong>Date de soumission : </strong><span>2025-10-10 00:00:00.0</span></p>
 
                 <!-- Noter le texte -->
-                <div th:if="${userRate} == text.textId"  align="left" style="padding-bottom: 10px;">
+                <div th:if="${userId} != ${text.userId}"  align="left" style="padding-bottom: 10px;">
 
                     <a style="font-size: 20px">Un avis sur la question ? : </a>
                     <a th:href="@{/rate/{challengeId}/{textId}/{rate}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId}, rate=1)}"
@@ -142,7 +146,7 @@
 
                 </div>
 
-                <div th:if="${userRate} != text.textId"  align="left" style="padding-bottom: 10px;">
+                <div th:if="${userId} == ${text.userId}"  align="left" style="padding-bottom: 10px;">
                     <a style="font-size: 20px">Un avis sur la question ?</a><a style="font-size: 10px"> : tu ne peux pas noter ton propre text</a>
                 </div>
 
