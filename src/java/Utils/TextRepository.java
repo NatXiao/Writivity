@@ -18,7 +18,7 @@ public interface TextRepository extends JpaRepository<Text, Integer> {
     //Optional<Text> findByText_submit(Boolean text_submit);
     //Optional<Text> findBySubmittedAt(Timestamp submitted_at);
     Optional<Text> findByReportedTrue();
-    List<Text> findByUserId(Integer userId);
+    //List<Text> findByUserId(Integer userId);
 
     @Query("SELECT t FROM Text t JOIN FETCH t.user u WHERE t.challenge.challengeId = :challengeId AND t.textSubmit = true AND t.disqualified = FALSE ")
     List<Text> findTextsByChallengeId(Integer challengeId);
