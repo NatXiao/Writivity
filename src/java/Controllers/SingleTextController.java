@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import src.java.model.Text;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class SingleTextController {
@@ -86,11 +87,19 @@ public class SingleTextController {
 
     @GetMapping("/createText/{challengeId}")
     public String redirectToTextCreate(@PathVariable("challengeId") Integer challengeId, Model model, HttpSession session) {
+
+        Optional<Challenge> challenge = challengeRepository.findById(Long.valueOf(challengeId));
+
+        if (challenge.isPresent()) {
+            model.addAttribute("challengeName", challenge.get().getChallengeName());
+        } else {
+            model.addAttribute("challengeName", "Unknown Challenge");
+        }
+
+
         model.addAttribute("text", new Text());
         model.addAttribute("isAdmin", SessionManager.IsAdmin(session));
         model.addAttribute("challengeId", challengeId);
-
-        System.out.println("Challenge ID reçu dans la page: " + challengeId); // Debug
 
         return "createText";
     }
