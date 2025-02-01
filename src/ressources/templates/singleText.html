@@ -11,16 +11,7 @@
 <header>
     <h1>Détails du Texte : <span th:text="${text.textTitle}"></span></h1>
 </header>
-
-<nav>
-    <a href="/home">Homepage</a> |
-    <a href="/profile">Profile</a> |
-    <a href="/createChallenge">Create a new challenge</a> |
-    <a href="/createText">Créer un texte</a>
-    <tr th:if="${isAdmin == true}">
-        | <a href="/stats">Admin</a>
-    </tr>
-</nav>
+<div th:replace="fragments/navbar :: navbar"></div>
 
 <main>
 
@@ -149,24 +140,15 @@
                 <div th:if="${userId} == ${text.userId}"  align="left" style="padding-bottom: 10px;">
                     <a style="font-size: 20px">Un avis sur la question ?</a><a style="font-size: 10px"> : tu ne peux pas noter ton propre text</a>
                 </div>
-
-
                 <!-- Bouton pour signaler -->
                 <button type="button">Signaler</button>
-
-
             </td>
 
             <td rowspan="2" style="width: 60%; vertical-align: top">
-
                 <p align="left"><strong>Contenu : </strong><span>Super Mario Bros.</span></p>
-
             </td>
-
         </tr>
-
         <tr>
-
             <td>
                 <p align="left">Commentaires : </p>
                 <div>
@@ -174,18 +156,9 @@
                 </div>
 
             </td>
-
         </tr>
-
-        </tbody></table>
-
-
-
-
-
-
-
-
+        </tbody>
+    </table>
 
     <!-- Affichage des détails du texte
     <h2 th:text="${text.textTitle}">Titre du texte</h2>
@@ -206,8 +179,6 @@
     <br><br>
     <a th:href="@{/challenge/{id}(id=${challengeId})}">Retour au Challenge</a>
 </main>
-<footer>
-    <label><em>Copyright © 2025 Writivity™</em></label>
-</footer>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

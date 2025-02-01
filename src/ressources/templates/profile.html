@@ -11,14 +11,7 @@
 <header>
     <h1>Profile</h1>
 </header>
-<nav>
-    <a href="/home">Homepage</a> |
-    <a href="/profile">Profile</a> |
-    <a href="/createChallenge">Create a new challenge</a>
-    <tr th:if="${isAdmin == true}">
-        | <a href="/stats">Admin</a>
-    </tr>
-</nav>
+<div th:replace="fragments/navbar :: navbar"></div>
 <div>
     <h2>Vos données :</h2>
     <span th:text="${Users.username}"></span>
@@ -54,5 +47,6 @@
 <div>
     <a href="/logout">Log out</a>
 </div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

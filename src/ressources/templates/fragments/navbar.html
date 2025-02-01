@@ -1,0 +1,10 @@
+<div th:fragment="navbar">
+<nav>
+  <a href="/home">Homepage</a> |
+  <a href="/profile">Profile</a> |
+  <a href="/createChallenge">Create a new challenge</a>
+  <tr th:if="${isAdmin == true}">
+    | <a href="/admin">Admin</a>
+  </tr>
+</nav>
+</div>

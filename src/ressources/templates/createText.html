@@ -9,23 +9,20 @@
 <header>
     <h1>Create Text</h1>
 </header>
-<nav>
-    <a href="/home">Homepage</a> |
-    <a href="/profile">Profile</a> |
-    <a href="/createChallenge">Create a new challenge</a>
-    <tr th:if="${isAdmin == true}">
-        | <a href="/stats">Admin</a>
-    </tr>
-</nav>
-<h2 th:text="Create a Text for ____"></h2>
-<!--/*@thymesVar id="text" type="src.java.model.Text"*/-->
-<form th:action="@{/register_new_text/{challengeId}(challengeId=${challengeId})}" method="post" th:object="${text}">
-    <label for="text_name">Title</label>
-    <input type="text" id="text_name" th:field="*{textTitle}">
-    <label for="text_body">Text</label>
-    <input type="text" id="text_body" th:field="*{body}">
-    <br>
-    <input type="submit" value="submit">
-</form>
+<main>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <h2 th:text="|Create a Text for ${challengeName}|"></h2>
+    <!--<h2>Create a Text for</h2>-->
+    <form th:action="@{/register_new_text/{challengeId}(challengeId=${challengeId})}" method="post" th:object="${text}">
+        <label for="text_name">Title</label>
+        <input type="text" id="text_name" th:field="*{textTitle}"> <br>
+        <label for="text_body">Text</label>
+        <input type="text" id="text_body" th:field="*{body}">
+        <br>
+        <input type="submit" value="submit">
+    </form>
+    <a th:href="@{'/challenge/' + ${challengeId}}">Retour au Challenge</a>
+</main>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
