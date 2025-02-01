@@ -13,6 +13,8 @@ import src.java.Utils.ChallengeRepository;
 import src.java.Utils.TextRepository;
 import src.java.model.Challenge;
 import src.java.model.Text;
+import src.java.model.Comparator.TextComparator;
+
 import java.util.List;
 
 import java.time.LocalDate;
@@ -43,6 +45,8 @@ public class ChallengeController {
 
         // Récupérer les textes associés à ce challenge
         List<Text> texts = textRepository.findTextsByChallengeId(id);
+
+        texts.sort(new TextComparator());
 
         // Ajouter le challenge et les textes au modèle
         model.addAttribute("Challenge", challenge);

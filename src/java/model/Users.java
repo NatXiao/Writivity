@@ -23,8 +23,18 @@ public class Users {
     private String password;
     @Column(name = "isadmin", nullable = false)
     private boolean isAdmin = false;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Text> texts = new ArrayList<>();
+
+    public List<Text> getTexts() {
+        return texts;
+    }
+
+    public void setTexts(List<Text> texts) {
+        this.texts = texts;
+    }
+
 
 
     public Integer getUserId() {
@@ -50,7 +60,6 @@ public class Users {
     public Boolean isAdmin() {
         return isAdmin;
     }
-
 
     public void setUserId(Integer user_id) {
         this.userId = user_id;

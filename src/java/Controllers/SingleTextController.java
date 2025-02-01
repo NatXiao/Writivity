@@ -78,6 +78,8 @@ public class SingleTextController {
 
         model.addAttribute("userId", ((Users)session.getAttribute("user")).getUserId());
 
+        System.out.println("RATES : " + text.getAverage());
+
         return "singleText";  // Nom de la page HTML à afficher
     }
 

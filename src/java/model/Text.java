@@ -3,7 +3,9 @@ package src.java.model;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.List;  // Ajout de l'import pour List
+import java.util.OptionalDouble;
 
 @Entity
 @Table(name = "text_p")  // Spécifie que cette entité est mappée à la table 'text_p'
@@ -44,6 +46,19 @@ public class Text {
     @Column
     private boolean disqualified;
 
+
+    @OneToMany(mappedBy = "textId", fetch = FetchType.LAZY)
+    private List<Rate> rates;
+
+    public double getAverage() {
+        if(rates.stream().map(Rate::getRate).mapToInt(Integer::intValue).average().isPresent())
+            return rates.stream().map(Rate::getRate).mapToInt(Integer::intValue).average().getAsDouble();
+        return 0.0f;
+    }
+
+
+
+
     // Nouvelle relation ajoutée ici
     @OneToMany(mappedBy = "text", fetch = FetchType.LAZY)
     private List<Comment> comments;
@@ -68,14 +83,6 @@ public class Text {
     public void setTextId(Integer textId) {
         this.textId = textId;
     }
-
-    /*public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }*/
 
     public Challenge getChallenge() {
         return challenge;
@@ -158,3 +165,4 @@ public class Text {
     }
 
 }
+
