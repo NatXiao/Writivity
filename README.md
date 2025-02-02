@@ -41,14 +41,38 @@ The Writivity project is structured to separate concerns, making it easier to ma
 - The project uses JPA (Java Persistence API) to interact with the database, with each model mapped to a corresponding database table.
 - Repositories extend `JpaRepository`, providing built-in methods for common database operations.
 
-### 4. User Interaction Flow
+### 4. Database Structure
+The Writivity project utilizes a relational database to store its data. The main tables include:
+
+- **Users Table**: 
+  - Stores user information such as `id`, `username`, `email`, and `password`.
+  - Each user can have multiple submissions associated with them.
+
+- **Challenges Table**: 
+  - Contains details about each writing challenge, including `id`, `name`, `description`, `conditions`, `word_limit`, `start_date`, and `end_date`.
+  - Each challenge can have multiple texts submitted by different users.
+
+- **Texts Table**: 
+  - Stores submitted texts with attributes like `id`, `title`, `body`, `submission_date`, and `status`.
+  - Each text is linked to a specific user and a challenge.
+
+- **Comments Table**: 
+  - Contains comments made by users on submitted texts, with fields such as `id`, `text_id`, `user_id`, and `content`.
+
+- **Rates Table**: 
+  - Stores ratings given to texts, including `id`, `text_id`, `user_id`, and `rating_value`.
+
+This relational structure allows for efficient querying and management of data, ensuring that users can easily access and interact with challenges and submissions.
+
+
+### 5. User Interaction Flow
 1. **User  Registration/Login**: Users register or log in through the `LoginController`.
 2. **Homepage Navigation**: Upon successful login, users are redirected to the homepage managed by `BaseController`.
 3. **Challenge Participation**: Users can click on a challenge to view details, managed by `ChallengeController`.
 4. **Text Submission**: Users submit texts for challenges through the `TextController`.
 5. **Community Engagement**: Users can comment on and rate texts.
 
-### 5. Frontend Interaction
+### 6. Frontend Interaction
 - The frontend is built using Thymeleaf templates, which dynamically render content based on the data provided by the controllers.
 - Static resources (CSS, images) enhance the user interface.
 
@@ -59,6 +83,8 @@ To set up the Writivity project locally, follow these steps:
 
 2. **Install dependencies**
   ensure you have Maven installed
+
+3. **link a DB** (for the sake of simplicity, we use docker to store our database using PostgreSQL, create a db named "writivity" and add the access info in `application.properties`)
 
 4. **Run the application**
 
