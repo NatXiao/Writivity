@@ -147,8 +147,14 @@ public class TextController {
     @PostMapping("/register_new_text/{challengeId}")
     @Transactional
     public String registerNewText(@ModelAttribute("text") Text text, @PathVariable("challengeId") Integer challengeId,
-                                  Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+                                  Model model, HttpSession session) {
+
         Challenge challenge = challengeRepository.findByChallengeId(challengeId);
+
+        if(text.getBody().trim().split("\\s").length > challenge.getWordLimit() ){
+            //model.addAttribute("toomany", true);
+            return "redirect:/createText/{challengeId}";
+        }
 
         // Enregistrer le nouveau texte dans la base de données
         model.addAttribute("text", text);
