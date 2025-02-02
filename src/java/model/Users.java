@@ -26,7 +26,7 @@ public class Users {
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Text> texts = new ArrayList<>();
+    private List<Text> texts;
 
     public List<Text> getTexts() {
         return texts;
@@ -35,8 +35,6 @@ public class Users {
     public void setTexts(List<Text> texts) {
         this.texts = texts;
     }
-
-
 
     public Integer getUserId() {
         return userId;

@@ -80,6 +80,13 @@
                 <!-- Affichage des détails du texte -->
                 <h2 align="left" th:text="${text.textTitle}"></h2>
 
+                <!-- Button pour supprimer le texte -->
+                <div th:if="${user.userId} == ${text.userId}" align="left" style="padding-bottom: 10px;">
+                    <form style="padding-top: 10px" th:action="@{/text/delete/{textId}(textId=${text.textId})}" method="post">
+                        <button type="submit">Supprimer le texte</button>
+                    </form>
+                </div>
+
                 <div align="left">
                     <a style="font-size: 20px">Notation générale : </a>
 
@@ -118,7 +125,7 @@
                 <p align="left"><strong>Date de soumission : </strong><span th:text="${text.submittedAt}"></span></p>
 
                 <!-- Noter le texte -->
-                <div th:if="${userId} != ${text.userId}" align="left" style="padding-bottom: 10px;">
+                <div th:if="${user.userId} != ${text.userId}" align="left" style="padding-bottom: 10px;">
 
                     <a style="font-size: 20px">Un avis sur la question ? : </a>
                     <a th:href="@{/rate/{challengeId}/{textId}/{rate}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId}, rate=1)}"
@@ -135,7 +142,7 @@
                 </div>
 
                 <!-- Block de texte pour envoyer un commentaire -->
-                <div align="left">
+                <div align="left" th:if="${isWriter}">
 
                     <form style="padding-top: 10px" th:action="@{/comment/{challengeId}/{textId}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId})}" method="post" th:object="${commentCreator}">
 

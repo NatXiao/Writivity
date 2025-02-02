@@ -44,6 +44,9 @@ public class TextController {
     @Autowired
     private ReportRepository reportRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/singleText/{challengeId}/{textId}")
     public String getTextDetail(@PathVariable("challengeId") Integer challengeId,
                                 @PathVariable("textId") Integer textId, Model model, HttpSession session) {
@@ -90,7 +93,10 @@ public class TextController {
         else
             model.addAttribute("userRate", userRate.get(0).getRate());
 
-        model.addAttribute("userId", ((Users) session.getAttribute("user")).getUserId());
+        model.addAttribute("user", ((Users) session.getAttribute("user")));
+
+        List<Text> texts = userRepository.findByUserId(((Users) session.getAttribute("user")).getUserId()).getTexts();
+        model.addAttribute("isWriter", !texts.isEmpty());
 
         return "singleText";  // Nom de la page HTML à afficher
     }
@@ -106,8 +112,6 @@ public class TextController {
         r.setTextId(textId);
         r.setUserId(((Users) session.getAttribute("user")).getUserId());
         r.setRate(rate);
-
-        System.out.println(r.getUserId() + " / " + r.getTextId() + " / " + r.getRate());
 
         List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users) session.getAttribute("user")).getUserId());
 
@@ -196,5 +200,14 @@ public class TextController {
         }
 
         return "redirect:/singleText/" + challengeId + "/" + textId;
+    }
+
+
+    @PostMapping("/text/delete/{textId}")
+    public String DeleteText(@PathVariable String textId, Model model, HttpSession session) {
+
+        textRepository.deleteById(Integer.parseInt(textId));
+
+        return "redirect:/home";
     }
 }
