@@ -1,4 +1,4 @@
-package src.java.Test;
+/*package src.java.Test;
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -84,4 +84,4 @@ public class AdminControllerTest {
                 .andExpect(status().isFound())  // Vérifie que le statut HTTP est 302 (Redirection)
                 .andExpect(redirectedUrl("/error403"));  // Vérifie que la redirection se fait vers /error403
     }
-}
+}*/

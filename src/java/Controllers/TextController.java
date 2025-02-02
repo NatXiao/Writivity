@@ -10,19 +10,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import src.java.SessionManager;
-import src.java.Utils.ChallengeRepository;
-import src.java.Utils.UserRepository;
+import src.java.Utils.*;
 import src.java.model.*;
 import org.springframework.web.bind.annotation.GetMapping;
-import src.java.Utils.RateRepository;
 import src.java.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import src.java.Utils.TextRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import src.java.model.Text;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +37,9 @@ public class TextController {
 
     @Autowired
     private ChallengeRepository challengeRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping("/singleText/{challengeId}/{textId}")
     public String getTextDetail(@PathVariable("challengeId") Integer challengeId,
@@ -56,6 +59,8 @@ public class TextController {
         List<Comment> comments = text.getComments();
 
         model.addAttribute("comments", comments);
+
+        model.addAttribute("commentCreator", new Comment());
 
         float mean = 0;
         if (!rates.isEmpty()) {
@@ -79,8 +84,6 @@ public class TextController {
 
         model.addAttribute("userId", ((Users)session.getAttribute("user")).getUserId());
 
-        System.out.println("RATES : " + text.getAverage());
-
         return "singleText";  // Nom de la page HTML à afficher
     }
 
@@ -102,7 +105,7 @@ public class TextController {
         else
             rateRepository.updateRateByRateId(r.getRate(), userRate.get(0).getRateId());
 
-        return "redirect:/singleText/" + challengeId + "/" + textId;  // Nom de la page HTML à afficher
+        return "redirect:/singleText/" + challengeId + "/" + textId;
     }
 
 
@@ -156,4 +159,22 @@ public class TextController {
         return "redirect:/home";
 
     }
+
+
+    @PostMapping("/comment/{challengeId}/{textId}")
+    public String StoreComment(@PathVariable String challengeId, @PathVariable String textId, @ModelAttribute("commentCreator") Comment comment, Model model, HttpSession session) {
+
+        model.addAttribute("commentCreator", comment);
+
+        if(!comment.getBody().isEmpty()){
+            comment.setCreatedAt(new java.sql.Timestamp(System.currentTimeMillis()));
+            comment.setUser((Users) session.getAttribute("user"));
+            comment.setText(textRepository.findById(Integer.parseInt(textId)).get());
+            commentRepository.save(comment);
+        }
+
+        return "redirect:/singleText/" + challengeId + "/" + textId;
+
+    }
+
 }

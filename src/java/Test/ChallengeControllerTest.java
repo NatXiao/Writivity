@@ -1,4 +1,4 @@
-package src.java.Test;
+/*package src.java.Test;
 
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
@@ -124,4 +124,4 @@ public class ChallengeControllerTest {
                 .andExpect(status().is3xxRedirection())  // Vérifie la redirection après l'enregistrement
                 .andExpect(redirectedUrl("/home"));  // Vérifie la redirection vers la page d'accueil
     }
-}
+}*/

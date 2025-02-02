@@ -25,8 +25,9 @@
   <table  style="width: 100%; align:center">
     <thead>
     <tr>
-      <th>Titre du Texte</th>
-      <th>Participant</th>
+        <th style="width: 33%;">Titre du Texte</th>
+        <th style="width: 33%;">Participant</th>
+        <th style="width: 33%;">Note</th>
     </tr>
     </thead>
     <tbody>
@@ -36,11 +37,12 @@
     </tr>
     <!-- Liste des textes -->
     <tr th:each="t : ${Text}">
-      <td>
+        <td >
         <a th:href="@{/singleText/{challengeId}/{textId}(challengeId=${Challenge.challengeId}, textId=${t.textId})}"
            th:text="${t.textTitle}">Titre du Texte</a>
-      </td>
-      <td><span th:text="${t.user.username}">Nom du Participant</span></td>
+        </td>
+        <td><span th:text="${t.user.username}">Nom du Participant</span></td>
+        <td><span th:text="${t.getAverage()} + '/5'"></span></td>
     </tr>
     </tbody>
   </table>

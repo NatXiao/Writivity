@@ -118,7 +118,7 @@
                 <p align="left"><strong>Date de soumission : </strong><span th:text="${text.submittedAt}"></span></p>
 
                 <!-- Noter le texte -->
-                <div th:if="${userId} != ${text.userId}"  align="left" style="padding-bottom: 10px;">
+                <div th:if="${userId} != ${text.userId}" align="left" style="padding-bottom: 10px;">
 
                     <a style="font-size: 20px">Un avis sur la question ? : </a>
                     <a th:href="@{/rate/{challengeId}/{textId}/{rate}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId}, rate=1)}"
@@ -134,11 +134,33 @@
 
                 </div>
 
-                <!--<div th:if="${userId} == ${text.userId}"  align="left" style="padding-bottom: 10px;">
-                    <a style="font-size: 20px">Un avis sur la question ?</a><a style="font-size: 10px"> : tu ne peux pas noter ton propre text</a>
-                </div>-->
+                <!-- Block de texte pour envoyer un commentaire -->
+                <div align="left">
+
+                    <form style="padding-top: 10px" th:action="@{/comment/{challengeId}/{textId}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId})}" method="post" th:object="${commentCreator}">
+
+                        <textarea placeholder="Ecrire un commentaire..." maxlength="200" style="width: 400px; height: 40px" th:field="*{body}"></textarea>
+
+                        <button type="submit">Envoyer le commentaire</button>
+
+                    </form>
+
+                </div>
+
                 <!-- Bouton pour signaler -->
-                <button type="button">Signaler</button>
+                <div align="left">
+
+                    <form style="padding-top: 10px" th:action="@{/comment/{challengeId}/{textId}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId})}" method="post" th:object="${report}">
+
+                        <textarea placeholder="Ecrire un signalement si le texte ne respecte pas les conditions..." maxlength="200" style="width: 400px; height: 40px" th:field="*{body}"></textarea>
+                        <br>
+                        <button type="button">Signaler</button>
+
+                    </form>
+
+                </div>
+
+
             </td>
 
             <td rowspan="2" style="width: 60%; vertical-align: top">
@@ -151,7 +173,7 @@
                 <div>
 
                     <a th:each="c : ${comments}">
-                        <p align="left"><span th:text="*{c.user.username}"></span> - <span th:text="*{c.body}"></span></p>
+                        <p align="left" style="font-size: 15px"><a th:text="*{c.user.username}"></a> - <a th:text="*{c.body}"></a></p>
                     </a>
 
                 </div>

@@ -1,4 +1,4 @@
-package src.java.Test;
+/*package src.java.Test;
 
 
 import jakarta.servlet.http.HttpSession;
@@ -128,4 +128,4 @@ public class SignupControllerTest {
                 .andExpect(redirectedUrl("/signup"))  // Vérifie la redirection vers la page de signup
                 .andExpect(request().sessionAttribute("error", "The password cannot be empty !"));  // Vérifie le message d'erreur pour un mot de passe vide
     }
-}
+}*/

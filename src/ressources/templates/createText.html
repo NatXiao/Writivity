@@ -28,7 +28,10 @@
 
     </form>
 
-    <a style="padding-top: 10px" th:href="@{'/challenge/' + ${challengeId}}">Retour au Challenge</a>
+    <div style="padding-top: 40px" >
+        <a th:href="@{'/challenge/' + ${challengeId}}">Retour au Challenge</a>
+    </div>
+
 
 </main>
 <div th:replace="fragments/footer :: footer"></div>
