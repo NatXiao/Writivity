@@ -59,7 +59,6 @@ public class Text {
 
 
 
-
     // Nouvelle relation ajoutée ici
     @OneToMany(mappedBy = "text", fetch = FetchType.LAZY)
     private List<Comment> comments;

@@ -16,56 +16,75 @@
     <table style="width: 100%;">
         <thead>
         <tr>
-            <th class="wordLimitList">Nom</th>
-            <th class="challengeList">email</th>
-            <th class="wordLimitList">Ecrivain</th>
-            <th class="datelist">Nombre de report</th>
-            <th class="datelist">Set to admin</th>
+            <th style="width: 20%;" class="wordLimitList">User Name</th>
+            <th style="width: 20%;" class="challengeList">Pseudo</th>
+            <th style="width: 20%;" class="wordLimitList">Email</th>
+            <th style="width: 20%;" class="datelist">Statut</th>
+            <th style="width: 20%;" class="datelist">Set to admin</th>
         </tr>
         </thead>
         <tbody th:maxlength="20">
-        <tr th:if="${users.isEmpty()}">
-            <td colspan="3" style="text-align: center;">Aucun utilisateur en base de donnée</td>
-        </tr>
-        <tr th:each="user : ${users}">
-            <td>
-                <span th:text="${user.pseudo}">Nom</span>
-            </td>
-            <td><span th:text="${user.mail}">email</span></td>
-            <td><span th:text="${user.username}">écrivain</span></td>
-            <td><span th:text="${user.pseudo}">report</span></td>
-        </tr>
+            <tr th:if="${users.isEmpty()}">
+                <td colspan="3" style="text-align: center;">Aucun utilisateur en base de donnée</td>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td>
+                    <span th:text="${user.username}">username</span>
+                </td>
+                <td><span th:text="${user.pseudo}">pseudo</span></td>
+                <td><span th:text="${user.mail}">mail</span></td>
+                <td th:if="${user.isAdmin()} == true"><span>Admin</span></td>
+                <td th:if="${user.isAdmin()} == false"><span>User</span></td>
+
+                <td>
+                    <form th:if="${user.isAdmin()} == true" th:action="@{/admin/set/{id}(id=${user.userId})}" method="post">
+                        <button type="submit">User</button>
+                    </form>
+                    <form th:if="${user.isAdmin()} == false" th:action="@{/admin/set/{id}(id=${user.userId})}" method="post">
+                        <button type="submit">Admin</button>
+                    </form>
+                </td>
+
+
+            </tr>
         </tbody>
     </table>
     <h2 class="h2">Text report</h2>
     <table style="width: 100%;">
         <thead>
         <tr>
-            <th class="wordLimitList">contenu</th>
-            <th class="challengeList">email</th>
-            <th class="wordLimitList">Ecrivain</th>
-            <th class="datelist">Nombre de report</th>
-            <th class="datelist">Actions</th>
+            <th style="width: 15%;" class="wordLimitList">Titre</th>
+            <th style="width: 15%;" class="wordLimitList">Challenge</th>
+            <th style="width: 15%;" class="challengeList">Email</th>
+            <th style="width: 15%;" class="wordLimitList">Ecrivain</th>
+            <th style="width: 25%;" class="wordLimitList">Signalement</th>
+            <th style="width: 15%;" class="datelist">Actions</th>
         </tr>
         </thead>
         <tbody>
         <!-- Liste des challenges en cours -->
-        <tr th:each="text : ${textsreported}">
+        <tr th:if="${reports.isEmpty()}">
+            <td colspan="6" style="text-align: center;">Il n'y a aucun signalement de texte pour le moment</td>
+        </tr>
+        <tr th:each="r : ${reports}">
+            <td><span th:text="${r.text.textTitle}">Titre</span></td>
+            <td><span th:text="${r.text.challenge.challengeName}">Challenge</span></td>
+            <td><span th:text="${r.text.user.mail}">Email</span></td>
+            <td><span th:text="${r.text.user.username}">Ecrivain</span></td>
+            <td><span th:text="${r.problem}">Ecrivain</span></td>
+
             <td>
-                <span th:text="${text.pseudo}">Nom</span>
-            </td>
-            <td><span th:text="${text.challenge_id}">challenge</span></td>
-            <td><span th:text="${text.submitted_at}">écrivain</span></td>
-            <td><span th:text="${text.submitted_at}">écrivain</span></td>
-            <td>
-            <td>
-            <form th:action="@{/admin/delete/{id}(id=${text.textId})}" method="post">
+            <form th:if="${r.text.disqualified} == true" th:action="@{/admin/disqualification/{id}(id=${r.text.textId})}" method="post">
+                <button type="submit">Requalifier</button>
+            </form>
+            <form th:if="${r.text.disqualified} == false" th:action="@{/admin/disqualification/{id}(id=${r.text.textId})}" method="post">
                 <button type="submit">Disqualifier</button>
             </form>
-            <form th:action="@{/admin/unreport/{id}(id=${text.textId})}" method="post">
+            <form th:action="@{/admin/unreport/{id}(id=${r.reportId})}" method="post">
                 <button type="submit">Unreport</button>
             </form>
-        </td></td>
+            </td>
+
         </tr>
         </tbody>
     </table>

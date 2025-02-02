@@ -18,4 +18,9 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     @Transactional
     @Query("UPDATE Users u SET u.isAdmin = true WHERE u.userId = :userId")
     void setAdmin(@Param("userId") Integer userId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Users u SET u.isAdmin = false WHERE u.userId = :userId")
+    void unsetAdmin(@Param("userId") Integer userId);
 }

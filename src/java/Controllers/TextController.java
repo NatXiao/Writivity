@@ -189,7 +189,7 @@ public class TextController {
 
         if(!report.getProblem().isEmpty()){
             report.setReporterId(((Users) session.getAttribute("user")).getUserId());
-            report.setTextId(textRepository.findById(Integer.parseInt(textId)).get().getTextId());
+            report.setText(textRepository.findById(Integer.parseInt(textId)).get());
             reportRepository.save(report);
         }
 
