@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import src.java.SessionManager;
 import src.java.Utils.ChallengeRepository;
 import src.java.Utils.ReportRepository;
@@ -18,11 +17,8 @@ import src.java.model.Report;
 import src.java.model.Text;
 import src.java.model.Users;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import static java.awt.SystemColor.text;
 
 @Controller
 public class AdminController {
@@ -35,7 +31,6 @@ public class AdminController {
     private TextRepository textRepository;
     @Autowired
     private ReportRepository reportRepository;
-
 
     @GetMapping("/admin")
     public String Admin(Model model, HttpSession session) {
@@ -90,8 +85,6 @@ public class AdminController {
             userRepository.unsetAdmin(id);
         else
             userRepository.setAdmin(id);
-
-
 
         return "redirect:/admin";
     }

@@ -22,7 +22,6 @@ import java.time.LocalDate;
 @Controller
 public class ChallengeController {
 
-
     @Autowired
     private ChallengeRepository challengeRepository;
 
@@ -32,10 +31,8 @@ public class ChallengeController {
     @GetMapping("/challenge/{id}")
     public String singleChallenge(@PathVariable("id") int id, Model model, HttpSession session) {
 
-        // Vérifie si l'utilisateur est connecté
-        if (session == null || session.getAttribute("user") == null) {
+        if (!SessionManager.isLoggedIn(session))
             return "redirect:/login";
-        }
 
         // Récupérer le challenge via son ID
         Challenge challenge = challengeRepository.findById((long)id).orElse(null);
@@ -58,6 +55,9 @@ public class ChallengeController {
 
     @GetMapping("/createChallenge")
     public String redirectToChallengeCreate(Model model, HttpSession session) {
+
+        if (!SessionManager.isLoggedIn(session))
+            return "redirect:/login";
 
         model.addAttribute("challenge", new Challenge());
         model.addAttribute("isAdmin", SessionManager.IsAdmin(session));

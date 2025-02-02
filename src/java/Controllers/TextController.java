@@ -47,6 +47,10 @@ public class TextController {
     @GetMapping("/singleText/{challengeId}/{textId}")
     public String getTextDetail(@PathVariable("challengeId") Integer challengeId,
                                 @PathVariable("textId") Integer textId, Model model, HttpSession session) {
+
+        if (!SessionManager.isLoggedIn(session))
+            return "redirect:/login";
+
         // Récupérer le texte par son ID et l'ID du challenge
         Text text = textRepository.findTextByChallengeIdAndTextId(challengeId, textId).orElse(null);
 
@@ -55,7 +59,7 @@ public class TextController {
             model.addAttribute("challengeId", challengeId);  // Ajouter l'ID du challenge au modèle
         } else {
             // Si le texte n'est pas trouvé, rediriger vers la page d'accueil ou afficher une erreur
-            return "redirect:/home";  // Ou une autre page d'erreur
+            return "redirect:/home";
         }
 
         List<Rate> rates = rateRepository.findByTextId(textId);
@@ -79,32 +83,35 @@ public class TextController {
         model.addAttribute("roundedMean", roundedMean);
         model.addAttribute("mean", mean);
 
-        List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users)session.getAttribute("user")).getUserId());
+        List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users) session.getAttribute("user")).getUserId());
 
         if (userRate.isEmpty())
             model.addAttribute("userRate", 0);
         else
             model.addAttribute("userRate", userRate.get(0).getRate());
 
-        model.addAttribute("userId", ((Users)session.getAttribute("user")).getUserId());
+        model.addAttribute("userId", ((Users) session.getAttribute("user")).getUserId());
 
         return "singleText";  // Nom de la page HTML à afficher
     }
 
     @GetMapping("/rate/{challengeId}/{textId}/{rate}")
     public String rateText(@PathVariable("challengeId") Integer challengeId,
-                                @PathVariable("textId") Integer textId, @PathVariable("rate") Integer rate, Model model, HttpSession session) {
+                           @PathVariable("textId") Integer textId, @PathVariable("rate") Integer rate, Model model, HttpSession session) {
+
+        if (!SessionManager.isLoggedIn(session))
+            return "redirect:/login";
 
         Rate r = new Rate();
         r.setTextId(textId);
-        r.setUserId(((Users)session.getAttribute("user")).getUserId());
+        r.setUserId(((Users) session.getAttribute("user")).getUserId());
         r.setRate(rate);
 
         System.out.println(r.getUserId() + " / " + r.getTextId() + " / " + r.getRate());
 
-        List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users)session.getAttribute("user")).getUserId());
+        List<Rate> userRate = rateRepository.findByTextIdAndUserId(textId, ((Users) session.getAttribute("user")).getUserId());
 
-        if(userRate.isEmpty())
+        if (userRate.isEmpty())
             rateRepository.save(r);
         else
             rateRepository.updateRateByRateId(r.getRate(), userRate.get(0).getRateId());
@@ -112,9 +119,11 @@ public class TextController {
         return "redirect:/singleText/" + challengeId + "/" + textId;
     }
 
-
     @GetMapping("/createText/{challengeId}")
     public String redirectToTextCreate(@PathVariable("challengeId") Integer challengeId, Model model, HttpSession session) {
+
+        if (!SessionManager.isLoggedIn(session))
+            return "redirect:/login";
 
         Optional<Challenge> challenge = challengeRepository.findById(Long.valueOf(challengeId));
 
@@ -134,17 +143,12 @@ public class TextController {
     @PostMapping("/register_new_text/{challengeId}")
     @Transactional
     public String registerNewText(@ModelAttribute("text") Text text, @PathVariable("challengeId") Integer challengeId,
-                                  Model model, HttpSession session,  RedirectAttributes redirectAttributes) {
+                                  Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         Challenge challenge = challengeRepository.findByChallengeId(challengeId);
-        /*if(text.getBody().trim().split("\\s").length > challenge.getWordLimit() )
-            return "redirect:/createText/{challengeId}";*/
-            //redirectAttributes.addFlashAttribute("toomany", "Vous avez écrit trop de mots!");
 
         // Enregistrer le nouveau texte dans la base de données
         model.addAttribute("text", text);
         Users user = (Users) session.getAttribute("user");
-        //user = entityManager.merge(user);
-        //Challenge challenge = challengeRepository.findByChallengeId(challengeId);
 
         text.setStatus("pending");
         text.setTextSubmit(true);
@@ -164,13 +168,12 @@ public class TextController {
 
     }
 
-
     @PostMapping("/comment/{challengeId}/{textId}")
     public String StoreComment(@PathVariable String challengeId, @PathVariable String textId, @ModelAttribute("commentCreator") Comment comment, Model model, HttpSession session) {
 
         model.addAttribute("commentCreator", comment);
 
-        if(!comment.getBody().isEmpty()){
+        if (!comment.getBody().isEmpty()) {
             comment.setCreatedAt(new java.sql.Timestamp(System.currentTimeMillis()));
             comment.setUser((Users) session.getAttribute("user"));
             comment.setText(textRepository.findById(Integer.parseInt(textId)).get());
@@ -181,21 +184,17 @@ public class TextController {
 
     }
 
-
     @PostMapping("/report/{challengeId}/{textId}")
     public String StoreComment(@PathVariable String challengeId, @PathVariable String textId, @ModelAttribute("report") Report report, Model model, HttpSession session) {
 
         model.addAttribute("report", report);
 
-        if(!report.getProblem().isEmpty()){
+        if (!report.getProblem().isEmpty()) {
             report.setReporterId(((Users) session.getAttribute("user")).getUserId());
             report.setText(textRepository.findById(Integer.parseInt(textId)).get());
             reportRepository.save(report);
         }
 
         return "redirect:/singleText/" + challengeId + "/" + textId;
-
     }
-
-
 }

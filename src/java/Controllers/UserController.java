@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import src.java.SessionManager;
 import src.java.Utils.ChallengeRepository;
@@ -34,9 +33,8 @@ public class UserController {
     @GetMapping("/profile")
     public String Profile(Model model, HttpSession session) {
 
-        if (session == null || session.getAttribute("user") == null) {
+        if (!SessionManager.isLoggedIn(session))
             return "redirect:/login";
-        }
 
         List<Text> texts = userRepository.findByUserId(((Users) session.getAttribute("user")).getUserId()).getTexts();
         texts.sort(new TextComparator());
