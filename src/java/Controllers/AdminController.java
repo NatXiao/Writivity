@@ -8,14 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import src.java.SessionManager;
-import src.java.Utils.ChallengeRepository;
-import src.java.Utils.ReportRepository;
-import src.java.Utils.TextRepository;
-import src.java.Utils.UserRepository;
-import src.java.model.Challenge;
-import src.java.model.Report;
-import src.java.model.Text;
-import src.java.model.Users;
+import src.java.Utils.*;
+import src.java.model.*;
 
 import java.util.List;
 
@@ -31,6 +25,8 @@ public class AdminController {
     private TextRepository textRepository;
     @Autowired
     private ReportRepository reportRepository;
+    @Autowired
+    private FeedbackRepository feedbackRepository;
 
     @GetMapping("/admin")
     public String Admin(Model model, HttpSession session) {
@@ -42,12 +38,15 @@ public class AdminController {
         List<Challenge> challenges = challengeRepository.findAll();
         List<Text> texts = textRepository.findAll();
         List<Report> reports = reportRepository.findAll();
+        List<Feedback> feedbacks = feedbackRepository.findAll();
+
 
 
         model.addAttribute("users", users);
         model.addAttribute("challenges", challenges);
         model.addAttribute("texts", texts);
         model.addAttribute("reports", reports);
+        model.addAttribute("feedbacks", feedbacks);
 
         return "admin";
     }

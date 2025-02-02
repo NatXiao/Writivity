@@ -9,14 +9,13 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feedback_id", nullable = false)
     private Integer feedback_id;
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false) // Join with Users table
+    private Users user;
+
     @Column(name = "feedback_body", nullable = false)
     private String feedback_body;
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public void setFeedback_id(Integer feedback_id) {
         this.feedback_id = feedback_id;
@@ -34,8 +33,7 @@ public class Feedback {
         return feedback_body;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
+    public Users getUser() { return user; }
+    public void setUser(Users user) { this.user = user; }
 
 }

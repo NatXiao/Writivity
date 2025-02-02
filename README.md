@@ -4,12 +4,29 @@
 Writivity is an innovative platform designed to foster creativity through writing challenges. Users can participate in various writing contests, submit their texts, and engage with a community of writers. The platform allows users to create challenges, manage submissions, and interact with other writers.
 
 ## Features
-- **User  Registration and Login**: Users can create accounts and log in to access their profiles and submitted works.
-- **Homepage**: Displays ongoing and past challenges, allowing users to navigate easily.
-- **Challenge Management**: Users can create new challenges, view details of existing challenges, and submit their texts.
-- **Profile Management**: Users can manage their profiles, view their submissions, and track their participation in challenges.
-- **Community Engagement**: Users can comment on and rate submitted texts, fostering interaction within the community.
-- **Admin Features**: Admin users can manage user accounts, oversee challenges, and handle reported content.
+- **User  Registration and Login**: 
+  - Users can create accounts and log in to access their profiles and submitted texts.
+  - If a user does not have an account, they can click the Register button to navigate to the sign-up page.
+
+- **Homepage**: 
+  - Displays ongoing challenges on the left side and closed challenges on the right, allowing users to navigate easily.
+
+- **Challenge Management**: 
+  - Users can create new challenges by filling out a form that includes the challenge name, prerequisites, and word limit.
+  - Users can view details of existing challenges, including name, description, conditions, word limits, and submission deadlines.
+
+- **Profile Management**: 
+  - Users can manage their profiles, view their submissions and their statuses, and send feedback to the Writivity Team.
+
+- **Text Submission**: 
+  - Users can submit their written texts for challenges, requiring a title and the body of the text.
+
+- **Community Engagement**: 
+  - Users can comment on and rate submitted texts, fostering interaction within the community.
+  - Users can report inappropriate content if necessary.
+
+- **Admin Features**: 
+  - Admin users can manage user accounts, oversee challenges and submissions, and handle reported content and user disputes.
 
 ## Project Architecture
 
@@ -64,7 +81,6 @@ The Writivity project utilizes a relational database to store its data. The main
 
 This relational structure allows for efficient querying and management of data, ensuring that users can easily access and interact with challenges and submissions.
 
-
 ### 5. User Interaction Flow
 1. **User  Registration/Login**: Users register or log in through the `LoginController`.
 2. **Homepage Navigation**: Upon successful login, users are redirected to the homepage managed by `BaseController`.
@@ -79,17 +95,11 @@ This relational structure allows for efficient querying and management of data, 
 ## Installation Instructions
 To set up the Writivity project locally, follow these steps:
 
-1. **Clone the repository**
-
-2. **Install dependencies**
-  ensure you have Maven installed
-
-3. **link a DB** (for the sake of simplicity, we use docker to store our database using PostgreSQL, create a db named "writivity" and add the access info in `application.properties`)
-
-4. **Run the application**
-
-5. **Access the application**:
-   Open your web browser and navigate to `http://localhost:8080`.
+1. **Clone the repository**.
+2. **Install dependencies**: Ensure you have Maven installed.
+3. **Link a Database**: We use Docker to store our database using PostgreSQL. Create a database named "writivity" and add the access info in `application.properties`.
+4. **Run the application**.
+5. **Access the application**: Open your web browser and navigate to `http://localhost:8080`.
 
 ## Usage
 - **User  Registration**: Navigate to the signup page to create a new account.
