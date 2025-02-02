@@ -150,11 +150,11 @@
                 <!-- Bouton pour signaler -->
                 <div align="left">
 
-                    <form style="padding-top: 10px" th:action="@{/comment/{challengeId}/{textId}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId})}" method="post" th:object="${report}">
+                    <form style="padding-top: 10px" th:action="@{/report/{challengeId}/{textId}(challengeId=${text.getChallenge().challengeId}, textId=${text.textId})}" method="post" th:object="${report}">
 
-                        <textarea placeholder="Ecrire un signalement si le texte ne respecte pas les conditions..." maxlength="200" style="width: 400px; height: 40px" th:field="*{body}"></textarea>
+                        <textarea placeholder="Ecrire un signalement si le texte ne respecte pas les conditions..." maxlength="200" style="width: 400px; height: 40px" th:field="*{problem}"></textarea>
                         <br>
-                        <button type="button">Signaler</button>
+                        <button type="submit">Signaler</button>
 
                     </form>
 

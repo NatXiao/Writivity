@@ -41,6 +41,9 @@ public class TextController {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private ReportRepository reportRepository;
+
     @GetMapping("/singleText/{challengeId}/{textId}")
     public String getTextDetail(@PathVariable("challengeId") Integer challengeId,
                                 @PathVariable("textId") Integer textId, Model model, HttpSession session) {
@@ -61,6 +64,7 @@ public class TextController {
         model.addAttribute("comments", comments);
 
         model.addAttribute("commentCreator", new Comment());
+        model.addAttribute("report", new Report());
 
         float mean = 0;
         if (!rates.isEmpty()) {
@@ -176,5 +180,22 @@ public class TextController {
         return "redirect:/singleText/" + challengeId + "/" + textId;
 
     }
+
+
+    @PostMapping("/report/{challengeId}/{textId}")
+    public String StoreComment(@PathVariable String challengeId, @PathVariable String textId, @ModelAttribute("report") Report report, Model model, HttpSession session) {
+
+        model.addAttribute("report", report);
+
+        if(!report.getProblem().isEmpty()){
+            report.setReporterId(((Users) session.getAttribute("user")).getUserId());
+            report.setTextId(textRepository.findById(Integer.parseInt(textId)).get().getTextId());
+            reportRepository.save(report);
+        }
+
+        return "redirect:/singleText/" + challengeId + "/" + textId;
+
+    }
+
 
 }
