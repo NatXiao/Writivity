@@ -49,8 +49,8 @@
 </div>
 <div>
     <h4>Send a feedback</h4>
-    <form action="/feedbackSend" method="post" th:object="${feedback}">
-        <textarea id="body" name="body" required th:field="*{feedback_body}"> </textarea><br><br>
+    <form action="/register_new_feedback" method="post" th:object="${feedback}">
+        <textarea id="body" name="body" required th:field="${feedback.feedback_body}"> </textarea><br><br>
         <br>
         <input type="submit" value="submit">
     </form>

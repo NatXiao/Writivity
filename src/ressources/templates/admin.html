@@ -20,7 +20,7 @@
             <th style="width: 20%;" class="challengeList">Pseudo</th>
             <th style="width: 20%;" class="wordLimitList">Email</th>
             <th style="width: 20%;" class="datelist">Statut</th>
-            <th style="width: 20%;" class="datelist">Set to admin</th>
+            <th style="width: 20%;" class="datelist">Set to</th>
         </tr>
         </thead>
         <tbody th:maxlength="20">
@@ -85,6 +85,26 @@
             </form>
             </td>
 
+        </tr>
+        </tbody>
+    </table>
+
+    <h2 class="h2">Feedback</h2>
+    <table style="width: 100%;">
+        <thead>
+        <tr>
+            <th style="width: 30%;" class="wordLimitList">Sender</th>
+            <th style="width: 70%;" class="wordLimitList">Feedback</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Liste des challenges en cours -->
+        <tr th:if="${feedbacks.isEmpty()}">
+            <td colspan="6" style="text-align: center;">Il n'y a aucun feedback pour le moment</td>
+        </tr>
+        <tr th:each="f : ${feedbacks}">
+            <td><span th:text="${f.user.username}">Sender</span></td>
+            <td><span th:text="${f.feedback_body}">Feedback</span></td>
         </tr>
         </tbody>
     </table>
