@@ -81,6 +81,8 @@ The Writivity project utilizes a relational database to store its data. The main
 
 This relational structure allows for efficient querying and management of data, ensuring that users can easily access and interact with challenges and submissions.
 
+<img src="WritivityDBshema.png" alt="Tables" width="700">
+
 ### 5. User Interaction Flow
 1. **User  Registration/Login**: Users register or log in through the `LoginController`.
 2. **Homepage Navigation**: Upon successful login, users are redirected to the homepage managed by `BaseController`.
