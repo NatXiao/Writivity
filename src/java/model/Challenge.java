@@ -1,6 +1,8 @@
 package src.java.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -20,6 +22,10 @@ public class Challenge {
     private LocalDate openAt;
     @Column(name = "close_at")
     private LocalDate closeAt;
+
+    public Boolean isClosed(){
+        return closeAt.isBefore(LocalDate.now());
+    }
 
     public LocalDate getCloseAt() {
         return closeAt;

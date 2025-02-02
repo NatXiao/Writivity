@@ -18,8 +18,10 @@
     <p>Date de fin : <span th:text="${Challenge.closeAt}"></span></p>
     <p>Conditions : <span th:text="${Challenge.conditions}"></span></p>
     <br>
-    <a href="/home">Retour à l'accueil</a> |
-    <a th:href="@{'/createText/' + ${Challenge.challengeId}}">Créer un texte</a>
+    <a href="/home">Retour à l'accueil</a>
+    <a th:if="${Challenge.isClosed()} == false">
+        |   <a th:href="@{'/createText/' + ${Challenge.challengeId}}">Créer un texte</a>
+    </a>
 
   <h2 class="h2">Liste des Textes soumis</h2>
   <table  style="width: 100%; align:center">

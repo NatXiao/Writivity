@@ -24,7 +24,7 @@
         <tbody>
         <tr>
             <!-- Tableau des challenges en cours -->
-            <td style="width: 50%;">
+            <td style="width: 50%; vertical-align: top">
                 <table style="width: 100%; align:center">
                     <thead>
                     <tr>
@@ -52,8 +52,15 @@
             </td>
 
             <!-- Tableau des challenges passés -->
-            <td style="width: 50%;">
+            <td style="width: 50%; vertical-align: top">
                 <table style="width: 100%;" align="center">
+                    <thead>
+                    <tr>
+                        <th class="challengeList">Challenge</th>
+                        <th class="wordLimitList">Mots Limite</th>
+                        <th class="datelist">Date de fin</th>
+                    </tr>
+                    </thead>
                     <tbody>
                     <!-- Message si aucun challenge passé -->
                     <tr th:if="${OldTheme.isEmpty()}">
