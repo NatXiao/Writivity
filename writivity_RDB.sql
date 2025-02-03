@@ -23,6 +23,8 @@ CREATE TABLE comment (
     text_id INT NOT NULL,
     body VARCHAR(255) NOT NULL,
     reported BOOLEAN DEFAULT FALSE
+  	created_at TIMESTAMP,
+  	deleted BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE text_p (
